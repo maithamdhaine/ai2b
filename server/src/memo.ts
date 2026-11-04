@@ -22,7 +22,8 @@ export const MEMO_HEADINGS = [
 
 export const MOCK_LINE = "> **DATI DI PROVA**: questo memo usa dati fittizi e non va usato per decisioni reali.";
 
-const DEFAULT_TIMEOUT_MS = 30000;
+/** Not yet measured on the real API. Too low only means the template memo, so silence on stage is the worse risk. */
+const DEFAULT_TIMEOUT_MS = 20000;
 const MAX_TABLE_ROWS = 10;
 const MAX_FUNDED_ROWS = 6;
 const MAX_REASON_ZONES = 3;

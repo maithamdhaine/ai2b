@@ -618,7 +618,7 @@ test("the request has the agreed shape and no forbidden parameter", async () => 
   const system = body.system as Array<{ type: string; text: string; cache_control: unknown }>;
   assert.deepEqual(system[0]?.cache_control, { type: "ephemeral" });
   assert.equal(captured.options?.maxRetries, 0);
-  assert.equal(captured.options?.timeout, 30000);
+  assert.equal(captured.options?.timeout, 20000);
   assert.ok(captured.options?.signal instanceof AbortSignal);
 });
 
