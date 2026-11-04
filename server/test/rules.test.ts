@@ -423,7 +423,7 @@ for (const [phrase, goal] of GOAL_CASES) {
   });
 }
 
-for (const phrase of ["non gli anziani", "senza anziani", "non per il lavoro", "senza farmacie", "non mi interessano gli anziani"]) {
+for (const phrase of ["non gli anziani", "senza anziani", "non per il lavoro", "non le farmacie", "non mi interessano gli anziani"]) {
   test(`"${phrase}" skips the goal`, () => {
     const r = ask(`ho 200k: ${phrase}`);
     assert.deepEqual(tools(r.actions), ["set_budget", "run_plan"]);
