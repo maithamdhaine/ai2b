@@ -1,0 +1,8 @@
+# Machine C: downloads are not published (see pipeline/README.md); only the reviewed geocode cache is
+pipeline/raw/*
+!pipeline/raw/funded/
+pipeline/raw/funded/*
+!pipeline/raw/funded/nominatim_cache.json
+__pycache__/
+*.pyc
+.env

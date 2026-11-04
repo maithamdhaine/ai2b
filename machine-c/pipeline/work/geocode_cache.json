@@ -1,0 +1,2625 @@
+{
+ "CORSO CASALE 56, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "56, Corso Casale, Borgo Po, Circoscrizione 8, Torino, Piemonte, 10131, Italia",
+  "lat": 45.0661124,
+  "lon": 7.7065988,
+  "type": "house"
+ },
+ "CORSO FARINI CARLO LUIGI 26, Torino": null,
+ "CORSO FRANCIA 180, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "180, Corso Francia, Parella, Circoscrizione 4, Torino, Piemonte, 10145, Italia",
+  "lat": 45.0755843,
+  "lon": 7.6400814,
+  "type": "house"
+ },
+ "CORSO LOMBARDIA 115, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "115, Corso Lombardia, Villaggio Santa Caterina, Lucento, Circoscrizione 5, Torino, Piemonte, 10151, Italia",
+  "lat": 45.0977669,
+  "lon": 7.6481105,
+  "type": "house"
+ },
+ "CORSO MONCALIERI 207, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "207, Corso Moncalieri, Pilonetto, San Vito, Circoscrizione 8, Cavoretto, Torino, Piemonte, 10133, Italia",
+  "lat": 45.0414304,
+  "lon": 7.683772,
+  "type": "house"
+ },
+ "CORSO PRINCIPE ODDONE 24, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "24, Corso Principe Oddone, Centro, Circoscrizione 1, Torino, Piemonte, 10122, Italia",
+  "lat": 45.0799514,
+  "lon": 7.67113,
+  "type": "house"
+ },
+ "CORSO TOSCANA 204, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "204, Corso Toscana, Villaggio Santa Caterina, Vallette, Circoscrizione 5, Torino, Piemonte, 10151, Italia",
+  "lat": 45.1023505,
+  "lon": 7.6387887,
+  "type": "house"
+ },
+ "Corso Agnelli, 117, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Dottor Roagna, 117, Corso Giovanni Agnelli, Borgo Cina, Santa Rita, Circoscrizione 2, Torino, Piemonte, 10137, Italia",
+  "lat": 45.0349413,
+  "lon": 7.6435999,
+  "type": "pharmacy"
+ },
+ "Corso Agnelli, 56, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "56, Corso Giovanni Agnelli, Santa Rita, Circoscrizione 2, Torino, Piemonte, 10137, Italia",
+  "lat": 45.039897,
+  "lon": 7.6463022,
+  "type": "house"
+ },
+ "Corso Alcide De Gasperi, 6, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Borgo Crocetta, 6, Corso Alcide De Gasperi, Crocetta, Circoscrizione 1, Torino, Piemonte, 10129, Italia",
+  "lat": 45.058428,
+  "lon": 7.662757,
+  "type": "pharmacy"
+ },
+ "Corso Alcide De Gasperi, 69, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Maria Cristina, 69, Corso Alcide De Gasperi, Crocetta, Circoscrizione 1, Torino, Piemonte, 10129, Italia",
+  "lat": 45.0533909,
+  "lon": 7.6569302,
+  "type": "pharmacy"
+ },
+ "Corso Alessandro Tassoni, 66/D, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Sant'Alfonso, 66d, Corso Alessandro Tassoni, Martinetto, Campidoglio, Circoscrizione 4, Torino, Piemonte, 10144, Italia",
+  "lat": 45.084485,
+  "lon": 7.656165,
+  "type": "pharmacy"
+ },
+ "Corso Belgio, 151/B, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Comunale 21- Afc, 151b, Corso Belgio, Vanchiglietta, Circoscrizione 7, Sassi, Torino, Piemonte, 10153, Italia",
+  "lat": 45.075018,
+  "lon": 7.7227153,
+  "type": "pharmacy"
+ },
+ "Corso Belgio, 180, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Caruso, 180, Corso Belgio, Madonna del Pilone, Circoscrizione 7, Sassi, Torino, Piemonte, 10153, Italia",
+  "lat": 45.0749613,
+  "lon": 7.7258793,
+  "type": "pharmacy"
+ },
+ "Corso Belgio, 41, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "41, Corso Belgio, Vanchiglietta, Circoscrizione 7, Sassi, Torino, Piemonte, 10153, Italia",
+  "lat": 45.0721967,
+  "lon": 7.7079355,
+  "type": "house"
+ },
+ "Corso Belgio, 97, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Marinello, 97, Corso Belgio, Vanchiglietta, Circoscrizione 7, Sassi, Torino, Piemonte, 10153, Italia",
+  "lat": 45.0738263,
+  "lon": 7.7173744,
+  "type": "pharmacy"
+ },
+ "Corso Brunelleschi, 75/c, Torino": {
+  "addresstype": "tertiary",
+  "class": "highway",
+  "display_name": "Corso Filippo Brunelleschi, Venchi Unica, Pozzo Strada, Circoscrizione 3, Torino, Piemonte, 10142, Italia",
+  "lat": 45.0706046,
+  "lon": 7.6229933,
+  "type": "tertiary"
+ },
+ "Corso CORSICA, 9, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Comunale 28 - Afc, 9, Corso Corsica, Filadelfia, Circoscrizione 8, Torino, Piemonte, 10134, Italia",
+  "lat": 45.0321815,
+  "lon": 7.6528905,
+  "type": "pharmacy"
+ },
+ "Corso Casale, 110, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Dr. Max, 110, Corso Casale, Madonna del Pilone, Circoscrizione 7, Sassi, Torino, Piemonte, 10132, Italia",
+  "lat": 45.0679991,
+  "lon": 7.7137004,
+  "type": "pharmacy"
+ },
+ "Corso Casale, 204, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Santa Croce, 204, Corso Casale, Madonna del Pilone, Circoscrizione 7, Sassi, Torino, Piemonte, 10132, Italia",
+  "lat": 45.069994,
+  "lon": 7.7254265,
+  "type": "pharmacy"
+ },
+ "Corso Casale, 316, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Sassi, 316, Corso Casale, Madonna del Pilone, Circoscrizione 7, Sassi, Torino, Piemonte, 10132, Italia",
+  "lat": 45.079581,
+  "lon": 7.731788,
+  "type": "pharmacy"
+ },
+ "Corso Chieti, 2/a, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "2a, Corso Chieti, Vanchiglietta, Circoscrizione 7, Sassi, Torino, Piemonte, 10153, Italia",
+  "lat": 45.0729431,
+  "lon": 7.7140157,
+  "type": "house"
+ },
+ "Corso Corso Re Umberto, 38, Torino": null,
+ "Corso Cosenza, 39, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Cosenza, 39, Corso Cosenza, Borgo Cina, Santa Rita, Circoscrizione 2, Torino, Piemonte, 10137, Italia",
+  "lat": 45.0359633,
+  "lon": 7.6403228,
+  "type": "pharmacy"
+ },
+ "Corso Dante, 78, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Dante, 78, Corso Dante Alighieri, San Salvario, Circoscrizione 8, Cavoretto, Torino, Piemonte, 10126, Italia",
+  "lat": 45.0465376,
+  "lon": 7.6771244,
+  "type": "pharmacy"
+ },
+ "Corso Duca degli Abruzzi, 66, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Daniele, 66, Corso Duca degli Abruzzi, Crocetta, Circoscrizione 1, Torino, Piemonte, 10129, Italia",
+  "lat": 45.0568874,
+  "lon": 7.6584159,
+  "type": "pharmacy"
+ },
+ "Corso Eusebio Giambone, 19, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Monviso, 19, Corso Eusebio Giambone, Lingotto, Circoscrizione 8, Torino, Piemonte, 10134, Italia",
+  "lat": 45.032323,
+  "lon": 7.648686,
+  "type": "pharmacy"
+ },
+ "Corso Filippo Brunelleschi 75, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "75, Corso Filippo Brunelleschi, Borgata Lesna, Pozzo Strada, Circoscrizione 3, Torino, Piemonte, 10141, Italia",
+  "lat": 45.0686052,
+  "lon": 7.6244417,
+  "type": "house"
+ },
+ "Corso Filippo Turati, 38/c, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "38c, Corso Filippo Turati, Crocetta, Circoscrizione 1, Torino, Piemonte, 10128, Italia",
+  "lat": 45.0523894,
+  "lon": 7.6681028,
+  "type": "house"
+ },
+ "Corso Filippo Turati, 74, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "74, Corso Filippo Turati, Crocetta, Circoscrizione 1, Torino, Piemonte, 10134, Italia",
+  "lat": 45.0481107,
+  "lon": 7.6633227,
+  "type": "house"
+ },
+ "Corso Fiume, 4, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Borgo Crimea, 4, Corso Fiume, Crimea, Borgo Po, Circoscrizione 8, Torino, Piemonte, 10133, Italia",
+  "lat": 45.0571429,
+  "lon": 7.693764,
+  "type": "pharmacy"
+ },
+ "Corso Francia, 1/bis, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Porta Susa SNC, 1 bis, Corso Francia, Cit Turin, Circoscrizione 3, Torino, Piemonte, 10138, Italia",
+  "lat": 45.076274,
+  "lon": 7.667317,
+  "type": "pharmacy"
+ },
+ "Corso Francia, 175, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Corso Francia, 175, Corso Francia, Cenisia, Circoscrizione 3, Torino, Piemonte, 10139, Italia",
+  "lat": 45.0751653,
+  "lon": 7.6393187,
+  "type": "pharmacy"
+ },
+ "Corso Francia, 212, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Tesoriera, 212, Corso Francia, Parella, Circoscrizione 4, Torino, Piemonte, 10146, Italia",
+  "lat": 45.0754231,
+  "lon": 7.6353026,
+  "type": "pharmacy"
+ },
+ "Corso Francia, 273, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Pozzo Strada SNC, 273, Corso Francia, Pozzo Strada, Circoscrizione 3, Torino, Piemonte, 10139, Italia",
+  "lat": 45.0746947,
+  "lon": 7.6278947,
+  "type": "pharmacy"
+ },
+ "Corso Francia, 35, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Frejus, 35, Corso Francia, Cit Turin, Circoscrizione 3, Torino, Piemonte, 10138, Italia",
+  "lat": 45.0759447,
+  "lon": 7.6589874,
+  "type": "pharmacy"
+ },
+ "Corso Francia, 385, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Donato, 385, Corso Francia, Aeronautica, Pozzo Strada, Circoscrizione 3, Torino, Piemonte, 10142, Italia",
+  "lat": 45.0738929,
+  "lon": 7.6087233,
+  "type": "pharmacy"
+ },
+ "Corso Germano Sommeiller 31, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "31, Corso Germano Sommeiller, San Secondo, Crocetta, Circoscrizione 1, Torino, Piemonte, 10128, Italia",
+  "lat": 45.0562952,
+  "lon": 7.6697331,
+  "type": "house"
+ },
+ "Corso Germano Sommelier, 31, Torino": null,
+ "Corso Giulio Cesare 116, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "116, Corso Giulio Cesare, Monte Rosa, Barriera di Milano, Circoscrizione 6, Torino, Piemonte, 10154, Italia",
+  "lat": 45.0928549,
+  "lon": 7.6943233,
+  "type": "house"
+ },
+ "Corso Giulio Cesare, 116/C, Torino": {
+  "addresstype": "primary",
+  "class": "highway",
+  "display_name": "Corso Giulio Cesare, Rebaudengo, Circoscrizione 6, Torino, Piemonte, 10155, Italia",
+  "lat": 45.1090872,
+  "lon": 7.7048754,
+  "type": "primary"
+ },
+ "Corso Giulio Cesare, 158, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "158, Corso Giulio Cesare, Barriera di Milano, Circoscrizione 6, Torino, Piemonte, 10154, Italia",
+  "lat": 45.09611,
+  "lon": 7.6964508,
+  "type": "house"
+ },
+ "Corso Giulio Cesare, 24, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Aurora, 24, Corso Giulio Cesare, Borgo Dora, Aurora, Circoscrizione 7, Torino, Piemonte, 10152, Italia",
+  "lat": 45.0826917,
+  "lon": 7.6879352,
+  "type": "pharmacy"
+ },
+ "Corso Giulio Cesare, 48, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Dutto SNC, 48, Corso Giulio Cesare, Borgo Dora, Aurora, Circoscrizione 7, Torino, Piemonte, 10152, Italia",
+  "lat": 45.0857295,
+  "lon": 7.6896729,
+  "type": "pharmacy"
+ },
+ "Corso Grosseto, 165, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "San Rocco dottor Arese Gianpiero, 165, Corso Grosseto, Madonna di Campagna, Circoscrizione 5, Torino, Piemonte, 10147, Italia",
+  "lat": 45.1043757,
+  "lon": 7.6755867,
+  "type": "pharmacy"
+ },
+ "Corso Grosseto, 216/C, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Del Mercato, 216c, Corso Grosseto, Madonna di Campagna, Circoscrizione 5, Torino, Piemonte, 10148, Italia",
+  "lat": 45.1055618,
+  "lon": 7.6675741,
+  "type": "pharmacy"
+ },
+ "Corso Grosseto, 219, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "219, Corso Grosseto, Madonna di Campagna, Circoscrizione 5, Torino, Piemonte, 10147, Italia",
+  "lat": 45.1046871,
+  "lon": 7.6701585,
+  "type": "house"
+ },
+ "Corso Grosseto, 256, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Madonna, 256, Corso Grosseto, Madonna di Campagna, Circoscrizione 5, Torino, Piemonte, 10148, Italia",
+  "lat": 45.1055549,
+  "lon": 7.6637587,
+  "type": "pharmacy"
+ },
+ "Corso Grosseto, 66, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Santa Elisabetta, 66, Corso Grosseto, Borgo Vittoria, Circoscrizione 5, Torino, Piemonte, 10148, Italia",
+  "lat": 45.1044377,
+  "lon": 7.6832268,
+  "type": "pharmacy"
+ },
+ "Corso Lecce, 31, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Rinetti Dr. Paolo, 31, Corso Lecce, Campidoglio, Circoscrizione 4, Torino, Piemonte, 10145, Italia",
+  "lat": 45.0797875,
+  "lon": 7.646011,
+  "type": "pharmacy"
+ },
+ "Corso Luigi Carlo Farini 26, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "26, Corso Carlo Luigi Farini, Rossini, Vanchiglia, Circoscrizione 7, Torino, Piemonte, 10153, Italia",
+  "lat": 45.072282,
+  "lon": 7.7024009,
+  "type": "house"
+ },
+ "Corso Maroncelli, 28, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "28, Corso Piero Maroncelli, Italia '61, Nizza Millefonti, Circoscrizione 8, Torino, Piemonte, 10127, Italia",
+  "lat": 45.0187069,
+  "lon": 7.6624948,
+  "type": "house"
+ },
+ "Corso Massimo D'Azeglio, 100, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Torino Esposizioni SNC, 100, Corso Massimo D'Azeglio, Molinette, San Salvario, Circoscrizione 8, Cavoretto, Torino, Piemonte, 10126, Italia",
+  "lat": 45.0445078,
+  "lon": 7.6774446,
+  "type": "pharmacy"
+ },
+ "Corso Moncalieri, 265, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Pilonetto S.A.S., 265, Corso Moncalieri, Pilonetto, Nizza Millefonti, Circoscrizione 8, Cavoretto, Torino, Piemonte, 10133, Italia",
+  "lat": 45.036252,
+  "lon": 7.68105,
+  "type": "pharmacy"
+ },
+ "Corso Moncalieri, 59, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Antoniotti, 59, Corso Moncalieri, Crimea, Borgo Po, Circoscrizione 8, Torino, Piemonte, 10133, Italia",
+  "lat": 45.0537353,
+  "lon": 7.6910765,
+  "type": "pharmacy"
+ },
+ "Corso Monte Grappa, 55, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Montegrappa, 55, Corso Monte Grappa, Parella, Circoscrizione 4, Torino, Piemonte, 10146, Italia",
+  "lat": 45.0804014,
+  "lon": 7.6375677,
+  "type": "pharmacy"
+ },
+ "Corso Orbassano, 216, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "216, Corso Orbassano, Mirafiori Nord, Circoscrizione 2, Torino, Piemonte, 10137, Italia",
+  "lat": 45.0417532,
+  "lon": 7.6370109,
+  "type": "house"
+ },
+ "Corso Orbassano, 249, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "249, Corso Orbassano, Mirafiori Nord, Circoscrizione 2, Torino, Piemonte, 10137, Italia",
+  "lat": 45.0410508,
+  "lon": 7.6364322,
+  "type": "house"
+ },
+ "Corso Orbassano, 302, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Europa, 302, Corso Orbassano, Centro Europa, Mirafiori Nord, Circoscrizione 2, Torino, Piemonte, 10137, Italia",
+  "lat": 45.0365699,
+  "lon": 7.6263419,
+  "type": "pharmacy"
+ },
+ "Corso Palermo, 119, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Madonna della Pace, 119, Corso Palermo, Monte Rosa, Barriera di Milano, Circoscrizione 6, Torino, Piemonte, 10154, Italia",
+  "lat": 45.090182,
+  "lon": 7.693291,
+  "type": "pharmacy"
+ },
+ "Corso Peschiera 142, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Balocco, 142, Corso Peschiera, Cenisia, Circoscrizione 3, Torino, Piemonte, 10138, Italia",
+  "lat": 45.0633465,
+  "lon": 7.6535087,
+  "type": "pharmacy"
+ },
+ "Corso Peschiera 244, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "244, Corso Peschiera, Borgo San Paolo, Circoscrizione 3, Torino, Piemonte, 10139, Italia",
+  "lat": 45.068756,
+  "lon": 7.6394975,
+  "type": "house"
+ },
+ "Corso Peschiera, 142/F, Torino": {
+  "addresstype": "residential",
+  "class": "highway",
+  "display_name": "Corso Peschiera, Borgo San Paolo, Circoscrizione 3, Torino, Piemonte, 10139, Italia",
+  "lat": 45.0673066,
+  "lon": 7.6431257,
+  "type": "residential"
+ },
+ "Corso Peschiera, 244/A, Torino": {
+  "addresstype": "secondary",
+  "class": "highway",
+  "display_name": "Corso Peschiera, Cenisia, Circoscrizione 3, Torino, Piemonte, 10129, Italia",
+  "lat": 45.0617702,
+  "lon": 7.6569951,
+  "type": "secondary"
+ },
+ "Corso Peschiera, 295, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "295, Corso Peschiera, Borgo San Paolo, Circoscrizione 3, Torino, Piemonte, 10141, Italia",
+  "lat": 45.0716777,
+  "lon": 7.6307638,
+  "type": "house"
+ },
+ "Corso Potenza, 92, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Vela S.A.S., 92, Corso Potenza, Madonna di Campagna, Circoscrizione 5, Torino, Piemonte, 10149, Italia",
+  "lat": 45.0950645,
+  "lon": 7.6571115,
+  "type": "pharmacy"
+ },
+ "Corso Principe Oddone, 28, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "28c, Corso Principe Oddone, Valdocco, Aurora, Circoscrizione 7, Torino, Piemonte, 10152, Italia",
+  "lat": 45.0810831,
+  "lon": 7.6719202,
+  "type": "house"
+ },
+ "Corso R. Margherita, 218/bis, Torino": null,
+ "Corso Racconigi, 186, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "186, Corso Racconigi, Polo Nord, Borgo San Paolo, Circoscrizione 3, Torino, Piemonte, 10141, Italia",
+  "lat": 45.0580815,
+  "lon": 7.6465827,
+  "type": "house"
+ },
+ "Corso Re Umberto 38, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "38, Corso Re Umberto, San Secondo, Crocetta, Circoscrizione 1, Torino, Piemonte, 10128, Italia",
+  "lat": 45.060421,
+  "lon": 7.670754,
+  "type": "house"
+ },
+ "Corso Regina Margherita 218, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "218, Corso Regina Margherita, Basso San Donato, San Donato, Circoscrizione 4, Torino, Piemonte, 10144, Italia",
+  "lat": 45.0824192,
+  "lon": 7.667123,
+  "type": "house"
+ },
+ "Corso Regina Margherita, 108, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Rock 'n' Beer, 108, Corso Regina Margherita, Porta Palazzo, Aurora, Circoscrizione 7, Torino, Piemonte, 10152, Italia",
+  "lat": 45.0753573,
+  "lon": 7.6885466,
+  "type": "pub"
+ },
+ "Corso Regina Margherita, 134, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "134, Corso Regina Margherita, Porta Palazzo, Aurora, Circoscrizione 7, Torino, Piemonte, 10152, Italia",
+  "lat": 45.0775795,
+  "lon": 7.6817624,
+  "type": "house"
+ },
+ "Corso Regina Margherita, 256, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "256, Corso Regina Margherita, Basso San Donato, San Donato, Circoscrizione 4, Torino, Piemonte, 10144, Italia",
+  "lat": 45.0844949,
+  "lon": 7.6608425,
+  "type": "house"
+ },
+ "Corso Regina Margherita, 72, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "72, Corso Regina Margherita, Rossini, Vanchiglia, Circoscrizione 7, Torino, Piemonte, 10153, Italia",
+  "lat": 45.0730203,
+  "lon": 7.6955028,
+  "type": "house"
+ },
+ "Corso Regio Parco, 38, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia dei Fiori, 38, Corso Regio Parco, Rossini, Vanchiglia, Circoscrizione 7, Torino, Piemonte, 10153, Italia",
+  "lat": 45.077416,
+  "lon": 7.696084,
+  "type": "pharmacy"
+ },
+ "Corso Romania, 460, Torino": {
+  "addresstype": "shop",
+  "class": "shop",
+  "display_name": "Porte di Torino, 460, Corso Romania, Falchera, Circoscrizione 6, Torino, Piemonte, 10156, Italia",
+  "lat": 45.1174196,
+  "lon": 7.7135473,
+  "type": "mall"
+ },
+ "Corso Rosselli, 106/D, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "106d, Corso Carlo e Nello Rosselli, Polo Nord, Borgo San Paolo, Circoscrizione 3, Torino, Piemonte, 10129, Italia",
+  "lat": 45.0538126,
+  "lon": 7.6537096,
+  "type": "house"
+ },
+ "Corso S. Maurizio, 67, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Porinelli, 67, Corso San Maurizio, Vanchiglia, Circoscrizione 7, Torino, Piemonte, 10124, Italia",
+  "lat": 45.0675499,
+  "lon": 7.6971035,
+  "type": "pharmacy"
+ },
+ "Corso San Maurizio 135, Torino": {
+  "addresstype": "residential",
+  "class": "highway",
+  "display_name": "Corso San Maurizio, Centro, Circoscrizione 1, Torino, Piemonte, 10124, Italia",
+  "lat": 45.0720154,
+  "lon": 7.6920526,
+  "type": "residential"
+ },
+ "Corso San Maurizio 35, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "35, Corso San Maurizio, Vanchiglia, Circoscrizione 7, Torino, Piemonte, 10124, Italia",
+  "lat": 45.070977,
+  "lon": 7.693724,
+  "type": "house"
+ },
+ "Corso Sebastopoli, 143, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Santa Rita SNC, 143, Corso Sebastopoli, Santa Rita, Circoscrizione 2, Torino, Piemonte, 10137, Italia",
+  "lat": 45.0437123,
+  "lon": 7.6487637,
+  "type": "pharmacy"
+ },
+ "Corso Sebastopoli, 202/B, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "202b, Corso Sebastopoli, Santa Rita, Circoscrizione 2, Torino, Piemonte, 10136, Italia",
+  "lat": 45.046236,
+  "lon": 7.6427903,
+  "type": "house"
+ },
+ "Corso Sebastopoli, 272, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "272, Corso Sebastopoli, Santa Rita, Circoscrizione 2, Torino, Piemonte, 10136, Italia",
+  "lat": 45.0486061,
+  "lon": 7.6357922,
+  "type": "house"
+ },
+ "Corso Sebastopoli, 298, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Santa Silvia, 298, Corso Sebastopoli, Città Giardino, Mirafiori Nord, Circoscrizione 2, Torino, Piemonte, 10136, Italia",
+  "lat": 45.0498716,
+  "lon": 7.6324584,
+  "type": "pharmacy"
+ },
+ "Corso Siracusa, 85, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "85, Corso Siracusa, Mirafiori Nord, Circoscrizione 2, Torino, Piemonte, 10137, Italia",
+  "lat": 45.0471232,
+  "lon": 7.634712,
+  "type": "house"
+ },
+ "Corso Siracusa, 98/B, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "98b, Corso Siracusa, Mirafiori Nord, Circoscrizione 2, Torino, Piemonte, 10137, Italia",
+  "lat": 45.0452634,
+  "lon": 7.6338996,
+  "type": "house"
+ },
+ "Corso Stati Uniti, 5, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Leva, 5, Corso Stati Uniti, San Secondo, Centro, Circoscrizione 1, Torino, Piemonte, 10128, Italia",
+  "lat": 45.0611405,
+  "lon": 7.6749565,
+  "type": "pharmacy"
+ },
+ "Corso Svizzera, 42, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Stroppiana, 42, Corso Svizzera, Borgo Campidoglio, Campidoglio, Circoscrizione 4, Torino, Piemonte, 10143, Italia",
+  "lat": 45.0799442,
+  "lon": 7.6504479,
+  "type": "pharmacy"
+ },
+ "Corso Taranto , 183/c, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Regio Parco, 183c, Corso Taranto, Regio Parco, Circoscrizione 6, Sassi, Torino, Piemonte, 10154, Italia",
+  "lat": 45.0946764,
+  "lon": 7.7154125,
+  "type": "pharmacy"
+ },
+ "Corso Taranto, 15, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "San Michele, 15, Corso Taranto, Rebaudengo, Circoscrizione 6, Torino, Piemonte, 10154, Italia",
+  "lat": 45.100943,
+  "lon": 7.701867,
+  "type": "pharmacy"
+ },
+ "Corso Telesio, 27b, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "27b, Corso Bernardino Telesio, Alta Parella, Parella, Circoscrizione 4, Torino, Piemonte, 10146, Italia",
+  "lat": 45.0773609,
+  "lon": 7.625322,
+  "type": "house"
+ },
+ "Corso Toscana, 107, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "107, Corso Toscana, Villaggio Santa Caterina, Lucento, Circoscrizione 5, Torino, Piemonte, 10151, Italia",
+  "lat": 45.0991593,
+  "lon": 7.6487631,
+  "type": "house"
+ },
+ "Corso Toscana, 185/A, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Sansovino, 185a, Corso Toscana, Villaggio Santa Caterina, Lucento, Circoscrizione 5, Torino, Piemonte, 10151, Italia",
+  "lat": 45.1014422,
+  "lon": 7.6409714,
+  "type": "pharmacy"
+ },
+ "Corso Toscana, 20, Torino": {
+  "addresstype": "shop",
+  "class": "shop",
+  "display_name": "Imago Barbershop, 20, Corso Toscana, Madonna di Campagna, Circoscrizione 5, Torino, Piemonte, 10149, Italia",
+  "lat": 45.0962038,
+  "lon": 7.6606145,
+  "type": "hairdresser"
+ },
+ "Corso Traiano, 158, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "158, Corso Traiano, Circoscrizione 2, Torino, Piemonte, 10127, Italia",
+  "lat": 45.0200853,
+  "lon": 7.654794,
+  "type": "house"
+ },
+ "Corso Traiano, 22/E, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia comunale, 22e, Corso Traiano, Lingotto, Circoscrizione 8, Torino, Piemonte, 10135, Italia",
+  "lat": 45.0249267,
+  "lon": 7.641132,
+  "type": "pharmacy"
+ },
+ "Corso Traiano, 73, Torino": {
+  "addresstype": "shop",
+  "class": "shop",
+  "display_name": "Traiano luce 73, 73, Corso Traiano, Lingotto, Circoscrizione 8, Torino, Piemonte, 10135, Italia",
+  "lat": 45.0237179,
+  "lon": 7.6461397,
+  "type": "lighting"
+ },
+ "Corso Traiano, 86, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia comunale, 86, Corso Traiano, Lingotto, Circoscrizione 8, Torino, Piemonte, 10127, Italia",
+  "lat": 45.022597,
+  "lon": 7.6476465,
+  "type": "pharmacy"
+ },
+ "Corso Trapani, 150, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Comunale 7 - Afc, 150, Corso Trapani, Rione Lancia, Borgo San Paolo, Circoscrizione 3, Torino, Piemonte, 10141, Italia",
+  "lat": 45.0648189,
+  "lon": 7.6363222,
+  "type": "pharmacy"
+ },
+ "Corso UNIONE SOVIETICA, 491, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Ottone, 491, Corso Unione Sovietica, Borgata Mirafiori, Circoscrizione 2, Torino, Piemonte, 10135, Italia",
+  "lat": 45.0189807,
+  "lon": 7.631664,
+  "type": "pharmacy"
+ },
+ "Corso Unione Sovietica, 397, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Steffanone, 397, Corso Unione Sovietica, Lingotto, Circoscrizione 8, Torino, Piemonte, 10135, Italia",
+  "lat": 45.0243717,
+  "lon": 7.6376727,
+  "type": "pharmacy"
+ },
+ "Corso Unione Sovietica, 585, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "San Domenico, 585, Corso Unione Sovietica, Borgata Mirafiori, Circoscrizione 2, Torino, Piemonte, 10135, Italia",
+  "lat": 45.0144537,
+  "lon": 7.6265493,
+  "type": "pharmacy"
+ },
+ "Corso Unione Sovietica, 73/A, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "73a, Corso Unione Sovietica, Filadelfia, Circoscrizione 8, Torino, Piemonte, 10134, Italia",
+  "lat": 45.046294,
+  "lon": 7.6622257,
+  "type": "house"
+ },
+ "Corso Vercelli, 111, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Cervino, 111, Corso Vercelli, Monte Bianco, Barriera di Milano, Circoscrizione 6, Torino, Piemonte, 10155, Italia",
+  "lat": 45.0950255,
+  "lon": 7.6911169,
+  "type": "pharmacy"
+ },
+ "Corso Vercelli, 195, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Santi Angeli Custodi S.N.C., 195, Corso Vercelli, Rebaudengo, Circoscrizione 6, Torino, Piemonte, 10155, Italia",
+  "lat": 45.1017341,
+  "lon": 7.6942622,
+  "type": "pharmacy"
+ },
+ "Corso Vercelli, 236, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Comunale 12 - Afc, 236, Corso Vercelli, Rebaudengo, Circoscrizione 6, Torino, Piemonte, 10155, Italia",
+  "lat": 45.1079787,
+  "lon": 7.6974406,
+  "type": "pharmacy"
+ },
+ "Corso Vinzaglio, 31/e, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Montanaro, 31e, Corso Vinzaglio, Crocetta, Circoscrizione 1, Torino, Piemonte, 10121, Italia",
+  "lat": 45.068206,
+  "lon": 7.667382,
+  "type": "pharmacy"
+ },
+ "Corso Vittorio Emanuele II 182, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "182, Corso Vittorio Emanuele II, Cenisia, Circoscrizione 3, Torino, Piemonte, 10138, Italia",
+  "lat": 45.0732804,
+  "lon": 7.6501789,
+  "type": "house"
+ },
+ "Corso Vittorio Emanuele II 4, Torino": {
+  "addresstype": "residential",
+  "class": "highway",
+  "display_name": "Corso Vittorio Emanuele II, Crimea, Borgo Po, Circoscrizione 8, Torino, Piemonte, 10123, Italia",
+  "lat": 45.0588988,
+  "lon": 7.6892007,
+  "type": "residential"
+ },
+ "Corso Vittorio Emanuele II 84, Torino": {
+  "addresstype": "primary",
+  "class": "highway",
+  "display_name": "Corso Vittorio Emanuele II, Cenisia, Circoscrizione 3, Torino, Piemonte, 10138, Italia",
+  "lat": 45.0732161,
+  "lon": 7.6497542,
+  "type": "primary"
+ },
+ "Corso Vittorio Emanuele II, 182/bis/C, Torino": null,
+ "Corso Vittorio Emanuele II, 34, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "34, Corso Vittorio Emanuele II, Borgo Nuovo, Centro, Circoscrizione 1, Torino, Piemonte, 10123, Italia",
+  "lat": 45.0609124,
+  "lon": 7.6846119,
+  "type": "house"
+ },
+ "Corso Vittorio Emanuele II, 4, Torino": {
+  "addresstype": "residential",
+  "class": "highway",
+  "display_name": "Corso Vittorio Emanuele II, Crimea, Borgo Po, Circoscrizione 8, Torino, Piemonte, 10123, Italia",
+  "lat": 45.0588988,
+  "lon": 7.6892007,
+  "type": "residential"
+ },
+ "Corso Vittorio Emanuele II, 58, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "58, Corso Vittorio Emanuele II, San Secondo, Centro, Circoscrizione 1, Torino, Piemonte, 10121, Italia",
+  "lat": 45.0632581,
+  "lon": 7.6782745,
+  "type": "house"
+ },
+ "Corso Vittorio Emanuele II, 66, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Boniscontro, 66, Corso Vittorio Emanuele II, San Secondo, Centro, Circoscrizione 1, Torino, Piemonte, 10121, Italia",
+  "lat": 45.063994,
+  "lon": 7.676202,
+  "type": "pharmacy"
+ },
+ "Corso Vittorio Emanuele II, 84, Torino": {
+  "addresstype": "residential",
+  "class": "highway",
+  "display_name": "Corso Vittorio Emanuele II, Crimea, Borgo Po, Circoscrizione 8, Torino, Piemonte, 10123, Italia",
+  "lat": 45.0588988,
+  "lon": 7.6892007,
+  "type": "residential"
+ },
+ "Corso Vittorio Emanuele, 121, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "121, Corso Vittorio Emanuele II, Crocetta, Circoscrizione 1, Torino, Piemonte, 10128, Italia",
+  "lat": 45.0679113,
+  "lon": 7.6638004,
+  "type": "house"
+ },
+ "Farmacia Del Corso, Corso Vittorio Emanuele II, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Chimica del Corso, Corso Vittorio Emanuele II, San Salvario, Circoscrizione 8, Torino, Piemonte, 10125, Italia",
+  "lat": 45.0618097,
+  "lon": 7.6806992,
+  "type": "pharmacy"
+ },
+ "Farmacia del Monumento, Corso Vittorio Emanuele II, Torino": null,
+ "LUNGO DORA NAPOLI 76, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "76, Lungo Dora Napoli, Borgo Dora, Aurora, Circoscrizione 7, Torino, Piemonte, 10152, Italia",
+  "lat": 45.0870406,
+  "lon": 7.6781763,
+  "type": "house"
+ },
+ "Largo Sempione, 186/C, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "186c, Largo Sempione, Barriera di Milano, Circoscrizione 6, Torino, Piemonte, 10154, Italia",
+  "lat": 45.0948403,
+  "lon": 7.7014661,
+  "type": "house"
+ },
+ "Largo Toscana, 50, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Igea, 50, Largo Toscana, Lucento, Circoscrizione 5, Torino, Piemonte, 10149, Italia",
+  "lat": 45.0974216,
+  "lon": 7.6575894,
+  "type": "pharmacy"
+ },
+ "Largo Umberto 114/A, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Galileo Farmabivi SNC, 114a, Largo Re Umberto, Crocetta, Circoscrizione 1, Torino, Piemonte, 10128, Italia",
+  "lat": 45.0528492,
+  "lon": 7.6637851,
+  "type": "pharmacy"
+ },
+ "PIAZZA STATUTO 9, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "9, Piazza Statuto, Centro, Circoscrizione 1, Torino, Piemonte, 10122, Italia",
+  "lat": 45.0756742,
+  "lon": 7.6711882,
+  "type": "house"
+ },
+ "Piazza Adriano, 12, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia del Benessere, 12, Piazza Adriano, Cenisia, Circoscrizione 3, Torino, Piemonte, 10138, Italia",
+  "lat": 45.0722302,
+  "lon": 7.6544487,
+  "type": "pharmacy"
+ },
+ "Piazza BORROMINI, 74, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Subalpina, 74, Piazza Francesco Borromini, Vanchiglietta, Circoscrizione 7, Sassi, Torino, Piemonte, 10132, Italia",
+  "lat": 45.0670093,
+  "lon": 7.7097767,
+  "type": "pharmacy"
+ },
+ "Piazza C. Felice, 63, Torino": null,
+ "Piazza Camillo Bozzolo, 11, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Comunale 46 Afc, 11, Piazza Camillo Bozzolo, Molinette, Nizza Millefonti, Circoscrizione 8, Cavoretto, Torino, Piemonte, 10126, Italia",
+  "lat": 45.037133,
+  "lon": 7.672196,
+  "type": "pharmacy"
+ },
+ "Piazza Carlo Felice 63, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "63, Piazza Carlo Felice, Centro, Circoscrizione 1, Torino, Piemonte, 10123, Italia",
+  "lat": 45.0631811,
+  "lon": 7.68009,
+  "type": "house"
+ },
+ "Piazza Crispi, 60, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "60, Piazza Francesco Crispi, Monte Bianco, Barriera di Milano, Circoscrizione 6, Torino, Piemonte, 10155, Italia",
+  "lat": 45.0898099,
+  "lon": 7.6889202,
+  "type": "house"
+ },
+ "Piazza Dante Livio Bianco, 10, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia San Giorgio, 10, Piazza Dante Livio Bianco, Borgo Cina, Mirafiori Nord, Circoscrizione 2, Torino, Piemonte, 10137, Italia",
+  "lat": 45.0362458,
+  "lon": 7.6351613,
+  "type": "pharmacy"
+ },
+ "Piazza Freguglia, 6, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Centro d'incontro Cavoretto, 6, Piazza Carlo Freguglia, Fioccardo, Circoscrizione 8, Cavoretto, Torino, Piemonte, 10133, Italia",
+  "lat": 45.0291922,
+  "lon": 7.6874983,
+  "type": "conference_centre"
+ },
+ "Piazza Gran Madre di Dio, 1, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Gran Madre, 1, Piazza Gran Madre di Dio, Borgo Po, Circoscrizione 8, Torino, Piemonte, 10131, Italia",
+  "lat": 45.0630299,
+  "lon": 7.6991263,
+  "type": "pharmacy"
+ },
+ "Piazza Massaua, 1, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "1, Piazza Massaua, Venchi Unica, Pozzo Strada, Circoscrizione 3, Torino, Piemonte, 10141, Italia",
+  "lat": 45.074317,
+  "lon": 7.6204938,
+  "type": "house"
+ },
+ "Piazza Omero, 16, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Santi Cosma e Damiano, 16, Piazza Omero, Mirafiori Nord, Circoscrizione 2, Torino, Piemonte, 10137, Italia",
+  "lat": 45.038418,
+  "lon": 7.629028,
+  "type": "pharmacy"
+ },
+ "Piazza Ottorino Respighi, 3, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "3, Piazza Ottorino Respighi, Barriera di Milano, Circoscrizione 6, Torino, Piemonte, 10154, Italia",
+  "lat": 45.0931096,
+  "lon": 7.7039066,
+  "type": "house"
+ },
+ "Piazza Pitagora, 9, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Pitagora S.N.C., 9, Piazza Pitagora, Mirafiori Nord, Circoscrizione 2, Torino, Piemonte, 10137, Italia",
+  "lat": 45.039091,
+  "lon": 7.634444,
+  "type": "pharmacy"
+ },
+ "Piazza Rivoli, 11, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Bar Jolly, 11, Piazza Rivoli, Cenisia, Circoscrizione 3, Torino, Piemonte, 10139, Italia",
+  "lat": 45.0752554,
+  "lon": 7.6424709,
+  "type": "cafe"
+ },
+ "Piazza Stampalia, 7, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Comunale 11 - Afc, 7, Piazza Stampalia, Barriera di Lanzo, Circoscrizione 5, Torino, Piemonte, 10148, Italia",
+  "lat": 45.1116947,
+  "lon": 7.6592273,
+  "type": "pharmacy"
+ },
+ "Piazza Statuto, 3, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Almasio SNC, 3, Piazza Statuto, Centro, Circoscrizione 1, Torino, Piemonte, 10122, Italia",
+  "lat": 45.0754063,
+  "lon": 7.6719691,
+  "type": "pharmacy"
+ },
+ "Piazza Statuto, 4, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Comunale 43 - Afc, 4, Piazza Statuto, Centro, Circoscrizione 1, Torino, Piemonte, 10122, Italia",
+  "lat": 45.0760515,
+  "lon": 7.6724725,
+  "type": "pharmacy"
+ },
+ "Piazza Tancredi Galimberti, 7, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Madonna delle rose, 7, Piazza Tancredi Galimberti, Filadelfia, Circoscrizione 8, Torino, Piemonte, 10134, Italia",
+  "lat": 45.034012,
+  "lon": 7.654046,
+  "type": "pharmacy"
+ },
+ "Piazza Tommaso Campanella, 9, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Castaldi, 9, Piazza Tommaso Campanella, Parella, Circoscrizione 4, Torino, Piemonte, 10146, Italia",
+  "lat": 45.082301,
+  "lon": 7.6322551,
+  "type": "pharmacy"
+ },
+ "Piazza Vittorio Veneto, 10, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Chimica Algostino & De Michelis, 10, Piazza Vittorio Veneto, Borgo Nuovo, Centro, Circoscrizione 1, Torino, Piemonte, 10123, Italia",
+  "lat": 45.065033,
+  "lon": 7.693959,
+  "type": "pharmacy"
+ },
+ "Piazza Vittorio Veneto, 11, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Operti, 11, Piazza Vittorio Veneto, Borgo Nuovo, Centro, Circoscrizione 1, Torino, Piemonte, 10124, Italia",
+  "lat": 45.0655931,
+  "lon": 7.695272,
+  "type": "pharmacy"
+ },
+ "Piazza della Repubblica 6, Torino": {
+  "addresstype": "office",
+  "class": "office",
+  "display_name": "UISP Unione Italiana Sport per Tutti - Comitato Regionale Piemonte, 6, Piazza della Repubblica, Quadrilatero Romano, Centro, Circoscrizione 1, Torino, Piemonte, 10122, Italia",
+  "lat": 45.075658,
+  "lon": 7.6841297,
+  "type": "yes"
+ },
+ "Piazza della Repubblica, 21, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Porta Palazzo, 21, Piazza della Repubblica, Porta Palazzo, Aurora, Circoscrizione 7, Torino, Piemonte, 10152, Italia",
+  "lat": 45.078061,
+  "lon": 7.6843464,
+  "type": "pharmacy"
+ },
+ "Piazza della Vittoria, 29, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Madonna della Salute, 29, Piazza della Vittoria, Borgata Tesso, Borgo Vittoria, Circoscrizione 5, Torino, Piemonte, 10147, Italia",
+  "lat": 45.095669,
+  "lon": 7.6767925,
+  "type": "pharmacy"
+ },
+ "STRADA COMUNALE DI SAN VITO REVIGLIASCO 34, Torino": null,
+ "STRADA SAN VINCENZO 49, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "49, Strada San Vincenzo, Pian del Lot, Circoscrizione 8, Reaglie, Torino, Piemonte, 10131, Italia",
+  "lat": 45.0474456,
+  "lon": 7.7158648,
+  "type": "house"
+ },
+ "STRADA VAL SALICE 152, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "152, Strada Val Salice, Pian del Lot, Circoscrizione 8, Cavoretto, Torino, Piemonte, 10131, Italia",
+  "lat": 45.0455464,
+  "lon": 7.712604,
+  "type": "house"
+ },
+ "Strada San Mauro, 172, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Balossino, 172, Strada San Mauro, Barca, Circoscrizione 6, Torino, Piemonte, 10156, Italia",
+  "lat": 45.101386,
+  "lon": 7.74379,
+  "type": "pharmacy"
+ },
+ "Strada San Mauro, 35, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Sant'Agnese, 35, Strada San Mauro, Barca, Circoscrizione 6, Torino, Piemonte, 10156, Italia",
+  "lat": 45.1000292,
+  "lon": 7.7271977,
+  "type": "pharmacy"
+ },
+ "Strada San Vito Revigliasco 34, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "34, Strada San Vito Revigliasco, San Vito, Circoscrizione 8, Torino, Piemonte, 10133, Italia",
+  "lat": 45.05019,
+  "lon": 7.6905138,
+  "type": "house"
+ },
+ "VIA BIAMONTI GIUSEPPE 8, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "8, Via Giuseppe Biamonti, Crimea, Borgo Po, Circoscrizione 8, Torino, Piemonte, 10131, Italia",
+  "lat": 45.0607573,
+  "lon": 7.7014893,
+  "type": "house"
+ },
+ "VIA BRICCA MARIA 9, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "9, Via Maria Bricca, Borgo Po, Circoscrizione 8, Sassi, Torino, Piemonte, 10131, Italia",
+  "lat": 45.0650072,
+  "lon": 7.7068373,
+  "type": "house"
+ },
+ "VIA CASSINI GIAN DOMENICO 14, Torino": null,
+ "VIA DELLE PRIMULE 7, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "7, Via delle Primule, Vallette, Circoscrizione 5, Torino, Piemonte, 10151, Italia",
+  "lat": 45.1014143,
+  "lon": 7.6303383,
+  "type": "house"
+ },
+ "VIA DINA GIACOMO 19, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "19, Via Giacomo Dina, Borgo Cina, Santa Rita, Circoscrizione 2, Torino, Piemonte, 10135, Italia",
+  "lat": 45.0313825,
+  "lon": 7.6420795,
+  "type": "house"
+ },
+ "VIA GALLIARI BERNARDINO 13, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "13, Via Bernardino Galliari, San Salvario, Circoscrizione 8, Torino, Piemonte, 10125, Italia",
+  "lat": 45.0598453,
+  "lon": 7.6820993,
+  "type": "house"
+ },
+ "VIA PARMA 70, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "70, Via Parma, Rossini, Vanchiglia, Circoscrizione 7, Torino, Piemonte, 10153, Italia",
+  "lat": 45.0744744,
+  "lon": 7.6965302,
+  "type": "house"
+ },
+ "VIA PRINCIPESSA FELICITA DI SAVOIA 8 11, Torino": {
+  "addresstype": "residential",
+  "class": "highway",
+  "display_name": "Via Principessa Felicita di Savoia, Crimea, Borgo Po, Circoscrizione 8, Torino, Piemonte, 10131, Italia",
+  "lat": 45.057343,
+  "lon": 7.6993723,
+  "type": "residential"
+ },
+ "VIA RAVENNA 8, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "8, Via Ravenna, Valdocco, Aurora, Circoscrizione 7, Torino, Piemonte, 10152, Italia",
+  "lat": 45.0824703,
+  "lon": 7.6743344,
+  "type": "house"
+ },
+ "VIA SACCARELLI GASPARE 4 6, Torino": {
+  "addresstype": "residential",
+  "class": "highway",
+  "display_name": "Via Gaspare Saccarelli, Basso San Donato, San Donato, Circoscrizione 4, Torino, Piemonte, 10144, Italia",
+  "lat": 45.0808545,
+  "lon": 7.6668777,
+  "type": "residential"
+ },
+ "VIA SALUZZO 50, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "50, Via Saluzzo, San Salvario, Circoscrizione 8, Cavoretto, Torino, Piemonte, 12125, Italia",
+  "lat": 45.0558904,
+  "lon": 7.6777389,
+  "type": "house"
+ },
+ "VIA SAN DONATO 37, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "37, Via San Donato, Martinetto, San Donato, Circoscrizione 4, Torino, Piemonte, 10144, Italia",
+  "lat": 45.0802209,
+  "lon": 7.6645595,
+  "type": "house"
+ },
+ "VIA SAN GIUSEPPE BENEDETTO COTTOLENGO 14, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Piccola Casa della Divina Provvidenza, 14, Via San Giuseppe Benedetto Cottolengo, Porta Palazzo, Aurora, Circoscrizione 7, Torino, Piemonte, 10152, Italia",
+  "lat": 45.0795593,
+  "lon": 7.6815602,
+  "type": "hospital"
+ },
+ "VIA SAN MARINO 10, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "10, Via San Marino, Santa Rita, Circoscrizione 2, Torino, Piemonte, 10134, Italia",
+  "lat": 45.0360524,
+  "lon": 7.64842,
+  "type": "house"
+ },
+ "VIA SAN MARINO 30, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Alchemica RSA, 30, Via San Marino, Santa Rita, Circoscrizione 2, Torino, Piemonte, 10134, Italia",
+  "lat": 45.0371353,
+  "lon": 7.6471167,
+  "type": "social_facility"
+ },
+ "VIA SERVAIS GIOVANNI 80, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Senior Residence, 80, Via Giovanni Servais, Alta Parella, Basse di Dora, Circoscrizione 4, Torino, Piemonte, 10146, Italia",
+  "lat": 45.0842294,
+  "lon": 7.6287842,
+  "type": "social_facility"
+ },
+ "VIA TORRE PELLICE 25, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "25, Via Torre Pellice, Barca, Circoscrizione 6, Sassi, Torino, Piemonte, 10156, Italia",
+  "lat": 45.0975963,
+  "lon": 7.7359368,
+  "type": "house"
+ },
+ "VIA VESPUCCI AMERIGO 33, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "33, Via Amerigo Vespucci, Crocetta, Circoscrizione 1, Torino, Piemonte, 10129, Italia",
+  "lat": 45.0556814,
+  "lon": 7.663445,
+  "type": "house"
+ },
+ "VIA VILLA DELLA REGINA 21, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "21, Via Villa della Regina, Borgo Po, Circoscrizione 8, Torino, Piemonte, 10131, Italia",
+  "lat": 45.0603442,
+  "lon": 7.7040315,
+  "type": "house"
+ },
+ "Via Almese, 2D, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "2d, Via Almese, Cenisia, Circoscrizione 3, Torino, Piemonte, 10138, Italia",
+  "lat": 45.0755614,
+  "lon": 7.6525825,
+  "type": "house"
+ },
+ "Via Ancina, 43/g, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Novara, 43g, Via Giovenale Ancina, Regio Parco, Circoscrizione 6, Sassi, Torino, Piemonte, 10154, Italia",
+  "lat": 45.0955342,
+  "lon": 7.7119631,
+  "type": "pharmacy"
+ },
+ "Via Arnaldo Da Brescia, 38, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farm, 38, Via Arnaldo da Brescia, Filadelfia, Circoscrizione 8, Torino, Piemonte, 10134, Italia",
+  "lat": 45.034202,
+  "lon": 7.6503159,
+  "type": "pharmacy"
+ },
+ "Via Arturo Farinelli, 36 INT 9, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "36 int. 9, Via Arturo Farinelli, Borgata Mirafiori, Circoscrizione 2, Torino, Piemonte, 10135, Italia",
+  "lat": 45.014387,
+  "lon": 7.6324165,
+  "type": "house"
+ },
+ "Via Asiago, 35, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Gancia Dimitri, 35, Via Asiago, Venchi Unica, Pozzo Strada, Circoscrizione 3, Torino, Piemonte, 10142, Italia",
+  "lat": 45.0699397,
+  "lon": 7.6140078,
+  "type": "pharmacy"
+ },
+ "Via Asinari Vittorio Di Bernezzo, 134, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "ASL Torino 2, 98, Via Vittorio Asinari di Bernezzo, Parella, Circoscrizione 4, Torino, Piemonte, 10146, Italia",
+  "lat": 45.079684,
+  "lon": 7.6287581,
+  "type": "clinic"
+ },
+ "Via Bardonecchia, 114, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "114, Via Bardonecchia, Pozzo Strada, Circoscrizione 3, Torino, Piemonte, 10139, Italia",
+  "lat": 45.0723557,
+  "lon": 7.6349858,
+  "type": "house"
+ },
+ "Via Barletta, 84/f, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia del Borgo, 84d;84f, Via Barletta, Santa Rita, Circoscrizione 2, Torino, Piemonte, 10136, Italia",
+  "lat": 45.0483349,
+  "lon": 7.6420155,
+  "type": "pharmacy"
+ },
+ "Via Barletta, 93, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "93, Via Barletta, Santa Rita, Circoscrizione 2, Torino, Piemonte, 10136, Italia",
+  "lat": 45.048995,
+  "lon": 7.6395356,
+  "type": "house"
+ },
+ "Via Bellini, 8, Torino": {
+  "addresstype": "residential",
+  "class": "highway",
+  "display_name": "Via Bellini, Borgo San Pietro, Moncalieri, Torino, Piemonte, 10024, Italia",
+  "lat": 45.0136558,
+  "lon": 7.6657039,
+  "type": "residential"
+ },
+ "Via Bernardino Luini, 34, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Calvo, 34, Via Bernardino Luini, Lucento, Circoscrizione 5, Torino, Piemonte, 10149, Italia",
+  "lat": 45.0971791,
+  "lon": 7.6671894,
+  "type": "pharmacy"
+ },
+ "Via Bertola, 14, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "14d, Via Antonio Giuseppe Bertola, Centro, Circoscrizione 1, Torino, Piemonte, 10121, Italia",
+  "lat": 45.0702159,
+  "lon": 7.6809979,
+  "type": "house"
+ },
+ "Via Bologna, 21, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "De Angeli, 21, Via Bologna, Rossini, Aurora, Circoscrizione 7, Torino, Piemonte, 10152, Italia",
+  "lat": 45.080921,
+  "lon": 7.691839,
+  "type": "pharmacy"
+ },
+ "Via Bologna, 250/A, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Cesano, 250a, Via Bologna, Regio Parco, Circoscrizione 6, Sassi, Torino, Piemonte, 10154, Italia",
+  "lat": 45.092,
+  "lon": 7.713761,
+  "type": "pharmacy"
+ },
+ "Via Bologna, 91/D, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "91, Via Bologna, Barriera di Milano, Circoscrizione 6, Torino, Piemonte, 10154, Italia",
+  "lat": 45.084398,
+  "lon": 7.6995346,
+  "type": "house"
+ },
+ "Via Borgaro, 103, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Santa Chiara, 103, Via Borgaro, Madonna di Campagna, Circoscrizione 5, Torino, Piemonte, 10149, Italia",
+  "lat": 45.1020794,
+  "lon": 7.6627768,
+  "type": "pharmacy"
+ },
+ "Via Borgaro, 58, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Sardi, 58, Via Borgaro, Madonna di Campagna, Circoscrizione 5, Torino, Piemonte, 10149, Italia",
+  "lat": 45.0967491,
+  "lon": 7.6631964,
+  "type": "pharmacy"
+ },
+ "Via Brandizzo, 90, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Granero SNC, 90, Via Brandizzo, Barriera di Milano, Circoscrizione 6, Torino, Piemonte, 10154, Italia",
+  "lat": 45.0902127,
+  "lon": 7.702485,
+  "type": "pharmacy"
+ },
+ "Via Breglio, 16, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Breglio, 16, Via Breglio, Borgo Vittoria, Circoscrizione 5, Torino, Piemonte, 10147, Italia",
+  "lat": 45.0986852,
+  "lon": 7.683737,
+  "type": "pharmacy"
+ },
+ "Via Buenos Aires, 77, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Dell'Orso, 77, Via Buenos Aires, Borgo Cina, Santa Rita, Circoscrizione 2, Torino, Piemonte, 10137, Italia",
+  "lat": 45.0374714,
+  "lon": 7.6404246,
+  "type": "pharmacy"
+ },
+ "Via C.Lequio, 2, Torino": null,
+ "Via CANDIA, 5/D, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "5d, Via Candia, Monte Rosa, Barriera di Milano, Circoscrizione 6, Torino, Piemonte, 10154, Italia",
+  "lat": 45.0897416,
+  "lon": 7.6963113,
+  "type": "house"
+ },
+ "Via Candiolo, 31, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "31, Via Candiolo, Basse di Mirafiori, Circoscrizione 2, Torino, Piemonte, 10127, Italia",
+  "lat": 45.0145379,
+  "lon": 7.655033,
+  "type": "house"
+ },
+ "Via Capelli, 47, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Comunale, 47, Via Carlo Capelli, Parella, Circoscrizione 4, Torino, Piemonte, 10146, Italia",
+  "lat": 45.0791626,
+  "lon": 7.6338289,
+  "type": "pharmacy"
+ },
+ "Via Cardinale Guglielmo Massaia, 45, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Garelli, 45, Via Cardinale Guglielmo Massaia, Madonna di Campagna, Circoscrizione 5, Torino, Piemonte, 10147, Italia",
+  "lat": 45.0986466,
+  "lon": 7.6713163,
+  "type": "pharmacy"
+ },
+ "Via Carlo Alberto, 24, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Internazionale, 24, Via Carlo Alberto, Borgo Nuovo, Centro, Circoscrizione 1, Torino, Piemonte, 10123, Italia",
+  "lat": 45.065468,
+  "lon": 7.684037,
+  "type": "pharmacy"
+ },
+ "Via Carlo Capelli, 65/F, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "65f, Via Carlo Capelli, Parella, Circoscrizione 4, Torino, Piemonte, 10146, Italia",
+  "lat": 45.0809047,
+  "lon": 7.6341237,
+  "type": "house"
+ },
+ "Via Celeste Negarville 8, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "30 int. 8, Via Celeste Negarville, Mirafiori Sud, Torino, Piemonte, 10135, Italia",
+  "lat": 45.0191215,
+  "lon": 7.6079206,
+  "type": "house"
+ },
+ "Via Celeste Negarville, 8 int 10, Torino": {
+  "addresstype": "residential",
+  "class": "highway",
+  "display_name": "Via Celeste Negarville, Cime Bianche, Mirafiori Sud, Torino, Piemonte, 10092, Italia",
+  "lat": 45.0209376,
+  "lon": 7.611834,
+  "type": "residential"
+ },
+ "Via Cernaia, 14, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Pensa, 14, Via Cernaia, Quadrilatero Romano, Centro, Circoscrizione 1, Torino, Piemonte, 10122, Italia",
+  "lat": 45.0710339,
+  "lon": 7.6760091,
+  "type": "pharmacy"
+ },
+ "Via Cernaia, 24, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Santa Barbara, 24, Via Cernaia, Quadrilatero Romano, Centro, Circoscrizione 1, Torino, Piemonte, 10122, Italia",
+  "lat": 45.0718942,
+  "lon": 7.6735774,
+  "type": "pharmacy"
+ },
+ "Via Chiesa della Salute, 105, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Chierici SNC, 105, Via Chiesa della Salute, Borgo Vittoria, Circoscrizione 5, Torino, Piemonte, 10147, Italia",
+  "lat": 45.101853,
+  "lon": 7.6809247,
+  "type": "pharmacy"
+ },
+ "Via Chiesa della Salute, 64, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Borgo Vittoria SNC, 64, Via Chiesa della Salute, Borgata Tesso, Borgo Vittoria, Circoscrizione 5, Torino, Piemonte, 10147, Italia",
+  "lat": 45.0976725,
+  "lon": 7.6801001,
+  "type": "pharmacy"
+ },
+ "Via Cibrario, 72, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Comunale 44, 72, Via Luigi Cibrario, Martinetto, San Donato, Circoscrizione 4, Torino, Piemonte, 10144, Italia",
+  "lat": 45.0814237,
+  "lon": 7.6563435,
+  "type": "pharmacy"
+ },
+ "Via Cigna, 118, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Dora, 118, Via Francesco Cigna, Spina 4, Barriera di Milano, Circoscrizione 6, Torino, Piemonte, 10155, Italia",
+  "lat": 45.0926327,
+  "lon": 7.6860267,
+  "type": "pharmacy"
+ },
+ "Via Cimabue, 6/O, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "6o, Via Cimabue, Centro Europa, Mirafiori Nord, Circoscrizione 2, Torino, Piemonte, 10137, Italia",
+  "lat": 45.0402502,
+  "lon": 7.6185177,
+  "type": "house"
+ },
+ "Via Claudio Luigi Berthollet, 10, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Cavallo, 10, Via Claudio Luigi Berthollet, San Salvario, Circoscrizione 8, Torino, Piemonte, 10125, Italia",
+  "lat": 45.0592284,
+  "lon": 7.6804992,
+  "type": "pharmacy"
+ },
+ "Via Cristoforo Colombo, 42, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Magno Francone Roberta, 42, Via Cristoforo Colombo, Crocetta, Circoscrizione 1, Torino, Piemonte, 10129, Italia",
+  "lat": 45.05867,
+  "lon": 7.658927,
+  "type": "pharmacy"
+ },
+ "Via Delle Orfane, 25, Torino": {
+  "addresstype": "shop",
+  "class": "shop",
+  "display_name": "Tenderini, 25, Via delle Orfane, Quadrilatero Romano, Centro, Circoscrizione 1, Torino, Piemonte, 10122, Italia",
+  "lat": 45.0770021,
+  "lon": 7.6802123,
+  "type": "houseware"
+ },
+ "Via Di Nanni, 42/E, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia S. Rosa, 42e, Via Dante Di Nanni, Cenisia, Circoscrizione 3, Torino, Piemonte, 10139, Italia",
+  "lat": 45.0681911,
+  "lon": 7.6522962,
+  "type": "pharmacy"
+ },
+ "Via Di Nanni, 79/E, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "79e, Via Dante Di Nanni, Cenisia, Circoscrizione 3, Torino, Piemonte, 10138, Italia",
+  "lat": 45.0659033,
+  "lon": 7.6506173,
+  "type": "house"
+ },
+ "Via Duchessa Jolanda, 15/bis/E, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "15 bis/E, Via Duchessa Jolanda, Cit Turin, Circoscrizione 3, Torino, Piemonte, 10138, Italia",
+  "lat": 45.0736771,
+  "lon": 7.6627713,
+  "type": "house"
+ },
+ "Via Filadelfia, 142, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Comunale 36, 142, Via Filadelfia, Santa Rita, Circoscrizione 2, Torino, Piemonte, 10137, Italia",
+  "lat": 45.0427986,
+  "lon": 7.6432305,
+  "type": "pharmacy"
+ },
+ "Via Foligno, 69, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Piazza Villari, 69, Via Foligno, Madonna di Campagna, Circoscrizione 5, Torino, Piemonte, 10149, Italia",
+  "lat": 45.0995485,
+  "lon": 7.6625127,
+  "type": "pharmacy"
+ },
+ "Via Francesco Cigna, 38, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "38, Via Francesco Cigna, Valdocco, Aurora, Circoscrizione 7, Torino, Piemonte, 10152, Italia",
+  "lat": 45.0826394,
+  "lon": 7.6790148,
+  "type": "house"
+ },
+ "Via Francesco Cigna, 53, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Cigna SAS, 53, Via Francesco Cigna, Borgo Dora, Aurora, Circoscrizione 7, Torino, Piemonte, 10152, Italia",
+  "lat": 45.0857974,
+  "lon": 7.6809266,
+  "type": "pharmacy"
+ },
+ "Via Francesco De Sanctis 60, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "60, Via Francesco De Sanctis, Venchi Unica, Pozzo Strada, Circoscrizione 3, Torino, Piemonte, 10142, Italia",
+  "lat": 45.069677,
+  "lon": 7.6186858,
+  "type": "house"
+ },
+ "Via Franceso De Sanctis, 60, Torino": null,
+ "Via Frejus 97, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "97, Via Frejus, Cenisia, Circoscrizione 3, Torino, Piemonte, 10139, Italia",
+  "lat": 45.0702645,
+  "lon": 7.6433002,
+  "type": "house"
+ },
+ "Via Frejus, 41, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "41, Via Frejus, Cenisia, Circoscrizione 3, Torino, Piemonte, 10139, Italia",
+  "lat": 45.0706134,
+  "lon": 7.6472127,
+  "type": "house"
+ },
+ "Via Frejus, 97/A, Torino": {
+  "addresstype": "residential",
+  "class": "highway",
+  "display_name": "Via Frejus, Cenisia, Circoscrizione 3, Torino, Piemonte, 10139, Italia",
+  "lat": 45.0699583,
+  "lon": 7.6390541,
+  "type": "residential"
+ },
+ "Via GIOLITTI, 2, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia San Carlo, 2, Via Giovanni Giolitti, Borgo Nuovo, Centro, Circoscrizione 1, Torino, Piemonte, 10123, Italia",
+  "lat": 45.0667522,
+  "lon": 7.6828342,
+  "type": "pharmacy"
+ },
+ "Via Gaetano Mosca, 1, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Prof. Cavanna S.N.C., 1, Via Gaetano Mosca, Borgo Vittoria, Circoscrizione 5, Torino, Piemonte, 10147, Italia",
+  "lat": 45.1011823,
+  "lon": 7.677329,
+  "type": "pharmacy"
+ },
+ "Via Gaspare Saccarelli 4, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "4, Via Gaspare Saccarelli, San Donato, Circoscrizione 4, Torino, Piemonte, 10144, Italia",
+  "lat": 45.0786634,
+  "lon": 7.6654285,
+  "type": "house"
+ },
+ "Via Genova, 122, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia San Giacomo, 122, Via Genova, Nizza Millefonti, Circoscrizione 8, Cavoretto, Torino, Piemonte, 10126, Italia",
+  "lat": 45.0279573,
+  "lon": 7.6675936,
+  "type": "pharmacy"
+ },
+ "Via Genova, 179/F, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "San Dario, 179f, Via Genova, Italia '61, Nizza Millefonti, Circoscrizione 8, Cavoretto, Torino, Piemonte, 10127, Italia",
+  "lat": 45.0233384,
+  "lon": 7.6659667,
+  "type": "pharmacy"
+ },
+ "Via Genova, 89/H, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Santa Gemma, 89h, Via Genova, Nizza Millefonti, Circoscrizione 8, Cavoretto, Torino, Piemonte, 10126, Italia",
+  "lat": 45.030478,
+  "lon": 7.668902,
+  "type": "pharmacy"
+ },
+ "Via Gian Domenico Cassini 14, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "14, Via Gian Domenico Cassini, Crocetta, Circoscrizione 1, Torino, Piemonte, 10129, Italia",
+  "lat": 45.0576071,
+  "lon": 7.6636406,
+  "type": "house"
+ },
+ "Via Giosue` Borsi, 114, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Santa Teresa SNC, 114, Via Giosuè Borsi, Lucento, Circoscrizione 5, Torino, Piemonte, 10149, Italia",
+  "lat": 45.0995579,
+  "lon": 7.6545325,
+  "type": "pharmacy"
+ },
+ "Via Giovanni Battista Viotti, 9, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Vecco, 9, Via Giovanni Battista Viotti, Centro, Circoscrizione 1, Torino, Piemonte, 10121, Italia",
+  "lat": 45.0695144,
+  "lon": 7.6832464,
+  "type": "pharmacy"
+ },
+ "Via Giovanni Boccaccio, 16, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Boccaccio, 16, Via Giovanni Boccaccio, Madonna del Pilone, Circoscrizione 7, Sassi, Torino, Piemonte, 10132, Italia",
+  "lat": 45.0685635,
+  "lon": 7.7211413,
+  "type": "pharmacy"
+ },
+ "Via Giovanni Giolitti, 7/C, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Madonna degli Angeli, 7/c, Via Giovanni Giolitti, Borgo Nuovo, Centro, Circoscrizione 1, Torino, Piemonte, 10123, Italia",
+  "lat": 45.0663612,
+  "lon": 7.6843738,
+  "type": "pharmacy"
+ },
+ "Via Giuseppe Garibaldi, 26, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Bosio, 26, Via Giuseppe Garibaldi, Quadrilatero Romano, Centro, Circoscrizione 1, Torino, Piemonte, 10122, Italia",
+  "lat": 45.0739415,
+  "lon": 7.67753,
+  "type": "pharmacy"
+ },
+ "Via Giuseppe Mazzini, 24, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia del Conservatorio, 24, Via Giuseppe Mazzini, Borgo Nuovo, Centro, Circoscrizione 1, Torino, Piemonte, 10123, Italia",
+  "lat": 45.0623194,
+  "lon": 7.6855513,
+  "type": "pharmacy"
+ },
+ "Via Giuseppe Mazzini, 40, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Europea, 40, Via Giuseppe Mazzini, Borgo Nuovo, Centro, Circoscrizione 1, Torino, Piemonte, 10123, Italia",
+  "lat": 45.061473,
+  "lon": 7.687871,
+  "type": "pharmacy"
+ },
+ "Via Gorizia, 133, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "133, Via Gorizia, Borgo Cina, Santa Rita, Circoscrizione 2, Torino, Piemonte, 10137, Italia",
+  "lat": 45.0423672,
+  "lon": 7.6402181,
+  "type": "house"
+ },
+ "Via Guido Reni 109/A, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "109a, Via Guido Reni, Città Giardino, Mirafiori Nord, Circoscrizione 2, Torino, Piemonte, 10136, Italia",
+  "lat": 45.0477759,
+  "lon": 7.6297211,
+  "type": "house"
+ },
+ "Via Guido Reni, 155/157, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "155/157, Via Guido Reni, Mirafiori Nord, Circoscrizione 2, Torino, Piemonte, 10137, Italia",
+  "lat": 45.0439804,
+  "lon": 7.6293661,
+  "type": "pharmacy"
+ },
+ "Via Isernia, 13/B, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "13b, Via Isernia, Lucento, Circoscrizione 5, Torino, Piemonte, 10151, Italia",
+  "lat": 45.1048912,
+  "lon": 7.6566542,
+  "type": "house"
+ },
+ "Via LIVORNO, 40 M, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "40m, Via Livorno, Parco Dora (Spina 3), San Donato, Circoscrizione 4, Torino, Piemonte, 10144, Italia",
+  "lat": 45.0865539,
+  "lon": 7.669936,
+  "type": "house"
+ },
+ "Via Luigi Cibrario, 33/bis, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "33bis, Via Luigi Cibrario, Martinetto, San Donato, Circoscrizione 4, Torino, Piemonte, 10143, Italia",
+  "lat": 45.0790939,
+  "lon": 7.6623976,
+  "type": "house"
+ },
+ "Via Luigi Cibrario, 88, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "88, Via Luigi Cibrario, Borgo Campidoglio, Campidoglio, Circoscrizione 4, Torino, Piemonte, 10143, Italia",
+  "lat": 45.0822691,
+  "lon": 7.6539141,
+  "type": "house"
+ },
+ "Via MONTEVIDEO, 18, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "18, Via Montevideo, Filadelfia, Circoscrizione 8, Torino, Piemonte, 10134, Italia",
+  "lat": 45.0359688,
+  "lon": 7.6541938,
+  "type": "house"
+ },
+ "Via Madama Cristina, 14, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia San Salvario, 14, Via Madama Cristina, San Salvario, Circoscrizione 8, Torino, Piemonte, 10125, Italia",
+  "lat": 45.0582612,
+  "lon": 7.6831173,
+  "type": "pharmacy"
+ },
+ "Via Madama Cristina, 37, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Portis, 37, Via Madama Cristina, San Salvario, Circoscrizione 8, Torino, Piemonte, 10125, Italia",
+  "lat": 45.0560444,
+  "lon": 7.6818893,
+  "type": "pharmacy"
+ },
+ "Via Madama Cristina, 62, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Borgarelli, 62/H;62, Via Madama Cristina, San Salvario, Circoscrizione 8, Torino, Piemonte, 10125, Italia",
+  "lat": 45.0525939,
+  "lon": 7.6791789,
+  "type": "pharmacy"
+ },
+ "Via Madama Cristina, 78, Torino": {
+  "addresstype": "shop",
+  "class": "shop",
+  "display_name": "Sherwood, 78, Via Madama Cristina, San Salvario, Circoscrizione 8, Cavoretto, Torino, Piemonte, 10126, Italia",
+  "lat": 45.050277,
+  "lon": 7.6775256,
+  "type": "sports"
+ },
+ "Via Maria Vittoria, 3, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Regia Farmacia Masino, 3, Via Maria Vittoria, Borgo Nuovo, Centro, Circoscrizione 1, Torino, Piemonte, 10123, Italia",
+  "lat": 45.0682488,
+  "lon": 7.6836386,
+  "type": "pharmacy"
+ },
+ "Via Michele Berrino, 6, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia San Paolo Sas, 6, Via Michele Berrino, Barriera di Lanzo, Circoscrizione 5, Torino, Piemonte, 10148, Italia",
+  "lat": 45.1186114,
+  "lon": 7.6557124,
+  "type": "pharmacy"
+ },
+ "Via Michele Lessona, 29, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Serravalle Eredi, 29, Via Michele Lessona, Campidoglio, Circoscrizione 4, Torino, Piemonte, 10145, Italia",
+  "lat": 45.0830704,
+  "lon": 7.6470021,
+  "type": "pharmacy"
+ },
+ "Via Milano, 11, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Anglesio, 11, Via Milano, Quadrilatero Romano, Centro, Circoscrizione 1, Torino, Piemonte, 10122, Italia",
+  "lat": 45.0748259,
+  "lon": 7.6821926,
+  "type": "pharmacy"
+ },
+ "Via Monferrato 22E, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "22e, Via Monferrato, Borgo Po, Circoscrizione 8, Torino, Piemonte, 10131, Italia",
+  "lat": 45.0641088,
+  "lon": 7.7016931,
+  "type": "house"
+ },
+ "Via Monginevro, 105, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Gillone, 105, Via Monginevro, Rione Lancia, Borgo San Paolo, Circoscrizione 3, Torino, Piemonte, 10141, Italia",
+  "lat": 45.064465,
+  "lon": 7.6397715,
+  "type": "pharmacy"
+ },
+ "Via Monginevro, 126, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Sburlati, 126, Via Monginevro, Rione Lancia, Pozzo Strada, Circoscrizione 3, Torino, Piemonte, 10141, Italia",
+  "lat": 45.0646733,
+  "lon": 7.6351045,
+  "type": "pharmacy"
+ },
+ "Via Monginevro, 178, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Bar Miami, 178, Via Monginevro, Pozzo Strada, Circoscrizione 3, Torino, Piemonte, 10141, Italia",
+  "lat": 45.0643311,
+  "lon": 7.6288533,
+  "type": "bar"
+ },
+ "Via Monginevro, 245, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Borgata Lesna Sas, 245, Via Monginevro, Borgata Lesna, Pozzo Strada, Circoscrizione 3, Torino, Piemonte, 10142, Italia",
+  "lat": 45.0643913,
+  "lon": 7.6211973,
+  "type": "pharmacy"
+ },
+ "Via Monginevro, 29, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Taverna Greca, 29, Via Monginevro, Cenisia, Circoscrizione 3, Torino, Piemonte, 10138, Italia",
+  "lat": 45.0650299,
+  "lon": 7.6507857,
+  "type": "restaurant"
+ },
+ "Via Monginevro, 57, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "57, Via Monginevro, Rione Lancia, Borgo San Paolo, Circoscrizione 3, Torino, Piemonte, 10141, Italia",
+  "lat": 45.0645484,
+  "lon": 7.6464028,
+  "type": "house"
+ },
+ "Via NIZZA, 183, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Delle Molinette, 183, Via Nizza, Molinette, Nizza Millefonti, Circoscrizione 8, Cavoretto, Torino, Piemonte, 10126, Italia",
+  "lat": 45.040648,
+  "lon": 7.670813,
+  "type": "pharmacy"
+ },
+ "Via Nicola Fabrizi, 102, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Santa Marta, 102, Via Nicola Fabrizi, Parella, Circoscrizione 4, Torino, Piemonte, 10145, Italia",
+  "lat": 45.081235,
+  "lon": 7.6431668,
+  "type": "pharmacy"
+ },
+ "Via Nicola Fabrizi, 11, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Scotti, 11, Via Nicola Fabrizi, Borgo Campidoglio, Campidoglio, Circoscrizione 4, Torino, Piemonte, 10143, Italia",
+  "lat": 45.079399,
+  "lon": 7.654081,
+  "type": "pharmacy"
+ },
+ "Via Nicola Porpora, 27, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Porpora SNC, 27, Via Nicola Porpora, Rebaudengo, Circoscrizione 6, Torino, Piemonte, 10155, Italia",
+  "lat": 45.1003851,
+  "lon": 7.6970194,
+  "type": "pharmacy"
+ },
+ "Via Nino Oxilia, 13, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "13, Via Nino Oxilia, Rebaudengo, Circoscrizione 6, Torino, Piemonte, 10155, Italia",
+  "lat": 45.1049504,
+  "lon": 7.7001614,
+  "type": "house"
+ },
+ "Via Nizza 249, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Millefonti S.N.C., 249, Via Nizza, Nizza Millefonti, Circoscrizione 8, Cavoretto, Torino, Piemonte, 10126, Italia",
+  "lat": 45.0343191,
+  "lon": 7.6681774,
+  "type": "pharmacy"
+ },
+ "Via Nizza, 108, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "108, Via Nizza, Molinette, San Salvario, Circoscrizione 8, Cavoretto, Torino, Piemonte, 10126, Italia",
+  "lat": 45.0435889,
+  "lon": 7.6714742,
+  "type": "house"
+ },
+ "Via Nizza, 115, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Sacro Cuore SNC, 115, Via Nizza, San Salvario, Circoscrizione 8, Torino, Piemonte, 10126, Italia",
+  "lat": 45.0479965,
+  "lon": 7.6734549,
+  "type": "pharmacy"
+ },
+ "Via Nizza, 15, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "I Portici, 15, Via Nizza, San Salvario, Circoscrizione 8, Torino, Piemonte, 10125, Italia",
+  "lat": 45.060239,
+  "lon": 7.678863,
+  "type": "pharmacy"
+ },
+ "Via Nizza, 229, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "229d, Via Nizza, Molinette, Nizza Millefonti, Circoscrizione 8, Cavoretto, Torino, Piemonte, 10126, Italia",
+  "lat": 45.0361087,
+  "lon": 7.6688581,
+  "type": "house"
+ },
+ "Via Nizza, 27/h, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "27h, Via Nizza, San Salvario, Circoscrizione 8, Torino, Piemonte, 10125, Italia",
+  "lat": 45.05856,
+  "lon": 7.6777297,
+  "type": "house"
+ },
+ "Via Nizza, 354, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Lingottofarma S.A.S., 354, Via Nizza, Italia '61, Nizza Millefonti, Circoscrizione 8, Cavoretto, Torino, Piemonte, 10127, Italia",
+  "lat": 45.0217012,
+  "lon": 7.6630185,
+  "type": "pharmacy"
+ },
+ "Via Nizza, 65, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Nizza, 65, Via Nizza, San Salvario, Circoscrizione 8, Torino, Piemonte, 10125, Italia",
+  "lat": 45.0531567,
+  "lon": 7.6754412,
+  "type": "pharmacy"
+ },
+ "Via Oglianico, 4, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Lucento, 4, Via Oglianico, Lucento, Circoscrizione 5, Torino, Piemonte, 10149, Italia",
+  "lat": 45.0946421,
+  "lon": 7.6504956,
+  "type": "pharmacy"
+ },
+ "Via Onorato Vigliani, 160, Torino": {
+  "addresstype": "shop",
+  "class": "shop",
+  "display_name": "Market nord, 160, Via Onorato Vigliani, Circoscrizione 2, Torino, Piemonte, 10127, Italia",
+  "lat": 45.0171125,
+  "lon": 7.6513774,
+  "type": "general"
+ },
+ "Via Onorato Vigliani, 55/G, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Giardini Guala, 55g, Via Onorato Vigliani, Lingotto, Circoscrizione 8, Torino, Piemonte, 10135, Italia",
+  "lat": 45.0205489,
+  "lon": 7.6415587,
+  "type": "pharmacy"
+ },
+ "Via Orvieto, 10/A, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Comunale 29 - Afc, 10a, Via Orvieto, Borgata Tesso, Madonna di Campagna, Circoscrizione 5, Torino, Piemonte, 10149, Italia",
+  "lat": 45.09162,
+  "lon": 7.670796,
+  "type": "pharmacy"
+ },
+ "Via Palestrina 49, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "49, Via Giovanni Pierluigi da Palestrina, Monte Bianco, Barriera di Milano, Circoscrizione 6, Torino, Piemonte, 10155, Italia",
+  "lat": 45.0945167,
+  "lon": 7.6880096,
+  "type": "house"
+ },
+ "Via Paolo Braccini, 101, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia San Bernardino, 101, Via Paolo Braccini, Polo Nord, Borgo San Paolo, Circoscrizione 3, Torino, Piemonte, 10141, Italia",
+  "lat": 45.0605068,
+  "lon": 7.6458526,
+  "type": "pharmacy"
+ },
+ "Via Paolo Sacchi, 4, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Sacchi, 4, Via Paolo Sacchi, San Secondo, Centro, Circoscrizione 1, Torino, Piemonte, 10121, Italia",
+  "lat": 45.0626617,
+  "lon": 7.6771359,
+  "type": "cafe"
+ },
+ "Via Paolo Sacchi, 46, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Picco Tavano, 46, Via Paolo Sacchi, San Secondo, Crocetta, Circoscrizione 1, Torino, Piemonte, 10128, Italia",
+  "lat": 45.057244,
+  "lon": 7.673273,
+  "type": "pharmacy"
+ },
+ "Via Passo Buole, 160/A, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "160a, Via Passo Buole, Lingotto, Circoscrizione 8, Torino, Piemonte, 10135, Italia",
+  "lat": 45.0277778,
+  "lon": 7.644244,
+  "type": "house"
+ },
+ "Via Passo Buole, 59/H, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Ghezzo, 59h, Via Passo Buole, Lingotto, Circoscrizione 8, Torino, Piemonte, 10127, Italia",
+  "lat": 45.0240504,
+  "lon": 7.6545391,
+  "type": "pharmacy"
+ },
+ "Via Pier Luigi Palestrina, 49, Torino": null,
+ "Via Pietro Cossa, 106, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Pietro Cossa SNC, 106, Via Pietro Cossa, Alta Parella, Basse di Dora, Circoscrizione 4, Torino, Piemonte, 10146, Italia",
+  "lat": 45.0827788,
+  "lon": 7.6246336,
+  "type": "pharmacy"
+ },
+ "Via Pietro Cossa, 280, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Regina Margherita, 280, Via Pietro Cossa, Lucento, Circoscrizione 5, Torino, Piemonte, 10151, Italia",
+  "lat": 45.0944273,
+  "lon": 7.6331566,
+  "type": "pharmacy"
+ },
+ "Via Pietro Piffetti, 31/bis, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "31 bis/D, Via Pietro Piffetti, Campidoglio, Circoscrizione 4, Torino, Piemonte, 10143, Italia",
+  "lat": 45.077108,
+  "lon": 7.6603982,
+  "type": "house"
+ },
+ "Via Pio VII, 164, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Najkiki, 164l, Via Pio VII, Mirafiori Sud, Torino, Piemonte, 10127, Italia",
+  "lat": 45.0183204,
+  "lon": 7.6481688,
+  "type": "cafe"
+ },
+ "Via Po, 14, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Università Giorda, 14, Via Po, Centro, Circoscrizione 1, Torino, Piemonte, 10123, Italia",
+  "lat": 45.0688613,
+  "lon": 7.6888747,
+  "type": "pharmacy"
+ },
+ "Via Po, 31/B, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Degli Stemmi, 31b, Via Po, Borgo Nuovo, Centro, Circoscrizione 1, Torino, Piemonte, 10124, Italia",
+  "lat": 45.0679614,
+  "lon": 7.6907991,
+  "type": "pharmacy"
+ },
+ "Via Po, 4, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Po, 4, Via Po, Centro, Circoscrizione 1, Torino, Piemonte, 10123, Italia",
+  "lat": 45.0696167,
+  "lon": 7.6876742,
+  "type": "pharmacy"
+ },
+ "Via Pramollo, 6, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Pramollo, 6, Via Pramollo, Il Villaggio, Circoscrizione 2, Torino, Piemonte, 10135, Italia",
+  "lat": 45.0213803,
+  "lon": 7.6240904,
+  "type": "pharmacy"
+ },
+ "Via Principessa Felicita di Savoia 8, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "8 int. 10, Via Principessa Felicita di Savoia, Crimea, Borgo Po, Circoscrizione 8, Torino, Piemonte, 10131, Italia",
+  "lat": 45.0562986,
+  "lon": 7.6987382,
+  "type": "house"
+ },
+ "Via Reggio, 1, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Borgo Rossini, 1, Via Reggio, Rossini, Vanchiglia, Circoscrizione 7, Torino, Piemonte, 10153, Italia",
+  "lat": 45.074459,
+  "lon": 7.694284,
+  "type": "pharmacy"
+ },
+ "Via Rieti, 55, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Comunale 5 - Afc, 55, Via Rieti, Aeronautica, Pozzo Strada, Circoscrizione 3, Torino, Piemonte, 10142, Italia",
+  "lat": 45.0699952,
+  "lon": 7.6097274,
+  "type": "pharmacy"
+ },
+ "Via Rivalta, 56/d, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Delle Erbe, 56d, Via Rivalta, Polo Nord, Borgo San Paolo, Circoscrizione 3, Torino, Piemonte, 10141, Italia",
+  "lat": 45.0572283,
+  "lon": 7.6491017,
+  "type": "pharmacy"
+ },
+ "Via S. M. Mazzarello, 18/D, Torino": null,
+ "Via S. Teresa, 21, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "21d, Via Santa Teresa, Centro, Circoscrizione 1, Torino, Piemonte, 10121, Italia",
+  "lat": 45.0699089,
+  "lon": 7.6785562,
+  "type": "house"
+ },
+ "Via SAN MARINO, 37, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Amici SNC, 37, Via San Marino, Santa Rita, Circoscrizione 2, Torino, Piemonte, 10134, Italia",
+  "lat": 45.037173,
+  "lon": 7.6460218,
+  "type": "pharmacy"
+ },
+ "Via SAN MAURIZIO, 135, Torino": {
+  "addresstype": "unclassified",
+  "class": "highway",
+  "display_name": "Via San Maurizio, Villaggio Olimpia, Settimo Torinese, Torino, Piemonte, 10036, Italia",
+  "lat": 45.1412789,
+  "lon": 7.7520631,
+  "type": "unclassified"
+ },
+ "Via San Donato, 55, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "55, Via San Donato, Martinetto, San Donato, Circoscrizione 4, Torino, Piemonte, 10144, Italia",
+  "lat": 45.0814301,
+  "lon": 7.661784,
+  "type": "house"
+ },
+ "Via San Donato, 9, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "9, Via San Donato, Martinetto, San Donato, Circoscrizione 4, Torino, Piemonte, 10144, Italia",
+  "lat": 45.0784216,
+  "lon": 7.6675915,
+  "type": "house"
+ },
+ "Via San Francesco D`Assisi, 14, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "I frutti di Gaia, 14, Via San Francesco d'Assisi, Quadrilatero Romano, Centro, Circoscrizione 1, Torino, Piemonte, 10122, Italia",
+  "lat": 45.0709838,
+  "lon": 7.6795699,
+  "type": "restaurant"
+ },
+ "Via San Francesco Da Paola, 10, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia San Francesco da Paola, 10, Via San Francesco da Paola, Borgo Nuovo, Centro, Circoscrizione 1, Torino, Piemonte, 10123, Italia",
+  "lat": 45.0676621,
+  "lon": 7.6883319,
+  "type": "pharmacy"
+ },
+ "Via San Marino, 69, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "69, Via San Marino, Santa Rita, Circoscrizione 2, Torino, Piemonte, 10137, Italia",
+  "lat": 45.0386172,
+  "lon": 7.6424586,
+  "type": "house"
+ },
+ "Via San Paolo, 49/A, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Borgo San Paolo, 49a, Via San Paolo, Borgo San Paolo, Circoscrizione 3, Torino, Piemonte, 10141, Italia",
+  "lat": 45.062767,
+  "lon": 7.650387,
+  "type": "pharmacy"
+ },
+ "Via San Secondo, 46, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Del Leone, 46, Via San Secondo, San Secondo, Crocetta, Circoscrizione 1, Torino, Piemonte, 10128, Italia",
+  "lat": 45.058642,
+  "lon": 7.672761,
+  "type": "pharmacy"
+ },
+ "Via San Secondo, 9, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia San Secondo, 9, Via San Secondo, San Secondo, Centro, Circoscrizione 1, Torino, Piemonte, 10128, Italia",
+  "lat": 45.061999,
+  "lon": 7.675359,
+  "type": "pharmacy"
+ },
+ "Via San Tommaso, 2/A, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia San Simone, 2a, Via San Tommaso, Quadrilatero Romano, Centro, Circoscrizione 1, Torino, Piemonte, 10122, Italia",
+  "lat": 45.071999,
+  "lon": 7.682509,
+  "type": "pharmacy"
+ },
+ "Via Sanremo, 37, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Mirafiori, 37, Via San Remo, Borgo Cina, Mirafiori Nord, Circoscrizione 2, Torino, Piemonte, 10137, Italia",
+  "lat": 45.0344364,
+  "lon": 7.6376101,
+  "type": "pharmacy"
+ },
+ "Via Santa Giulia, 38, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "38, Via Santa Giulia, Vanchiglia, Circoscrizione 7, Torino, Piemonte, 10124, Italia",
+  "lat": 45.0701893,
+  "lon": 7.6977986,
+  "type": "house"
+ },
+ "Via Santa Maria Mazzarello 18, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "18, Via Santa Maria Mazzarello, Borgata Lesna, Pozzo Strada, Circoscrizione 3, Torino, Piemonte, 10142, Italia",
+  "lat": 45.0632977,
+  "lon": 7.6239757,
+  "type": "house"
+ },
+ "Via Scipio Slataper 25, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "25, Via Scipio Slataper, Lucento, Circoscrizione 5, Torino, Piemonte, 10149, Italia",
+  "lat": 45.0999576,
+  "lon": 7.6560539,
+  "type": "house"
+ },
+ "Via Sempione, 112, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Policlinico, 112, Via Sempione, Barriera di Milano, Circoscrizione 6, Torino, Piemonte, 10155, Italia",
+  "lat": 45.0985888,
+  "lon": 7.6937382,
+  "type": "pharmacy"
+ },
+ "Via Slaaper, 25 bis, Torino": null,
+ "Via Stradella, 198, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "198, Via Stradella, Madonna di Campagna, Circoscrizione 5, Torino, Piemonte, 10147, Italia",
+  "lat": 45.1019261,
+  "lon": 7.6668299,
+  "type": "house"
+ },
+ "Via Tripoli, 15/A, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Madonna dell'Aiuto, 15 A, Via Tripoli, Santa Rita, Circoscrizione 2, Torino, Piemonte, 10136, Italia",
+  "lat": 45.0510127,
+  "lon": 7.6496074,
+  "type": "pharmacy"
+ },
+ "Via Tripoli, 58, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "58, Via Tripoli, Santa Rita, Circoscrizione 2, Torino, Piemonte, 10136, Italia",
+  "lat": 45.0483919,
+  "lon": 7.6476289,
+  "type": "house"
+ },
+ "Via Tunisi, 51, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia San Martino Dottori Gennero, 51, Via Tunisi, Filadelfia, Circoscrizione 8, Torino, Piemonte, 10134, Italia",
+  "lat": 45.041258,
+  "lon": 7.6584749,
+  "type": "pharmacy"
+ },
+ "Via Tunisi, 99, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "99, Via Tunisi, Filadelfia, Circoscrizione 8, Torino, Piemonte, 10134, Italia",
+  "lat": 45.0374327,
+  "lon": 7.6560381,
+  "type": "house"
+ },
+ "Via Valentino Carrera, 88, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "88, Via Valentino Carrera, Parella, Circoscrizione 4, Torino, Piemonte, 10146, Italia",
+  "lat": 45.0801638,
+  "lon": 7.6280491,
+  "type": "house"
+ },
+ "Via Vanchiglia, 29/A, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia Nazionale, 29a, Via Vanchiglia, Vanchiglia, Circoscrizione 7, Torino, Piemonte, 10124, Italia",
+  "lat": 45.069025,
+  "lon": 7.6998815,
+  "type": "pharmacy"
+ },
+ "Via Vandalino 9, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Comunale, 9;11, Via Vandalino, Venchi Unica, Pozzo Strada, Circoscrizione 3, Torino, Piemonte, 10142, Italia",
+  "lat": 45.0717418,
+  "lon": 7.6218374,
+  "type": "pharmacy"
+ },
+ "Via Vandalino, 9/11, Torino": {
+  "addresstype": "residential",
+  "class": "highway",
+  "display_name": "Via Vandalino, Venchi Unica, Pozzo Strada, Circoscrizione 3, Torino, Piemonte, 10142, Italia",
+  "lat": 45.0718967,
+  "lon": 7.6229953,
+  "type": "residential"
+ },
+ "Via Vibo`, 17/B, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Comunale 19 - Afc, 17b, Via Michele Antonio Vibò, Borgata Tesso, Borgo Vittoria, Circoscrizione 5, Torino, Piemonte, 10147, Italia",
+  "lat": 45.094208,
+  "lon": 7.678921,
+  "type": "pharmacy"
+ },
+ "Via Vincenzo Lancia, 11/D, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Sant'Emilio, 11d, Via Vincenzo Lancia, Rione Lancia, Borgo San Paolo, Circoscrizione 3, Torino, Piemonte, 10141, Italia",
+  "lat": 45.060815,
+  "lon": 7.6434304,
+  "type": "pharmacy"
+ },
+ "Via Vittorio Asinari di Bernezzo 134, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "134, Via Vittorio Asinari di Bernezzo, Alta Parella, Parella, Circoscrizione 4, Torino, Piemonte, 10146, Italia",
+  "lat": 45.0803503,
+  "lon": 7.6248293,
+  "type": "house"
+ },
+ "Via XX Settembre, 5, Torino": {
+  "addresstype": "tourism",
+  "class": "tourism",
+  "display_name": "Hotel Napoleon, 5, Via Venti Settembre, Centro, Circoscrizione 1, Torino, Piemonte, 10121, Italia",
+  "lat": 45.0643879,
+  "lon": 7.6785079,
+  "type": "hotel"
+ },
+ "Via Xx Settembre, 87, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "87, Via Venti Settembre, Quadrilatero Romano, Centro, Circoscrizione 1, Torino, Piemonte, 10122, Italia",
+  "lat": 45.0730728,
+  "lon": 7.6844574,
+  "type": "house"
+ },
+ "Via degli Abeti, 10, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "10, Via degli Abeti, Falchera Nuova, Falchera, Circoscrizione 6, Torino, Piemonte, 10079, Italia",
+  "lat": 45.1305926,
+  "lon": 7.7106401,
+  "type": "pharmacy"
+ },
+ "Via dei Mille, 48, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Farmacia della Rocca, 48, Via dei Mille, Borgo Nuovo, Centro, Circoscrizione 1, Torino, Piemonte, 10123, Italia",
+  "lat": 45.0612589,
+  "lon": 7.690824,
+  "type": "pharmacy"
+ },
+ "Via del Carmine, 1, Torino": {
+  "addresstype": "tourism",
+  "class": "tourism",
+  "display_name": "B&B ai Savoia, 1, Via del Carmine, Quadrilatero Romano, Centro, Circoscrizione 1, Torino, Piemonte, 10122, Italia",
+  "lat": 45.0751834,
+  "lon": 7.6766289,
+  "type": "guest_house"
+ },
+ "Via delle Verbene, 15/M, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "15m, Via delle Verbene, Vallette, Circoscrizione 5, Torino, Piemonte, 10151, Italia",
+  "lat": 45.1050384,
+  "lon": 7.6310554,
+  "type": "house"
+ },
+ "Via piazza della repubblica, 6/b, Torino": null,
+ "Via stradella, 60, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "60, Via Stradella, Borgata Tesso, Borgo Vittoria, Circoscrizione 5, Torino, Piemonte, 10147, Italia",
+  "lat": 45.0937939,
+  "lon": 7.6753124,
+  "type": "house"
+ },
+ "Viale FALCHERA, 70/D, Torino": {
+  "addresstype": "residential",
+  "class": "highway",
+  "display_name": "Viale Falchera, Falchera Vecchia, Falchera, Circoscrizione 6, Torino, Piemonte, 10156, Italia",
+  "lat": 45.1227746,
+  "lon": 7.7063542,
+  "type": "residential"
+ },
+ "Viale Falchera 70, Torino": {
+  "addresstype": "place",
+  "class": "place",
+  "display_name": "70, Viale Falchera, Falchera Vecchia, Falchera, Circoscrizione 6, Torino, Piemonte, 10156, Italia",
+  "lat": 45.1266135,
+  "lon": 7.7089765,
+  "type": "house"
+ },
+ "Viale dei Mughetti, 1, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Minerva Sas, 1, Viale dei Mughetti, Villaggio Santa Caterina, Vallette, Circoscrizione 5, Torino, Piemonte, 10151, Italia",
+  "lat": 45.1024938,
+  "lon": 7.6370248,
+  "type": "pharmacy"
+ },
+ "Viale dei Mughetti, 9/f, Torino": {
+  "addresstype": "amenity",
+  "class": "amenity",
+  "display_name": "Delle Vallette SNC, 9f, Viale dei Mughetti, Vallette, Circoscrizione 5, Torino, Piemonte, 10151, Italia",
+  "lat": 45.1031358,
+  "lon": 7.6331207,
+  "type": "pharmacy"
+ }
+}

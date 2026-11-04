@@ -1,0 +1,1001 @@
+{
+ "planner": "v2",
+ "budget_eur": 200000,
+ "n_weightings": 1000,
+ "seed": 42,
+ "method": "pesi casuali Dirichlet(1,1,1,1) sui 4 indicatori; quota di scenari in cui la zona riceve fondi",
+ "classes": {
+  "nucleo_robusto": ">= 70% degli scenari",
+  "dipende_dalle_priorita": "20-70%",
+  "raro": "< 20%"
+ },
+ "zones": [
+  {
+   "zone_id": 24,
+   "zone_name": "Borgata Aurora",
+   "circ": 7,
+   "share_funded": 0.429,
+   "class": "dipende_dalle_priorita"
+  },
+  {
+   "zone_id": 61,
+   "zone_name": "Lingotto - Ex Ippodromo",
+   "circ": 8,
+   "share_funded": 0.387,
+   "class": "dipende_dalle_priorita"
+  },
+  {
+   "zone_id": 89,
+   "zone_name": "Ex Aeroporto di Mirafiori",
+   "circ": 2,
+   "share_funded": 0.383,
+   "class": "dipende_dalle_priorita"
+  },
+  {
+   "zone_id": 67,
+   "zone_name": "Basse di Stura - Nuovo Poligono",
+   "circ": 5,
+   "share_funded": 0.329,
+   "class": "dipende_dalle_priorita"
+  },
+  {
+   "zone_id": 46,
+   "zone_name": "Nuova Barriera di Lanzo",
+   "circ": 5,
+   "share_funded": 0.308,
+   "class": "dipende_dalle_priorita"
+  },
+  {
+   "zone_id": 58,
+   "zone_name": "Millefonti - Nuova Barriera di Nizza",
+   "circ": 8,
+   "share_funded": 0.249,
+   "class": "dipende_dalle_priorita"
+  },
+  {
+   "zone_id": 68,
+   "zone_name": "Barriera di Stura - Istituto Rebaudengo",
+   "circ": 6,
+   "share_funded": 0.242,
+   "class": "dipende_dalle_priorita"
+  },
+  {
+   "zone_id": 62,
+   "zone_name": "Sanatorio - Gerbido",
+   "circ": 2,
+   "share_funded": 0.217,
+   "class": "dipende_dalle_priorita"
+  },
+  {
+   "zone_id": 79,
+   "zone_name": "Barca - Bertolla - Abbadia di Stura",
+   "circ": 6,
+   "share_funded": 0.214,
+   "class": "dipende_dalle_priorita"
+  },
+  {
+   "zone_id": 78,
+   "zone_name": "Villaggio Snia",
+   "circ": 6,
+   "share_funded": 0.211,
+   "class": "dipende_dalle_priorita"
+  },
+  {
+   "zone_id": 38,
+   "zone_name": "Borgata Monterosa",
+   "circ": 6,
+   "share_funded": 0.15,
+   "class": "raro"
+  },
+  {
+   "zone_id": 60,
+   "zone_name": "Nuova Fiat",
+   "circ": 2,
+   "share_funded": 0.148,
+   "class": "raro"
+  },
+  {
+   "zone_id": 39,
+   "zone_name": "Borgata Montebianco",
+   "circ": 6,
+   "share_funded": 0.145,
+   "class": "raro"
+  },
+  {
+   "zone_id": 56,
+   "zone_name": "Mercato Ortofrutticolo",
+   "circ": 8,
+   "share_funded": 0.129,
+   "class": "raro"
+  },
+  {
+   "zone_id": 25,
+   "zone_name": "Piazzale Umbria - Scalo Valdocco",
+   "circ": 4,
+   "share_funded": 0.102,
+   "class": "raro"
+  },
+  {
+   "zone_id": 66,
+   "zone_name": "Stradale di Lanzo",
+   "circ": 5,
+   "share_funded": 0.093,
+   "class": "raro"
+  },
+  {
+   "zone_id": 94,
+   "zone_name": "Carceri - Officine Ferroviarie",
+   "circ": 3,
+   "share_funded": 0.087,
+   "class": "raro"
+  },
+  {
+   "zone_id": 11,
+   "zone_name": "Borgo Vanchiglia",
+   "circ": 7,
+   "share_funded": 0.086,
+   "class": "raro"
+  },
+  {
+   "zone_id": 77,
+   "zone_name": "Falchera",
+   "circ": 6,
+   "share_funded": 0.083,
+   "class": "raro"
+  },
+  {
+   "zone_id": 43,
+   "zone_name": "La Fossata",
+   "circ": 5,
+   "share_funded": 0.08,
+   "class": "raro"
+  },
+  {
+   "zone_id": 91,
+   "zone_name": "Drosso - Fornaci",
+   "circ": 2,
+   "share_funded": 0.075,
+   "class": "raro"
+  },
+  {
+   "zone_id": 76,
+   "zone_name": "Villaretto",
+   "circ": 6,
+   "share_funded": 0.064,
+   "class": "raro"
+  },
+  {
+   "zone_id": 53,
+   "zone_name": "Santa Rita Da Cascia",
+   "circ": 2,
+   "share_funded": 0.044,
+   "class": "raro"
+  },
+  {
+   "zone_id": 27,
+   "zone_name": "Ospedale Mauriziano",
+   "circ": 1,
+   "share_funded": 0.037,
+   "class": "raro"
+  },
+  {
+   "zone_id": 26,
+   "zone_name": "Crocetta",
+   "circ": 1,
+   "share_funded": 0.032,
+   "class": "raro"
+  },
+  {
+   "zone_id": 57,
+   "zone_name": "Molinette - Vecchia Fiat - Stazione Smistamento",
+   "circ": 8,
+   "share_funded": 0.022,
+   "class": "raro"
+  },
+  {
+   "zone_id": 73,
+   "zone_name": "Strada di Soperga",
+   "circ": 7,
+   "share_funded": 0.021,
+   "class": "raro"
+  },
+  {
+   "zone_id": 72,
+   "zone_name": "Borgata Sassi - Meisino",
+   "circ": 7,
+   "share_funded": 0.018,
+   "class": "raro"
+  },
+  {
+   "zone_id": 75,
+   "zone_name": "Villa della Regina - Val Salice",
+   "circ": 8,
+   "share_funded": 0.018,
+   "class": "raro"
+  },
+  {
+   "zone_id": 52,
+   "zone_name": "Parco Francesco Ruffini - Borgata Lesna",
+   "circ": 3,
+   "share_funded": 0.018,
+   "class": "raro"
+  },
+  {
+   "zone_id": 6,
+   "zone_name": "Piazza Vittorio Veneto",
+   "circ": 1,
+   "share_funded": 0.017,
+   "class": "raro"
+  },
+  {
+   "zone_id": 64,
+   "zone_name": "Aeronautica - Pellerina",
+   "circ": 4,
+   "share_funded": 0.017,
+   "class": "raro"
+  },
+  {
+   "zone_id": 18,
+   "zone_name": "Vecchia Piazza D'Armi",
+   "circ": 1,
+   "share_funded": 0.016,
+   "class": "raro"
+  },
+  {
+   "zone_id": 44,
+   "zone_name": "Officine Savigliano - Acciaierie Fiat",
+   "circ": 5,
+   "share_funded": 0.014,
+   "class": "raro"
+  },
+  {
+   "zone_id": 28,
+   "zone_name": "Borgo San Giorgio",
+   "circ": 1,
+   "share_funded": 0.008,
+   "class": "raro"
+  },
+  {
+   "zone_id": 49,
+   "zone_name": "Parco Mario Carrara - Istituto Bonafous",
+   "circ": 5,
+   "share_funded": 0.007,
+   "class": "raro"
+  },
+  {
+   "zone_id": 22,
+   "zone_name": "Vanchiglietta",
+   "circ": 7,
+   "share_funded": 0.006,
+   "class": "raro"
+  },
+  {
+   "zone_id": 69,
+   "zone_name": "Fioccardo - Alberoni",
+   "circ": 8,
+   "share_funded": 0.002,
+   "class": "raro"
+  },
+  {
+   "zone_id": 3,
+   "zone_name": "Palazzo Carignano - Vecchio Ospedate (Borgo Nuovo)",
+   "circ": 1,
+   "share_funded": 0.002,
+   "class": "raro"
+  },
+  {
+   "zone_id": 42,
+   "zone_name": "Borgata Vittoria",
+   "circ": 5,
+   "share_funded": 0.001,
+   "class": "raro"
+  },
+  {
+   "zone_id": 17,
+   "zone_name": "Mercato del Bestiame - Aiuola Martini",
+   "circ": 3,
+   "share_funded": 0.001,
+   "class": "raro"
+  },
+  {
+   "zone_id": 87,
+   "zone_name": "Cavoretto - Val Pattonera",
+   "circ": 8,
+   "share_funded": 0.001,
+   "class": "raro"
+  }
+ ],
+ "pairs": [
+  {
+   "zone_id": 24,
+   "intervention_id": "accesso_salute",
+   "share_funded": 0.383
+  },
+  {
+   "zone_id": 24,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.382
+  },
+  {
+   "zone_id": 61,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.322
+  },
+  {
+   "zone_id": 89,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.305
+  },
+  {
+   "zone_id": 67,
+   "intervention_id": "accesso_salute",
+   "share_funded": 0.281
+  },
+  {
+   "zone_id": 89,
+   "intervention_id": "accesso_salute",
+   "share_funded": 0.265
+  },
+  {
+   "zone_id": 46,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.217
+  },
+  {
+   "zone_id": 68,
+   "intervention_id": "visite_domiciliari",
+   "share_funded": 0.199
+  },
+  {
+   "zone_id": 58,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.198
+  },
+  {
+   "zone_id": 79,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.181
+  },
+  {
+   "zone_id": 78,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.178
+  },
+  {
+   "zone_id": 46,
+   "intervention_id": "accesso_salute",
+   "share_funded": 0.173
+  },
+  {
+   "zone_id": 79,
+   "intervention_id": "accesso_salute",
+   "share_funded": 0.158
+  },
+  {
+   "zone_id": 38,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.139
+  },
+  {
+   "zone_id": 89,
+   "intervention_id": "visite_domiciliari",
+   "share_funded": 0.124
+  },
+  {
+   "zone_id": 78,
+   "intervention_id": "accesso_salute",
+   "share_funded": 0.123
+  },
+  {
+   "zone_id": 56,
+   "intervention_id": "accesso_salute",
+   "share_funded": 0.117
+  },
+  {
+   "zone_id": 58,
+   "intervention_id": "accesso_salute",
+   "share_funded": 0.116
+  },
+  {
+   "zone_id": 62,
+   "intervention_id": "accesso_salute",
+   "share_funded": 0.109
+  },
+  {
+   "zone_id": 62,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.108
+  },
+  {
+   "zone_id": 39,
+   "intervention_id": "visite_domiciliari",
+   "share_funded": 0.104
+  },
+  {
+   "zone_id": 67,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.103
+  },
+  {
+   "zone_id": 60,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.102
+  },
+  {
+   "zone_id": 46,
+   "intervention_id": "visite_domiciliari",
+   "share_funded": 0.089
+  },
+  {
+   "zone_id": 94,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.087
+  },
+  {
+   "zone_id": 39,
+   "intervention_id": "accesso_salute",
+   "share_funded": 0.083
+  },
+  {
+   "zone_id": 25,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.081
+  },
+  {
+   "zone_id": 77,
+   "intervention_id": "visite_domiciliari",
+   "share_funded": 0.076
+  },
+  {
+   "zone_id": 66,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.069
+  },
+  {
+   "zone_id": 68,
+   "intervention_id": "accesso_salute",
+   "share_funded": 0.068
+  },
+  {
+   "zone_id": 61,
+   "intervention_id": "accesso_salute",
+   "share_funded": 0.065
+  },
+  {
+   "zone_id": 68,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.06
+  },
+  {
+   "zone_id": 43,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.057
+  },
+  {
+   "zone_id": 25,
+   "intervention_id": "visite_domiciliari",
+   "share_funded": 0.056
+  },
+  {
+   "zone_id": 76,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.054
+  },
+  {
+   "zone_id": 66,
+   "intervention_id": "accesso_salute",
+   "share_funded": 0.054
+  },
+  {
+   "zone_id": 79,
+   "intervention_id": "visite_domiciliari",
+   "share_funded": 0.051
+  },
+  {
+   "zone_id": 11,
+   "intervention_id": "visite_domiciliari",
+   "share_funded": 0.051
+  },
+  {
+   "zone_id": 66,
+   "intervention_id": "visite_domiciliari",
+   "share_funded": 0.051
+  },
+  {
+   "zone_id": 91,
+   "intervention_id": "visite_domiciliari",
+   "share_funded": 0.048
+  },
+  {
+   "zone_id": 25,
+   "intervention_id": "accesso_salute",
+   "share_funded": 0.048
+  },
+  {
+   "zone_id": 11,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.046
+  },
+  {
+   "zone_id": 91,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.045
+  },
+  {
+   "zone_id": 60,
+   "intervention_id": "accesso_salute",
+   "share_funded": 0.039
+  },
+  {
+   "zone_id": 39,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.037
+  },
+  {
+   "zone_id": 11,
+   "intervention_id": "accesso_salute",
+   "share_funded": 0.032
+  },
+  {
+   "zone_id": 91,
+   "intervention_id": "accesso_salute",
+   "share_funded": 0.03
+  },
+  {
+   "zone_id": 43,
+   "intervention_id": "accesso_salute",
+   "share_funded": 0.027
+  },
+  {
+   "zone_id": 27,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.027
+  },
+  {
+   "zone_id": 27,
+   "intervention_id": "visite_domiciliari",
+   "share_funded": 0.026
+  },
+  {
+   "zone_id": 53,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.026
+  },
+  {
+   "zone_id": 24,
+   "intervention_id": "visite_domiciliari",
+   "share_funded": 0.024
+  },
+  {
+   "zone_id": 58,
+   "intervention_id": "visite_domiciliari",
+   "share_funded": 0.023
+  },
+  {
+   "zone_id": 73,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.021
+  },
+  {
+   "zone_id": 26,
+   "intervention_id": "visite_domiciliari",
+   "share_funded": 0.02
+  },
+  {
+   "zone_id": 53,
+   "intervention_id": "accesso_salute",
+   "share_funded": 0.019
+  },
+  {
+   "zone_id": 75,
+   "intervention_id": "accesso_salute",
+   "share_funded": 0.018
+  },
+  {
+   "zone_id": 38,
+   "intervention_id": "accesso_salute",
+   "share_funded": 0.016
+  },
+  {
+   "zone_id": 72,
+   "intervention_id": "accesso_salute",
+   "share_funded": 0.016
+  },
+  {
+   "zone_id": 57,
+   "intervention_id": "sicurezza_digitale",
+   "share_funded": 0.016
+  }
+ ],
+ "local": {
+  "method": "pesi vicini ai pesi predefiniti (Dirichlet, concentrazione 40, circa +-0.08)",
+  "weights": {
+   "isolation": 0.4,
+   "service_gap": 0.3,
+   "future_pressure": 0.2,
+   "inclusion": 0.1
+  },
+  "zones": [
+   {
+    "zone_id": 61,
+    "zone_name": "Lingotto - Ex Ippodromo",
+    "circ": 8,
+    "share_funded": 0.993,
+    "class": "nucleo_robusto"
+   },
+   {
+    "zone_id": 67,
+    "zone_name": "Basse di Stura - Nuovo Poligono",
+    "circ": 5,
+    "share_funded": 0.918,
+    "class": "nucleo_robusto"
+   },
+   {
+    "zone_id": 62,
+    "zone_name": "Sanatorio - Gerbido",
+    "circ": 2,
+    "share_funded": 0.885,
+    "class": "nucleo_robusto"
+   },
+   {
+    "zone_id": 68,
+    "zone_name": "Barriera di Stura - Istituto Rebaudengo",
+    "circ": 6,
+    "share_funded": 0.79,
+    "class": "nucleo_robusto"
+   },
+   {
+    "zone_id": 60,
+    "zone_name": "Nuova Fiat",
+    "circ": 2,
+    "share_funded": 0.583,
+    "class": "dipende_dalle_priorita"
+   },
+   {
+    "zone_id": 58,
+    "zone_name": "Millefonti - Nuova Barriera di Nizza",
+    "circ": 8,
+    "share_funded": 0.392,
+    "class": "dipende_dalle_priorita"
+   },
+   {
+    "zone_id": 89,
+    "zone_name": "Ex Aeroporto di Mirafiori",
+    "circ": 2,
+    "share_funded": 0.103,
+    "class": "raro"
+   },
+   {
+    "zone_id": 64,
+    "zone_name": "Aeronautica - Pellerina",
+    "circ": 4,
+    "share_funded": 0.063,
+    "class": "raro"
+   },
+   {
+    "zone_id": 11,
+    "zone_name": "Borgo Vanchiglia",
+    "circ": 7,
+    "share_funded": 0.037,
+    "class": "raro"
+   },
+   {
+    "zone_id": 53,
+    "zone_name": "Santa Rita Da Cascia",
+    "circ": 2,
+    "share_funded": 0.033,
+    "class": "raro"
+   },
+   {
+    "zone_id": 56,
+    "zone_name": "Mercato Ortofrutticolo",
+    "circ": 8,
+    "share_funded": 0.031,
+    "class": "raro"
+   },
+   {
+    "zone_id": 79,
+    "zone_name": "Barca - Bertolla - Abbadia di Stura",
+    "circ": 6,
+    "share_funded": 0.022,
+    "class": "raro"
+   },
+   {
+    "zone_id": 72,
+    "zone_name": "Borgata Sassi - Meisino",
+    "circ": 7,
+    "share_funded": 0.018,
+    "class": "raro"
+   },
+   {
+    "zone_id": 18,
+    "zone_name": "Vecchia Piazza D'Armi",
+    "circ": 1,
+    "share_funded": 0.01,
+    "class": "raro"
+   },
+   {
+    "zone_id": 52,
+    "zone_name": "Parco Francesco Ruffini - Borgata Lesna",
+    "circ": 3,
+    "share_funded": 0.007,
+    "class": "raro"
+   },
+   {
+    "zone_id": 78,
+    "zone_name": "Villaggio Snia",
+    "circ": 6,
+    "share_funded": 0.006,
+    "class": "raro"
+   },
+   {
+    "zone_id": 24,
+    "zone_name": "Borgata Aurora",
+    "circ": 7,
+    "share_funded": 0.005,
+    "class": "raro"
+   },
+   {
+    "zone_id": 76,
+    "zone_name": "Villaretto",
+    "circ": 6,
+    "share_funded": 0.001,
+    "class": "raro"
+   },
+   {
+    "zone_id": 46,
+    "zone_name": "Nuova Barriera di Lanzo",
+    "circ": 5,
+    "share_funded": 0.001,
+    "class": "raro"
+   },
+   {
+    "zone_id": 69,
+    "zone_name": "Fioccardo - Alberoni",
+    "circ": 8,
+    "share_funded": 0.001,
+    "class": "raro"
+   }
+  ]
+ },
+ "baseline_age_only": {
+  "plan": [
+   {
+    "zone_id": 62,
+    "zone_name": "Sanatorio - Gerbido",
+    "circ": 2,
+    "intervention_id": "sicurezza_digitale",
+    "intervention_label": "Sicurezza digitale e anti-truffa",
+    "budget_eur": 50968,
+    "people_reached": 1199,
+    "cost_per_person_eur": 43,
+    "return_index": 56.72,
+    "scores": {
+     "isolation": 84,
+     "service_gap": 90,
+     "future_pressure": 17,
+     "inclusion": 20,
+     "funded_share": 0.0
+    },
+    "confidence": "estimated"
+   },
+   {
+    "zone_id": 52,
+    "zone_name": "Parco Francesco Ruffini - Borgata Lesna",
+    "circ": 3,
+    "intervention_id": "sicurezza_digitale",
+    "intervention_label": "Sicurezza digitale e anti-truffa",
+    "budget_eur": 29032,
+    "people_reached": 651,
+    "cost_per_person_eur": 45,
+    "return_index": 55.572,
+    "scores": {
+     "isolation": 90,
+     "service_gap": 59,
+     "future_pressure": 7,
+     "inclusion": 12,
+     "funded_share": 0.0
+    },
+    "confidence": "estimated"
+   },
+   {
+    "zone_id": 51,
+    "zone_name": "Pozzo Strada",
+    "circ": 3,
+    "intervention_id": "accesso_salute",
+    "intervention_label": "Accesso digitale e sanitario",
+    "budget_eur": 67952,
+    "people_reached": 525,
+    "cost_per_person_eur": 130,
+    "return_index": 36.763,
+    "scores": {
+     "isolation": 88,
+     "service_gap": 42,
+     "future_pressure": 12,
+     "inclusion": 22,
+     "funded_share": 0.0
+    },
+    "confidence": "estimated"
+   },
+   {
+    "zone_id": 75,
+    "zone_name": "Villa della Regina - Val Salice",
+    "circ": 8,
+    "intervention_id": "accesso_salute",
+    "intervention_label": "Accesso digitale e sanitario",
+    "budget_eur": 11744,
+    "people_reached": 56,
+    "cost_per_person_eur": 209,
+    "return_index": 23.642,
+    "scores": {
+     "isolation": 95,
+     "service_gap": 55,
+     "future_pressure": 1,
+     "inclusion": 46,
+     "funded_share": 0.0
+    },
+    "confidence": "estimated"
+   },
+   {
+    "zone_id": 13,
+    "zone_name": "Borgo Po - Parco Michelotti",
+    "circ": 8,
+    "intervention_id": "visite_domiciliari",
+    "intervention_label": "Visite e compagnia a domicilio",
+    "budget_eur": 40304,
+    "people_reached": 87,
+    "cost_per_person_eur": 465,
+    "return_index": 21.212,
+    "scores": {
+     "isolation": 92,
+     "service_gap": 20,
+     "future_pressure": 10,
+     "inclusion": 7,
+     "funded_share": 0.0
+    },
+    "confidence": "estimated"
+   }
+  ],
+  "stats": {
+   "items": 5,
+   "spent_eur": 200000,
+   "people_reached": 2518,
+   "interventions": {
+    "sicurezza_digitale": 2,
+    "accesso_salute": 2,
+    "visite_domiciliari": 1
+   },
+   "zones": [
+    13,
+    51,
+    52,
+    62,
+    75
+   ],
+   "eur_to_zones_already_funded": 0,
+   "mean_service_gap": 53.2,
+   "mean_inclusion": 21.4,
+   "circ6_eur": 0
+  }
+ },
+ "model_default": {
+  "plan": [
+   {
+    "zone_id": 61,
+    "zone_name": "Lingotto - Ex Ippodromo",
+    "circ": 8,
+    "intervention_id": "sicurezza_digitale",
+    "intervention_label": "Sicurezza digitale e anti-truffa",
+    "budget_eur": 63728,
+    "people_reached": 1518,
+    "cost_per_person_eur": 42,
+    "return_index": 40.44,
+    "scores": {
+     "isolation": 91,
+     "service_gap": 66,
+     "future_pressure": 35,
+     "inclusion": 47,
+     "funded_share": 0.0
+    },
+    "confidence": "estimated"
+   },
+   {
+    "zone_id": 60,
+    "zone_name": "Nuova Fiat",
+    "circ": 2,
+    "intervention_id": "sicurezza_digitale",
+    "intervention_label": "Sicurezza digitale e anti-truffa",
+    "budget_eur": 16272,
+    "people_reached": 332,
+    "cost_per_person_eur": 49,
+    "return_index": 35.371,
+    "scores": {
+     "isolation": 71,
+     "service_gap": 74,
+     "future_pressure": 32,
+     "inclusion": 62,
+     "funded_share": 0.0
+    },
+    "confidence": "estimated"
+   },
+   {
+    "zone_id": 62,
+    "zone_name": "Sanatorio - Gerbido",
+    "circ": 2,
+    "intervention_id": "accesso_salute",
+    "intervention_label": "Accesso digitale e sanitario",
+    "budget_eur": 70000,
+    "people_reached": 542,
+    "cost_per_person_eur": 129,
+    "return_index": 25.713,
+    "scores": {
+     "isolation": 84,
+     "service_gap": 90,
+     "future_pressure": 17,
+     "inclusion": 20,
+     "funded_share": 0.0
+    },
+    "confidence": "estimated"
+   },
+   {
+    "zone_id": 67,
+    "zone_name": "Basse di Stura - Nuovo Poligono",
+    "circ": 5,
+    "intervention_id": "accesso_salute",
+    "intervention_label": "Accesso digitale e sanitario",
+    "budget_eur": 10000,
+    "people_reached": 42,
+    "cost_per_person_eur": 240,
+    "return_index": 19.918,
+    "scores": {
+     "isolation": 57,
+     "service_gap": 98,
+     "future_pressure": 74,
+     "inclusion": 82,
+     "funded_share": 0.0
+    },
+    "confidence": "estimated"
+   },
+   {
+    "zone_id": 68,
+    "zone_name": "Barriera di Stura - Istituto Rebaudengo",
+    "circ": 6,
+    "intervention_id": "visite_domiciliari",
+    "intervention_label": "Visite e compagnia a domicilio",
+    "budget_eur": 40000,
+    "people_reached": 86,
+    "cost_per_person_eur": 467,
+    "return_index": 14.667,
+    "scores": {
+     "isolation": 54,
+     "service_gap": 89,
+     "future_pressure": 34,
+     "inclusion": 64,
+     "funded_share": 0.0
+    },
+    "confidence": "estimated"
+   }
+  ],
+  "stats": {
+   "items": 5,
+   "spent_eur": 200000,
+   "people_reached": 2520,
+   "interventions": {
+    "sicurezza_digitale": 2,
+    "accesso_salute": 2,
+    "visite_domiciliari": 1
+   },
+   "zones": [
+    60,
+    61,
+    62,
+    67,
+    68
+   ],
+   "eur_to_zones_already_funded": 0,
+   "mean_service_gap": 83.4,
+   "mean_inclusion": 55.0,
+   "circ6_eur": 40000
+  }
+ }
+}

@@ -1,0 +1,751 @@
+{
+ "Strada delle Cacce 36, Torino, Italia": [
+  {
+   "place_id": 88166812,
+   "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "way",
+   "osm_id": 404362883,
+   "lat": "45.0188228",
+   "lon": "7.6382469",
+   "category": "amenity",
+   "type": "arts_centre",
+   "place_rank": 30,
+   "importance": 8.068131532764199e-05,
+   "addresstype": "amenity",
+   "name": "Centro Protagonismo Giovanile",
+   "display_name": "Centro Protagonismo Giovanile, 36, Strada delle Cacce, Circoscrizione 2, Torino, Piemonte, 10135, Italia",
+   "address": {
+    "amenity": "Centro Protagonismo Giovanile",
+    "house_number": "36",
+    "road": "Strada delle Cacce",
+    "suburb": "Circoscrizione 2",
+    "city": "Torino",
+    "county": "Torino",
+    "ISO3166-2-lvl6": "IT-TO",
+    "state": "Piemonte",
+    "ISO3166-2-lvl4": "IT-21",
+    "postcode": "10135",
+    "country": "Italia",
+    "country_code": "it"
+   },
+   "boundingbox": [
+    "45.0186132",
+    "45.0191744",
+    "7.6380330",
+    "7.6386004"
+   ]
+  },
+  {
+   "place_id": 88628231,
+   "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 4734973547,
+   "lat": "45.0187515",
+   "lon": "7.6390794",
+   "category": "place",
+   "type": "house",
+   "place_rank": 30,
+   "importance": 8.068131532764199e-05,
+   "addresstype": "place",
+   "name": "",
+   "display_name": "36, Strada delle Cacce, Circoscrizione 2, Torino, Piemonte, 10135, Italia",
+   "address": {
+    "house_number": "36",
+    "road": "Strada delle Cacce",
+    "suburb": "Circoscrizione 2",
+    "city": "Torino",
+    "county": "Torino",
+    "ISO3166-2-lvl6": "IT-TO",
+    "state": "Piemonte",
+    "ISO3166-2-lvl4": "IT-21",
+    "postcode": "10135",
+    "country": "Italia",
+    "country_code": "it"
+   },
+   "boundingbox": [
+    "45.0187015",
+    "45.0188015",
+    "7.6390294",
+    "7.6391294"
+   ]
+  }
+ ],
+ "Via Leoncavallo 17, Torino, Italia": [
+  {
+   "place_id": 88307591,
+   "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 2908791794,
+   "lat": "45.0856613",
+   "lon": "7.6977146",
+   "category": "place",
+   "type": "house",
+   "place_rank": 30,
+   "importance": 8.068131532764199e-05,
+   "addresstype": "place",
+   "name": "",
+   "display_name": "17, Via Ruggero Leoncavallo, Monte Rosa, Barriera di Milano, Circoscrizione 6, Torino, Piemonte, 10154, Italia",
+   "address": {
+    "house_number": "17",
+    "road": "Via Ruggero Leoncavallo",
+    "neighbourhood": "Monte Rosa",
+    "suburb": "Barriera di Milano",
+    "city": "Torino",
+    "county": "Torino",
+    "ISO3166-2-lvl6": "IT-TO",
+    "state": "Piemonte",
+    "ISO3166-2-lvl4": "IT-21",
+    "postcode": "10154",
+    "country": "Italia",
+    "country_code": "it"
+   },
+   "boundingbox": [
+    "45.0856113",
+    "45.0857113",
+    "7.6976646",
+    "7.6977646"
+   ]
+  },
+  {
+   "place_id": 88549694,
+   "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 3362033856,
+   "lat": "45.0856207",
+   "lon": "7.6979696",
+   "category": "amenity",
+   "type": "police",
+   "place_rank": 30,
+   "importance": 8.068131532764199e-05,
+   "addresstype": "amenity",
+   "name": "Polizia Municipale",
+   "display_name": "Polizia Municipale, 17, Via Ruggero Leoncavallo, Monte Rosa, Barriera di Milano, Circoscrizione 6, Torino, Piemonte, 10154, Italia",
+   "address": {
+    "amenity": "Polizia Municipale",
+    "house_number": "17",
+    "road": "Via Ruggero Leoncavallo",
+    "neighbourhood": "Monte Rosa",
+    "suburb": "Barriera di Milano",
+    "city": "Torino",
+    "county": "Torino",
+    "ISO3166-2-lvl6": "IT-TO",
+    "state": "Piemonte",
+    "ISO3166-2-lvl4": "IT-21",
+    "postcode": "10154",
+    "country": "Italia",
+    "country_code": "it"
+   },
+   "boundingbox": [
+    "45.0855707",
+    "45.0856707",
+    "7.6979196",
+    "7.6980196"
+   ]
+  },
+  {
+   "place_id": 88554649,
+   "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 3362042039,
+   "lat": "45.0856361",
+   "lon": "7.6976363",
+   "category": "office",
+   "type": "government",
+   "place_rank": 30,
+   "importance": 8.068131532764199e-05,
+   "addresstype": "office",
+   "name": "Vice Direzione Generale - Circ. 6 - Uffico anagrafe",
+   "display_name": "Vice Direzione Generale - Circ. 6 - Uffico anagrafe, 17, Via Ruggero Leoncavallo, Monte Rosa, Barriera di Milano, Circoscrizione 6, Torino, Piemonte, 10154, Italia",
+   "address": {
+    "office": "Vice Direzione Generale - Circ. 6 - Uffico anagrafe",
+    "house_number": "17",
+    "road": "Via Ruggero Leoncavallo",
+    "neighbourhood": "Monte Rosa",
+    "suburb": "Barriera di Milano",
+    "city": "Torino",
+    "county": "Torino",
+    "ISO3166-2-lvl6": "IT-TO",
+    "state": "Piemonte",
+    "ISO3166-2-lvl4": "IT-21",
+    "postcode": "10154",
+    "country": "Italia",
+    "country_code": "it"
+   },
+   "boundingbox": [
+    "45.0855861",
+    "45.0856861",
+    "7.6975863",
+    "7.6976863"
+   ]
+  }
+ ],
+ "Via Leoncavallo 27, Torino, Italia": [
+  {
+   "place_id": 88521895,
+   "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 13000170901,
+   "lat": "45.0859737",
+   "lon": "7.6985225",
+   "category": "office",
+   "type": "ngo",
+   "place_rank": 30,
+   "importance": 8.068131532764199e-05,
+   "addresstype": "office",
+   "name": "Casa Acmos - associazione ACMOS",
+   "display_name": "Casa Acmos - associazione ACMOS, 27, Via Ruggero Leoncavallo, Monte Rosa, Barriera di Milano, Circoscrizione 6, Torino, Piemonte, 10154, Italia",
+   "address": {
+    "office": "Casa Acmos - associazione ACMOS",
+    "house_number": "27",
+    "road": "Via Ruggero Leoncavallo",
+    "neighbourhood": "Monte Rosa",
+    "suburb": "Barriera di Milano",
+    "city": "Torino",
+    "county": "Torino",
+    "ISO3166-2-lvl6": "IT-TO",
+    "state": "Piemonte",
+    "ISO3166-2-lvl4": "IT-21",
+    "postcode": "10154",
+    "country": "Italia",
+    "country_code": "it"
+   },
+   "boundingbox": [
+    "45.0859237",
+    "45.0860237",
+    "7.6984725",
+    "7.6985725"
+   ]
+  },
+  {
+   "place_id": 88984353,
+   "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 4732651410,
+   "lat": "45.0859761",
+   "lon": "7.6985184",
+   "category": "place",
+   "type": "house",
+   "place_rank": 30,
+   "importance": 8.068131532764199e-05,
+   "addresstype": "place",
+   "name": "",
+   "display_name": "27, Via Ruggero Leoncavallo, Monte Rosa, Barriera di Milano, Circoscrizione 6, Torino, Piemonte, 10154, Italia",
+   "address": {
+    "house_number": "27",
+    "road": "Via Ruggero Leoncavallo",
+    "neighbourhood": "Monte Rosa",
+    "suburb": "Barriera di Milano",
+    "city": "Torino",
+    "county": "Torino",
+    "ISO3166-2-lvl6": "IT-TO",
+    "state": "Piemonte",
+    "ISO3166-2-lvl4": "IT-21",
+    "postcode": "10154",
+    "country": "Italia",
+    "country_code": "it"
+   },
+   "boundingbox": [
+    "45.0859261",
+    "45.0860261",
+    "7.6984684",
+    "7.6985684"
+   ]
+  }
+ ],
+ "Via Pacini 18, Torino, Italia": [
+  {
+   "place_id": 88371917,
+   "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 4732660389,
+   "lat": "45.0865787",
+   "lon": "7.6991920",
+   "category": "place",
+   "type": "house",
+   "place_rank": 30,
+   "importance": 8.068131532764199e-05,
+   "addresstype": "place",
+   "name": "",
+   "display_name": "18a, Via Giovanni Pacini, Monte Rosa, Barriera di Milano, Circoscrizione 6, Torino, Piemonte, 10154, Italia",
+   "address": {
+    "house_number": "18a",
+    "road": "Via Giovanni Pacini",
+    "neighbourhood": "Monte Rosa",
+    "suburb": "Barriera di Milano",
+    "city": "Torino",
+    "county": "Torino",
+    "ISO3166-2-lvl6": "IT-TO",
+    "state": "Piemonte",
+    "ISO3166-2-lvl4": "IT-21",
+    "postcode": "10154",
+    "country": "Italia",
+    "country_code": "it"
+   },
+   "boundingbox": [
+    "45.0865287",
+    "45.0866287",
+    "7.6991420",
+    "7.6992420"
+   ]
+  },
+  {
+   "place_id": 88863886,
+   "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "way",
+   "osm_id": 139075979,
+   "lat": "45.0863712",
+   "lon": "7.6995388",
+   "category": "highway",
+   "type": "residential",
+   "place_rank": 26,
+   "importance": 0.05341401464866099,
+   "addresstype": "residential",
+   "name": "Via Giovanni Pacini",
+   "display_name": "Via Giovanni Pacini, Monte Rosa, Barriera di Milano, Circoscrizione 6, Torino, Piemonte, 10154, Italia",
+   "address": {
+    "road": "Via Giovanni Pacini",
+    "neighbourhood": "Monte Rosa",
+    "suburb": "Barriera di Milano",
+    "city": "Torino",
+    "county": "Torino",
+    "ISO3166-2-lvl6": "IT-TO",
+    "state": "Piemonte",
+    "ISO3166-2-lvl4": "IT-21",
+    "postcode": "10154",
+    "country": "Italia",
+    "country_code": "it"
+   },
+   "boundingbox": [
+    "45.0849074",
+    "45.0878604",
+    "7.6982867",
+    "7.7008200"
+   ]
+  }
+ ],
+ "Via Norberto Rosa 13, Torino, Italia": [
+  {
+   "place_id": 88251409,
+   "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 4732653236,
+   "lat": "45.0892470",
+   "lon": "7.7137358",
+   "category": "place",
+   "type": "house",
+   "place_rank": 30,
+   "importance": 8.068131532764199e-05,
+   "addresstype": "place",
+   "name": "",
+   "display_name": "13, Via Norberto Rosa, Regio Parco, Circoscrizione 6, Sassi, Torino, Piemonte, 10154, Italia",
+   "address": {
+    "house_number": "13",
+    "road": "Via Norberto Rosa",
+    "suburb": "Regio Parco",
+    "village": "Sassi",
+    "city": "Torino",
+    "county": "Torino",
+    "ISO3166-2-lvl6": "IT-TO",
+    "state": "Piemonte",
+    "ISO3166-2-lvl4": "IT-21",
+    "postcode": "10154",
+    "country": "Italia",
+    "country_code": "it"
+   },
+   "boundingbox": [
+    "45.0891970",
+    "45.0892970",
+    "7.7136858",
+    "7.7137858"
+   ]
+  }
+ ],
+ "Via Foligno 10, Torino, Italia": [
+  {
+   "place_id": 88833865,
+   "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 4733871086,
+   "lat": "45.0972297",
+   "lon": "7.6700785",
+   "category": "place",
+   "type": "house",
+   "place_rank": 30,
+   "importance": 8.068131532764199e-05,
+   "addresstype": "place",
+   "name": "",
+   "display_name": "10, Via Foligno, Borgata Tesso, Madonna di Campagna, Circoscrizione 5, Torino, Piemonte, 10149, Italia",
+   "address": {
+    "house_number": "10",
+    "road": "Via Foligno",
+    "neighbourhood": "Borgata Tesso",
+    "suburb": "Madonna di Campagna",
+    "city": "Torino",
+    "county": "Torino",
+    "ISO3166-2-lvl6": "IT-TO",
+    "state": "Piemonte",
+    "ISO3166-2-lvl4": "IT-21",
+    "postcode": "10149",
+    "country": "Italia",
+    "country_code": "it"
+   },
+   "boundingbox": [
+    "45.0971797",
+    "45.0972797",
+    "7.6700285",
+    "7.6701285"
+   ]
+  }
+ ],
+ "Corso Unione Sovietica 220, Torino, Italia": [
+  {
+   "place_id": 88240022,
+   "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 4735022368,
+   "lat": "45.0370936",
+   "lon": "7.6509819",
+   "category": "place",
+   "type": "house",
+   "place_rank": 30,
+   "importance": 8.068131532764199e-05,
+   "addresstype": "place",
+   "name": "",
+   "display_name": "220, Corso Unione Sovietica, Santa Rita, Circoscrizione 2, Torino, Piemonte, 10134, Italia",
+   "address": {
+    "house_number": "220",
+    "road": "Corso Unione Sovietica",
+    "suburb": "Santa Rita",
+    "city": "Torino",
+    "county": "Torino",
+    "ISO3166-2-lvl6": "IT-TO",
+    "state": "Piemonte",
+    "ISO3166-2-lvl4": "IT-21",
+    "postcode": "10134",
+    "country": "Italia",
+    "country_code": "it"
+   },
+   "boundingbox": [
+    "45.0370436",
+    "45.0371436",
+    "7.6509319",
+    "7.6510319"
+   ]
+  }
+ ],
+ "Piazza della Repubblica 13, Torino, Italia": [
+  {
+   "place_id": 88367474,
+   "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 4733625782,
+   "lat": "45.0777986",
+   "lon": "7.6829799",
+   "category": "place",
+   "type": "house",
+   "place_rank": 30,
+   "importance": 8.068131532764199e-05,
+   "addresstype": "place",
+   "name": "",
+   "display_name": "13c, Piazza della Repubblica, Porta Palazzo, Aurora, Circoscrizione 7, Torino, Piemonte, 10152, Italia",
+   "address": {
+    "house_number": "13c",
+    "road": "Piazza della Repubblica",
+    "neighbourhood": "Porta Palazzo",
+    "suburb": "Aurora",
+    "city": "Torino",
+    "county": "Torino",
+    "ISO3166-2-lvl6": "IT-TO",
+    "state": "Piemonte",
+    "ISO3166-2-lvl4": "IT-21",
+    "postcode": "10152",
+    "country": "Italia",
+    "country_code": "it"
+   },
+   "boundingbox": [
+    "45.0777486",
+    "45.0778486",
+    "7.6829299",
+    "7.6830299"
+   ]
+  },
+  {
+   "place_id": 88449562,
+   "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 4733625783,
+   "lat": "45.0777765",
+   "lon": "7.6828912",
+   "category": "place",
+   "type": "house",
+   "place_rank": 30,
+   "importance": 8.068131532764199e-05,
+   "addresstype": "place",
+   "name": "",
+   "display_name": "13b, Piazza della Repubblica, Porta Palazzo, Aurora, Circoscrizione 7, Torino, Piemonte, 10152, Italia",
+   "address": {
+    "house_number": "13b",
+    "road": "Piazza della Repubblica",
+    "neighbourhood": "Porta Palazzo",
+    "suburb": "Aurora",
+    "city": "Torino",
+    "county": "Torino",
+    "ISO3166-2-lvl6": "IT-TO",
+    "state": "Piemonte",
+    "ISO3166-2-lvl4": "IT-21",
+    "postcode": "10152",
+    "country": "Italia",
+    "country_code": "it"
+   },
+   "boundingbox": [
+    "45.0777265",
+    "45.0778265",
+    "7.6828412",
+    "7.6829412"
+   ]
+  },
+  {
+   "place_id": 88457373,
+   "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 4733625781,
+   "lat": "45.0778217",
+   "lon": "7.6830691",
+   "category": "place",
+   "type": "house",
+   "place_rank": 30,
+   "importance": 8.068131532764199e-05,
+   "addresstype": "place",
+   "name": "",
+   "display_name": "13e, Piazza della Repubblica, Porta Palazzo, Aurora, Circoscrizione 7, Torino, Piemonte, 10152, Italia",
+   "address": {
+    "house_number": "13e",
+    "road": "Piazza della Repubblica",
+    "neighbourhood": "Porta Palazzo",
+    "suburb": "Aurora",
+    "city": "Torino",
+    "county": "Torino",
+    "ISO3166-2-lvl6": "IT-TO",
+    "state": "Piemonte",
+    "ISO3166-2-lvl4": "IT-21",
+    "postcode": "10152",
+    "country": "Italia",
+    "country_code": "it"
+   },
+   "boundingbox": [
+    "45.0777717",
+    "45.0778717",
+    "7.6830191",
+    "7.6831191"
+   ]
+  }
+ ],
+ "Corso Racconigi 25, Torino, Italia": [
+  {
+   "place_id": 88495616,
+   "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 4734737924,
+   "lat": "45.0719671",
+   "lon": "7.6475516",
+   "category": "place",
+   "type": "house",
+   "place_rank": 30,
+   "importance": 8.068131532764199e-05,
+   "addresstype": "place",
+   "name": "",
+   "display_name": "25 int. 12, Corso Racconigi, Cenisia, Circoscrizione 3, Torino, Piemonte, 10139, Italia",
+   "address": {
+    "house_number": "25 int. 12",
+    "road": "Corso Racconigi",
+    "suburb": "Cenisia",
+    "city": "Torino",
+    "county": "Torino",
+    "ISO3166-2-lvl6": "IT-TO",
+    "state": "Piemonte",
+    "ISO3166-2-lvl4": "IT-21",
+    "postcode": "10139",
+    "country": "Italia",
+    "country_code": "it"
+   },
+   "boundingbox": [
+    "45.0719171",
+    "45.0720171",
+    "7.6475016",
+    "7.6476016"
+   ]
+  },
+  {
+   "place_id": 88512228,
+   "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 4734737923,
+   "lat": "45.0718379",
+   "lon": "7.6482333",
+   "category": "place",
+   "type": "house",
+   "place_rank": 30,
+   "importance": 8.068131532764199e-05,
+   "addresstype": "place",
+   "name": "",
+   "display_name": "25 int. 13, Corso Racconigi, Cenisia, Circoscrizione 3, Torino, Piemonte, 10139, Italia",
+   "address": {
+    "house_number": "25 int. 13",
+    "road": "Corso Racconigi",
+    "suburb": "Cenisia",
+    "city": "Torino",
+    "county": "Torino",
+    "ISO3166-2-lvl6": "IT-TO",
+    "state": "Piemonte",
+    "ISO3166-2-lvl4": "IT-21",
+    "postcode": "10139",
+    "country": "Italia",
+    "country_code": "it"
+   },
+   "boundingbox": [
+    "45.0717879",
+    "45.0718879",
+    "7.6481833",
+    "7.6482833"
+   ]
+  },
+  {
+   "place_id": 88589691,
+   "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 4734737921,
+   "lat": "45.0719851",
+   "lon": "7.6482895",
+   "category": "place",
+   "type": "house",
+   "place_rank": 30,
+   "importance": 8.068131532764199e-05,
+   "addresstype": "place",
+   "name": "",
+   "display_name": "25 int. 15, Corso Racconigi, Cenisia, Circoscrizione 3, Torino, Piemonte, 10139, Italia",
+   "address": {
+    "house_number": "25 int. 15",
+    "road": "Corso Racconigi",
+    "suburb": "Cenisia",
+    "city": "Torino",
+    "county": "Torino",
+    "ISO3166-2-lvl6": "IT-TO",
+    "state": "Piemonte",
+    "ISO3166-2-lvl4": "IT-21",
+    "postcode": "10139",
+    "country": "Italia",
+    "country_code": "it"
+   },
+   "boundingbox": [
+    "45.0719351",
+    "45.0720351",
+    "7.6482395",
+    "7.6483395"
+   ]
+  }
+ ],
+ "Viale dei Mughetti 20, Torino, Italia": [
+  {
+   "place_id": 88283613,
+   "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 4733730504,
+   "lat": "45.1038942",
+   "lon": "7.6287889",
+   "category": "place",
+   "type": "house",
+   "place_rank": 30,
+   "importance": 8.068131532764199e-05,
+   "addresstype": "place",
+   "name": "",
+   "display_name": "20 int. 7, Viale dei Mughetti, Vallette, Circoscrizione 5, Torino, Piemonte, 10151, Italia",
+   "address": {
+    "house_number": "20 int. 7",
+    "road": "Viale dei Mughetti",
+    "suburb": "Vallette",
+    "city": "Torino",
+    "county": "Torino",
+    "ISO3166-2-lvl6": "IT-TO",
+    "state": "Piemonte",
+    "ISO3166-2-lvl4": "IT-21",
+    "postcode": "10151",
+    "country": "Italia",
+    "country_code": "it"
+   },
+   "boundingbox": [
+    "45.1038442",
+    "45.1039442",
+    "7.6287389",
+    "7.6288389"
+   ]
+  },
+  {
+   "place_id": 88288754,
+   "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 4733730502,
+   "lat": "45.1032794",
+   "lon": "7.6293731",
+   "category": "place",
+   "type": "house",
+   "place_rank": 30,
+   "importance": 8.068131532764199e-05,
+   "addresstype": "place",
+   "name": "",
+   "display_name": "20 scala B, Viale dei Mughetti, Vallette, Circoscrizione 5, Torino, Piemonte, 10151, Italia",
+   "address": {
+    "house_number": "20 scala B",
+    "road": "Viale dei Mughetti",
+    "suburb": "Vallette",
+    "city": "Torino",
+    "county": "Torino",
+    "ISO3166-2-lvl6": "IT-TO",
+    "state": "Piemonte",
+    "ISO3166-2-lvl4": "IT-21",
+    "postcode": "10151",
+    "country": "Italia",
+    "country_code": "it"
+   },
+   "boundingbox": [
+    "45.1032294",
+    "45.1033294",
+    "7.6293231",
+    "7.6294231"
+   ]
+  },
+  {
+   "place_id": 88301627,
+   "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 4733730505,
+   "lat": "45.1042511",
+   "lon": "7.6288595",
+   "category": "place",
+   "type": "house",
+   "place_rank": 30,
+   "importance": 8.068131532764199e-05,
+   "addresstype": "place",
+   "name": "",
+   "display_name": "20 int. 19, Viale dei Mughetti, Vallette, Circoscrizione 5, Torino, Piemonte, 10151, Italia",
+   "address": {
+    "house_number": "20 int. 19",
+    "road": "Viale dei Mughetti",
+    "suburb": "Vallette",
+    "city": "Torino",
+    "county": "Torino",
+    "ISO3166-2-lvl6": "IT-TO",
+    "state": "Piemonte",
+    "ISO3166-2-lvl4": "IT-21",
+    "postcode": "10151",
+    "country": "Italia",
+    "country_code": "it"
+   },
+   "boundingbox": [
+    "45.1042011",
+    "45.1043011",
+    "7.6288095",
+    "7.6289095"
+   ]
+  }
+ ]
+}

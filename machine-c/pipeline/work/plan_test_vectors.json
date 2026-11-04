@@ -1,0 +1,478 @@
+{
+ "planner": "v2",
+ "rules": "Reference planner v2 (Python twin of the app's browser planner) + robustness analysis.\n\nWhy: the v1 rule (greedy by people*need*additionality/cost, 35% zone cap) picks ONLY\n\"sicurezza_digitale\" at every budget from 50k to 500k, and \"hub_prossimita\" can never fit.\nv2 changes (all labelled team assumptions, editable in the app):\n  1. intensity per intervention: depth of support per person reached (0-1).\n     return_index = people * intensity * need * additionality / cost\n  2. max 40% of the budget per intervention type (portfolio diversity).\n  3. the last pair may be scaled down to fit the remaining room (fixed cost kept, fewer people),\n     only if it still reaches at least 50% of its planned people.\n  Zone cap 35% and small_zone exclusion are unchanged.",
+ "cases": {
+  "default_100k": {
+   "input": {
+    "budget": 100000
+   },
+   "plan": [
+    {
+     "zone_id": 61,
+     "zone_name": "Lingotto - Ex Ippodromo",
+     "circ": 8,
+     "intervention_id": "sicurezza_digitale",
+     "intervention_label": "Sicurezza digitale e anti-truffa",
+     "budget_eur": 35000,
+     "people_reached": 800,
+     "cost_per_person_eur": 44,
+     "return_index": 40.44,
+     "scores": {
+      "isolation": 91,
+      "service_gap": 66,
+      "future_pressure": 35,
+      "inclusion": 47,
+      "funded_share": 0.0
+     },
+     "confidence": "estimated"
+    },
+    {
+     "zone_id": 60,
+     "zone_name": "Nuova Fiat",
+     "circ": 2,
+     "intervention_id": "accesso_salute",
+     "intervention_label": "Accesso digitale e sanitario",
+     "budget_eur": 35000,
+     "people_reached": 250,
+     "cost_per_person_eur": 140,
+     "return_index": 23.31,
+     "scores": {
+      "isolation": 71,
+      "service_gap": 74,
+      "future_pressure": 32,
+      "inclusion": 62,
+      "funded_share": 0.0
+     },
+     "confidence": "estimated"
+    },
+    {
+     "zone_id": 73,
+     "zone_name": "Strada di Soperga",
+     "circ": 7,
+     "intervention_id": "sicurezza_digitale",
+     "intervention_label": "Sicurezza digitale e anti-truffa",
+     "budget_eur": 5000,
+     "people_reached": 50,
+     "cost_per_person_eur": 100,
+     "return_index": 19.278,
+     "scores": {
+      "isolation": 82,
+      "service_gap": 96,
+      "future_pressure": 5,
+      "inclusion": 68,
+      "funded_share": 0.0
+     },
+     "confidence": "estimated"
+    },
+    {
+     "zone_id": 67,
+     "zone_name": "Basse di Stura - Nuovo Poligono",
+     "circ": 5,
+     "intervention_id": "visite_domiciliari",
+     "intervention_label": "Visite e compagnia a domicilio",
+     "budget_eur": 23440,
+     "people_reached": 38,
+     "cost_per_person_eur": 610,
+     "return_index": 12.319,
+     "scores": {
+      "isolation": 57,
+      "service_gap": 98,
+      "future_pressure": 74,
+      "inclusion": 82,
+      "funded_share": 0.0
+     },
+     "confidence": "estimated"
+    }
+   ]
+  },
+  "default_200k": {
+   "input": {
+    "budget": 200000
+   },
+   "plan": [
+    {
+     "zone_id": 61,
+     "zone_name": "Lingotto - Ex Ippodromo",
+     "circ": 8,
+     "intervention_id": "sicurezza_digitale",
+     "intervention_label": "Sicurezza digitale e anti-truffa",
+     "budget_eur": 63728,
+     "people_reached": 1518,
+     "cost_per_person_eur": 42,
+     "return_index": 40.44,
+     "scores": {
+      "isolation": 91,
+      "service_gap": 66,
+      "future_pressure": 35,
+      "inclusion": 47,
+      "funded_share": 0.0
+     },
+     "confidence": "estimated"
+    },
+    {
+     "zone_id": 60,
+     "zone_name": "Nuova Fiat",
+     "circ": 2,
+     "intervention_id": "sicurezza_digitale",
+     "intervention_label": "Sicurezza digitale e anti-truffa",
+     "budget_eur": 16272,
+     "people_reached": 332,
+     "cost_per_person_eur": 49,
+     "return_index": 35.371,
+     "scores": {
+      "isolation": 71,
+      "service_gap": 74,
+      "future_pressure": 32,
+      "inclusion": 62,
+      "funded_share": 0.0
+     },
+     "confidence": "estimated"
+    },
+    {
+     "zone_id": 62,
+     "zone_name": "Sanatorio - Gerbido",
+     "circ": 2,
+     "intervention_id": "accesso_salute",
+     "intervention_label": "Accesso digitale e sanitario",
+     "budget_eur": 70000,
+     "people_reached": 542,
+     "cost_per_person_eur": 129,
+     "return_index": 25.713,
+     "scores": {
+      "isolation": 84,
+      "service_gap": 90,
+      "future_pressure": 17,
+      "inclusion": 20,
+      "funded_share": 0.0
+     },
+     "confidence": "estimated"
+    },
+    {
+     "zone_id": 67,
+     "zone_name": "Basse di Stura - Nuovo Poligono",
+     "circ": 5,
+     "intervention_id": "accesso_salute",
+     "intervention_label": "Accesso digitale e sanitario",
+     "budget_eur": 10000,
+     "people_reached": 42,
+     "cost_per_person_eur": 240,
+     "return_index": 19.918,
+     "scores": {
+      "isolation": 57,
+      "service_gap": 98,
+      "future_pressure": 74,
+      "inclusion": 82,
+      "funded_share": 0.0
+     },
+     "confidence": "estimated"
+    },
+    {
+     "zone_id": 68,
+     "zone_name": "Barriera di Stura - Istituto Rebaudengo",
+     "circ": 6,
+     "intervention_id": "visite_domiciliari",
+     "intervention_label": "Visite e compagnia a domicilio",
+     "budget_eur": 40000,
+     "people_reached": 86,
+     "cost_per_person_eur": 467,
+     "return_index": 14.667,
+     "scores": {
+      "isolation": 54,
+      "service_gap": 89,
+      "future_pressure": 34,
+      "inclusion": 64,
+      "funded_share": 0.0
+     },
+     "confidence": "estimated"
+    }
+   ]
+  },
+  "anziani_soli_200k_no_pnrr": {
+   "input": {
+    "budget": 200000,
+    "weights": {
+     "isolation": 0.55,
+     "service_gap": 0.225,
+     "future_pressure": 0.162,
+     "inclusion": 0.063
+    },
+    "exclude_funded": true
+   },
+   "plan": [
+    {
+     "zone_id": 61,
+     "zone_name": "Lingotto - Ex Ippodromo",
+     "circ": 8,
+     "intervention_id": "sicurezza_digitale",
+     "intervention_label": "Sicurezza digitale e anti-truffa",
+     "budget_eur": 63728,
+     "people_reached": 1518,
+     "cost_per_person_eur": 42,
+     "return_index": 43.793,
+     "scores": {
+      "isolation": 91,
+      "service_gap": 66,
+      "future_pressure": 35,
+      "inclusion": 47,
+      "funded_share": 0.0
+     },
+     "confidence": "estimated"
+    },
+    {
+     "zone_id": 60,
+     "zone_name": "Nuova Fiat",
+     "circ": 2,
+     "intervention_id": "sicurezza_digitale",
+     "intervention_label": "Sicurezza digitale e anti-truffa",
+     "budget_eur": 16272,
+     "people_reached": 332,
+     "cost_per_person_eur": 49,
+     "return_index": 36.26,
+     "scores": {
+      "isolation": 71,
+      "service_gap": 74,
+      "future_pressure": 32,
+      "inclusion": 62,
+      "funded_share": 0.0
+     },
+     "confidence": "estimated"
+    },
+    {
+     "zone_id": 62,
+     "zone_name": "Sanatorio - Gerbido",
+     "circ": 2,
+     "intervention_id": "accesso_salute",
+     "intervention_label": "Accesso digitale e sanitario",
+     "budget_eur": 70000,
+     "people_reached": 542,
+     "cost_per_person_eur": 129,
+     "return_index": 27.452,
+     "scores": {
+      "isolation": 84,
+      "service_gap": 90,
+      "future_pressure": 17,
+      "inclusion": 20,
+      "funded_share": 0.0
+     },
+     "confidence": "estimated"
+    },
+    {
+     "zone_id": 67,
+     "zone_name": "Basse di Stura - Nuovo Poligono",
+     "circ": 5,
+     "intervention_id": "accesso_salute",
+     "intervention_label": "Accesso digitale e sanitario",
+     "budget_eur": 10000,
+     "people_reached": 42,
+     "cost_per_person_eur": 240,
+     "return_index": 18.687,
+     "scores": {
+      "isolation": 57,
+      "service_gap": 98,
+      "future_pressure": 74,
+      "inclusion": 82,
+      "funded_share": 0.0
+     },
+     "confidence": "estimated"
+    },
+    {
+     "zone_id": 64,
+     "zone_name": "Aeronautica - Pellerina",
+     "circ": 4,
+     "intervention_id": "visite_domiciliari",
+     "intervention_label": "Visite e compagnia a domicilio",
+     "budget_eur": 40000,
+     "people_reached": 86,
+     "cost_per_person_eur": 467,
+     "return_index": 14.249,
+     "scores": {
+      "isolation": 64,
+      "service_gap": 85,
+      "future_pressure": 27,
+      "inclusion": 32,
+      "funded_share": 0.0
+     },
+     "confidence": "estimated"
+    }
+   ]
+  },
+  "circ6_100k": {
+   "input": {
+    "budget": 100000,
+    "circ": [
+     6
+    ]
+   },
+   "plan": [
+    {
+     "zone_id": 68,
+     "zone_name": "Barriera di Stura - Istituto Rebaudengo",
+     "circ": 6,
+     "intervention_id": "sicurezza_digitale",
+     "intervention_label": "Sicurezza digitale e anti-truffa",
+     "budget_eur": 22568,
+     "people_reached": 489,
+     "cost_per_person_eur": 46,
+     "return_index": 33.328,
+     "scores": {
+      "isolation": 54,
+      "service_gap": 89,
+      "future_pressure": 34,
+      "inclusion": 64,
+      "funded_share": 0.0
+     },
+     "confidence": "estimated"
+    },
+    {
+     "zone_id": 77,
+     "zone_name": "Falchera",
+     "circ": 6,
+     "intervention_id": "sicurezza_digitale",
+     "intervention_label": "Sicurezza digitale e anti-truffa",
+     "budget_eur": 16352,
+     "people_reached": 334,
+     "cost_per_person_eur": 49,
+     "return_index": 29.395,
+     "scores": {
+      "isolation": 60,
+      "service_gap": 83,
+      "future_pressure": 4,
+      "inclusion": 79,
+      "funded_share": 0.0
+     },
+     "confidence": "estimated"
+    },
+    {
+     "zone_id": 77,
+     "zone_name": "Falchera",
+     "circ": 6,
+     "intervention_id": "accesso_salute",
+     "intervention_label": "Accesso digitale e sanitario",
+     "budget_eur": 18648,
+     "people_reached": 114,
+     "cost_per_person_eur": 164,
+     "return_index": 19.205,
+     "scores": {
+      "isolation": 60,
+      "service_gap": 83,
+      "future_pressure": 4,
+      "inclusion": 79,
+      "funded_share": 0.0
+     },
+     "confidence": "estimated"
+    },
+    {
+     "zone_id": 78,
+     "zone_name": "Villaggio Snia",
+     "circ": 6,
+     "intervention_id": "accesso_salute",
+     "intervention_label": "Accesso digitale e sanitario",
+     "budget_eur": 16592,
+     "people_reached": 97,
+     "cost_per_person_eur": 172,
+     "return_index": 17.583,
+     "scores": {
+      "isolation": 9,
+      "service_gap": 94,
+      "future_pressure": 97,
+      "inclusion": 92,
+      "funded_share": 0.0
+     },
+     "confidence": "estimated"
+    },
+    {
+     "zone_id": 78,
+     "zone_name": "Villaggio Snia",
+     "circ": 6,
+     "intervention_id": "visite_domiciliari",
+     "intervention_label": "Visite e compagnia a domicilio",
+     "budget_eur": 18408,
+     "people_reached": 24,
+     "cost_per_person_eur": 766,
+     "return_index": 10.601,
+     "scores": {
+      "isolation": 9,
+      "service_gap": 94,
+      "future_pressure": 97,
+      "inclusion": 92,
+      "funded_share": 0.0
+     },
+     "confidence": "estimated"
+    }
+   ]
+  }
+ },
+ "v1_diagnosis": {
+  "50000": {
+   "items": 5,
+   "spent_eur": 49000,
+   "people_reached": 849,
+   "interventions": {
+    "sicurezza_digitale": 5
+   },
+   "zones": [
+    67,
+    72,
+    76,
+    77,
+    78
+   ]
+  },
+  "100000": {
+   "items": 5,
+   "spent_eur": 98432,
+   "people_reached": 2085,
+   "interventions": {
+    "sicurezza_digitale": 5
+   },
+   "zones": [
+    58,
+    60,
+    67,
+    68,
+    72
+   ]
+  },
+  "200000": {
+   "items": 6,
+   "spent_eur": 199000,
+   "people_reached": 4524,
+   "interventions": {
+    "sicurezza_digitale": 6
+   },
+   "zones": [
+    58,
+    60,
+    61,
+    62,
+    68,
+    76
+   ]
+  },
+  "500000": {
+   "items": 15,
+   "spent_eur": 498296,
+   "people_reached": 11332,
+   "interventions": {
+    "sicurezza_digitale": 15
+   },
+   "zones": [
+    22,
+    52,
+    53,
+    56,
+    58,
+    60,
+    61,
+    62,
+    63,
+    64,
+    67,
+    68,
+    72,
+    73,
+    90
+   ]
+  }
+ }
+}

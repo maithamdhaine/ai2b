@@ -1,0 +1,9 @@
+circ,over65_est_sum,under15_est_sum,ageing_index_est,ageing_index_published,diff,ageing_index_circfile,diff_circfile,ageing_index_seed2020,ageing_index_published_file,published_confirmed,n_zones,pop_circfile_2025,pop_zones_assigned_2025,pop_diff_raw,method,ipf_iterations,ipf_max_err,eps_cells,eps_mode
+1,18927,7073,267.6,267.6,-0.0,267.56,-0.04,232.53,267.6,True,13,75057,72643,2414,ipf,2,0.1502,13,margin_cols_rows
+2,37119,12934,286.99,287.0,-0.01,287.01,0.01,271.17,287.0,True,10,133206,129634,3572,ipf,3,0.0035,10,margin_cols_rows
+3,33172,11858,279.74,279.7,0.04,279.75,0.05,240.98,279.7,True,10,120589,123714,-3125,ipf,3,0.0038,10,margin_cols_rows
+4,23685,9643,245.62,245.6,0.02,245.59,-0.01,213.62,245.6,True,6,95791,93693,2098,ipf,3,0.0056,6,margin_cols_rows
+5,31289,14185,220.58,220.6,-0.02,220.57,-0.03,195.8,220.6,True,11,120444,122542,-2098,ipf,3,0.0063,11,margin_cols_rows
+6,24575,13561,181.22,181.2,0.02,181.2,-0.0,172.38,181.2,True,10,106584,105711,873,ipf,2,0.4069,30,margin_cols_rows
+7,20446,8608,237.52,237.5,0.02,237.55,0.05,202.14,237.5,True,16,82588,83461,-873,ipf,2,0.3921,16,margin_cols_rows
+8,34779,12590,276.24,276.3,-0.06,276.27,-0.03,240.77,276.3,True,18,124615,127476,-2861,ipf,2,0.2875,0,none
