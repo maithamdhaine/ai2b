@@ -7,7 +7,7 @@ import { SERVICE_ORDER, lensValue } from './mapConfig';
 import { ZoneMap } from './zoneMap';
 import './map.css';
 
-const OVERLAY_GAP = 12; // matches the padding of .map-overlay
+const OVERLAY_GAP = 14; // matches the padding of .map-overlay
 
 export default function MapView() {
   const zones = useStore((s) => s.zones);

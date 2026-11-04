@@ -261,7 +261,7 @@
   margin: 0;
   padding: 13px var(--pl-gutter) 14px;
   background: var(--surface);
-  box-shadow: inset 0 -1px 0 var(--line);
+  box-shadow: inset 0 -1px 0 var(--line), 0 10px 14px -14px rgb(20 27 34 / 45%);
 }
 
 .pl-summary > div {
@@ -332,8 +332,10 @@
   cursor: pointer;
   scroll-margin: 86px 0 calc(var(--pl-footer-height) + 86px);
   text-align: left;
+  animation: pl-item-in 0.2s var(--ease);
   transition: background 0.14s var(--ease);
 }
+@keyframes pl-item-in { from { opacity: 0; transform: translateY(5px); } }
 .pl-item:hover { background: var(--surface-sunken); }
 .pl-item[aria-pressed='true'] { background: var(--accent-tint); }
 /* The selected marker is drawn, not a border, so it never shifts the row. */

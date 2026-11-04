@@ -137,6 +137,33 @@ body {
   transform: translateY(0.12em);
 }
 
+/* What is loaded, in the empty half of the masthead. Dots between the items, so
+   it reads as one quiet line and not as four competing figures. */
+.topbar__data {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin: 0 0 0 auto;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+.topbar__data span { display: flex; align-items: baseline; gap: 5px; }
+
+.topbar__data span + span::before {
+  width: 3px;
+  height: 3px;
+  margin-right: 11px;
+  border-radius: 50%;
+  background: var(--line-strong);
+  content: '';
+  transform: translateY(-0.3em);
+}
+
+.topbar__data b { color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 650; }
+
+@media (max-width: 1100px) { .topbar__data { display: none; } }
+
 /* Workspace --------------------------------------------------------------- */
 
 .workspace {
