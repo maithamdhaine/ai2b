@@ -23,9 +23,9 @@
   max-width: 1080px;
   max-height: 100%;
   overflow: hidden;
-  background: var(--surface);
+  background: var(--paper);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-dialog);
   outline: none;
   animation: memo-rise 0.22s var(--ease);
 }
@@ -39,7 +39,7 @@
   align-items: center;
   gap: 9px;
   padding: 14px 24px;
-  background: var(--surface);
+  background: var(--paper);
   box-shadow: inset 0 -1px 0 var(--line);
 }
 
@@ -52,7 +52,7 @@
 
 .memo-button {
   padding: 8px 17px;
-  background: var(--surface);
+  background: var(--paper);
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   color: var(--ink-soft);
@@ -64,13 +64,13 @@
 }
 
 .memo-button:hover:not(:disabled) {
-  background: var(--accent-tint);
-  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
-  color: var(--accent);
+  background: var(--sunken);
+  border-color: var(--line-strong);
+  color: var(--ink);
 }
 
 .memo-button:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
 
@@ -78,8 +78,8 @@
 
 .memo-button--primary,
 .memo-button--primary:hover:not(:disabled) {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: var(--primary);
+  border-color: var(--primary);
   box-shadow: var(--shadow-sm);
   color: #fff;
 }
@@ -87,7 +87,7 @@
 .memo-notice {
   margin: 0;
   padding: 7px 24px;
-  background: var(--surface-sunken);
+  background: var(--sunken);
   box-shadow: inset 0 -1px 0 var(--line);
   color: var(--muted);
   font-size: 12px;
@@ -99,7 +99,7 @@
   min-height: 0;
   padding: 40px 56px 56px;
   overflow-y: auto;
-  background: var(--surface);
+  background: var(--paper);
   scrollbar-width: thin;
 }
 
@@ -120,7 +120,7 @@
   height: 26px;
   margin-bottom: 14px;
   border: 2.5px solid var(--line);
-  border-top-color: var(--accent);
+  border-top-color: var(--ink);
   border-radius: 50%;
   animation: memo-spin 0.9s linear infinite;
 }
@@ -164,12 +164,12 @@
   line-height: 1.15;
 }
 
-/* Each section opens with a short accent rule, the way a printed brief would. */
+/* Each section opens on a rule, the way a printed brief would. */
 .memo-paper h2 {
   margin: 40px 0 12px;
   padding-top: 15px;
-  border-top: 2px solid var(--accent);
-  color: var(--accent-deep);
+  border-top: 2px solid var(--ink);
+  color: var(--ink);
   font-size: 21px;
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -197,7 +197,7 @@
 .memo-paper li { margin-bottom: 6px; }
 .memo-paper li::marker { color: var(--faint); }
 
-.memo-paper a { color: var(--accent); overflow-wrap: anywhere; text-underline-offset: 2px; }
+.memo-paper a { color: var(--ink); overflow-wrap: anywhere; text-underline-offset: 2px; }
 
 .memo-paper blockquote {
   margin: 0 0 14px;
@@ -219,7 +219,7 @@
 .memo-paper pre {
   padding: 12px 14px;
   overflow-x: auto;
-  background: var(--surface-sunken);
+  background: var(--sunken);
   border-radius: var(--radius-sm);
 }
 

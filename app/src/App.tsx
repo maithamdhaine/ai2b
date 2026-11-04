@@ -6,6 +6,16 @@ import PlannerPanel from './components/planner/PlannerPanel';
 import CommandBar from './components/assistant/CommandBar';
 import MemoView from './components/memo/MemoView';
 
+/** The compass the product is named after: four points, the needle on north-east. */
+function Mark() {
+  return (
+    <svg className="brand__mark" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="10.25" fill="none" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M16.2 7.8 10.9 10.9 7.8 16.2 13.1 13.1Z" fill="currentColor" />
+    </svg>
+  );
+}
+
 /** What is on the table: the counts come from the loaded files, never from a constant. */
 function DataStrip() {
   const zones = useStore((s) => s.zones);
@@ -16,17 +26,20 @@ function DataStrip() {
 
   const counts: [number, string][] = [
     [zones.features.length, 'zone'],
-    [services?.features.length ?? 0, 'punti di servizio'],
-    [funded.length, 'progetti finanziati'],
+    [services?.features.length ?? 0, 'servizi'],
+    [funded.length, 'progetti'],
     [sources?.length ?? 0, 'fonti'],
   ];
 
   return (
-    <p className="topbar__data" aria-label="Dati caricati">
+    <dl className="data-strip" aria-label="Dati caricati">
       {counts.map(([count, label]) => (
-        <span key={label}><b>{formatInt(count)}</b> {label}</span>
+        <div key={label}>
+          <dd>{formatInt(count)}</dd>
+          <dt>{label}</dt>
+        </div>
       ))}
-    </p>
+    </dl>
   );
 }
 
@@ -38,18 +51,26 @@ export default function App() {
 
   return (
     <div className="shell">
+      {/* The map is the floor of the app; everything else floats over it. */}
+      <div className="stage"><MapView /></div>
+
+      <header className="hud">
+        <div className="hud__brand">
+          <span className="brand">
+            <Mark />
+            <span className="brand__name">Bussola</span>
+          </span>
+          <p className="brand__line">Dove investire per il massimo ritorno sociale a Torino</p>
+        </div>
+        <div className="hud__ask"><CommandBar /></div>
+        <div className="hud__data"><DataStrip /></div>
+      </header>
+
+      <aside className="rail"><PlannerPanel /></aside>
+
       {meta?.mock && <div className="mock-banner">DATI DI PROVA</div>}
       {loadError && <div className="error-banner">Dati non caricati: {loadError}</div>}
-      <header className="topbar">
-        <h1>Bussola</h1>
-        <p>Dove investire per il massimo ritorno sociale a Torino</p>
-        <DataStrip />
-      </header>
-      <CommandBar />
-      <main className="workspace">
-        <section className="map-area"><MapView /></section>
-        <aside className="side-area"><PlannerPanel /></aside>
-      </main>
+
       <MemoView />
     </div>
   );

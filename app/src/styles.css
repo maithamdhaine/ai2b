@@ -1,56 +1,69 @@
 /* ---------------------------------------------------------------------------
    Bussola — design tokens and app shell.
 
-   The room is a projector in a lecture hall, and the reader is a programme
-   officer deciding where money goes. So: paper-warm ground, one deep teal that
-   means "this is the choice", hairline rules instead of boxes, and numbers that
-   line up. Serif for the names of things, grotesque for every figure.
+   The map is the floor: it fills the window edge to edge and everything else
+   floats over it on glass. One rule holds the whole thing together — the chrome
+   is colourless. Ink, white and glass only, with black for the action you are
+   meant to take. Every bit of colour on screen therefore belongs to the data:
+   the teal of the choropleth, the terracotta of a warning. Nothing competes
+   with the map for the eye.
    --------------------------------------------------------------------------- */
 
 :root {
-  /* Ground and surfaces */
-  --bg: #f1efea;
-  --surface: #ffffff;
-  --surface-sunken: #f7f5f1;
-  --surface-raised: #ffffff;
+  /* Neutral chrome */
+  --ink: #11161c;
+  --ink-soft: #39434f;
+  --muted: #626d7a;
+  --faint: #959ea9;
+  --paper: #ffffff;
+  --sunken: #f4f5f6;
 
-  /* Ink */
-  --ink: #141b22;
-  --ink-soft: #3b4653;
-  --muted: #6d7884;
-  --faint: #99a2ac;
+  /* Glass: panels sit on a moving map, so they are translucent and blurred. */
+  --glass: rgb(255 255 255 / 95%);
+  --glass-thin: rgb(255 255 255 / 86%);
+  --blur: saturate(160%) blur(22px);
 
-  /* Brand */
-  --accent: #0a4f57;
-  --accent-deep: #073c42;
-  --accent-bright: #0e6c76;
-  --accent-soft: #e4eff0;
-  --accent-tint: #f1f7f7;
+  /* Black is the action. There is no brand colour in the chrome. */
+  --primary: #11161c;
+  --primary-hover: #2b3440;
 
-  /* Signals */
+  /* Data colour. Used by the choropleth, score bars and the selected state. */
+  --data: #0d6b74;
+  --data-soft: #e3f0f1;
+  --data-tint: #f2f8f8;
+
+  /* Signal */
   --warn: #9c4a18;
   --warn-soft: #fbeee5;
 
-  /* Hairlines: tinted with the ink so every rule sits in the same family. */
-  --line: color-mix(in srgb, var(--ink) 12%, transparent);
-  --line-strong: color-mix(in srgb, var(--ink) 20%, transparent);
-  --line-faint: color-mix(in srgb, var(--ink) 7%, transparent);
+  --line: color-mix(in srgb, var(--ink) 11%, transparent);
+  --line-strong: color-mix(in srgb, var(--ink) 19%, transparent);
+  --line-faint: color-mix(in srgb, var(--ink) 6%, transparent);
 
-  /* Elevation: wide and very light, never a drop shadow you can name. */
-  --shadow-sm: 0 1px 2px rgb(20 27 34 / 5%);
-  --shadow-md: 0 1px 2px rgb(20 27 34 / 4%), 0 8px 20px -10px rgb(20 27 34 / 14%);
-  --shadow-lg: 0 1px 3px rgb(20 27 34 / 5%), 0 28px 60px -20px rgb(20 27 34 / 26%);
-  --shadow-ring: 0 0 0 1px var(--line);
+  /* Panels float over a photograph-like surface, so the shadows are real. */
+  --shadow-sm: 0 1px 2px rgb(17 22 28 / 6%);
+  --shadow-panel: 0 1px 2px rgb(17 22 28 / 6%), 0 14px 34px -12px rgb(17 22 28 / 26%);
+  --shadow-rail: 0 1px 2px rgb(17 22 28 / 6%), 0 26px 56px -20px rgb(17 22 28 / 34%);
+  --shadow-dialog: 0 2px 6px rgb(17 22 28 / 8%), 0 40px 90px -24px rgb(17 22 28 / 42%);
+  --ring: 0 0 0 1px var(--line);
 
-  --radius-sm: 7px;
-  --radius: 11px;
-  --radius-lg: 16px;
+  --radius-sm: 8px;
+  --radius: 13px;
+  --radius-lg: 18px;
   --radius-pill: 999px;
 
+  /* The chrome is set entirely in Inter. The serif is kept for the memo, which
+     is a document and not an interface. */
   --font: 'Inter Variable', 'Segoe UI', system-ui, -apple-system, sans-serif;
   --font-display: 'Source Serif 4 Variable', 'Iowan Old Style', Georgia, serif;
 
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* Geometry shared with MapView.tsx, which has to reserve this space when it
+     fits the city. RAIL_WIDTH and HUD_HEIGHT there must match. */
+  --rail-w: 436px;
+  --hud-h: 128px;
+  --gap: 16px;
 }
 
 * { box-sizing: border-box; }
@@ -58,138 +71,161 @@
 html, body, #root { height: 100%; margin: 0; }
 
 body {
-  background: var(--bg);
+  background: var(--sunken);
   color: var(--ink);
   font: 15px/1.5 var(--font);
-  font-feature-settings: 'cv05' 1, 'ss03' 1;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-/* Every figure in the app lines up in its column. */
 [class*='__value'], [class*='__amount'], [class*='__share'], dd, output, th, td {
   font-variant-numeric: tabular-nums;
 }
 
-/* The eyebrow: small, spaced, quiet. Used wherever a figure needs naming. */
-.eyebrow {
+.shell { position: relative; height: 100%; overflow: hidden; }
+
+/* z-index 0 makes this a stacking context, which keeps every Leaflet pane and
+   control (they go up to 1000) underneath the floating chrome. */
+.stage { position: absolute; inset: 0; z-index: 0; }
+
+/* Header ----------------------------------------------------------------- */
+
+.hud {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  height: var(--hud-h);
+  padding: var(--gap) var(--gap) 0;
+  /* The header is a layer, not a bar: only its contents take the pointer. */
+  pointer-events: none;
+}
+
+.hud > * { pointer-events: auto; }
+
+.hud__brand {
+  flex: none;
+  width: 216px;
+  padding: 11px 14px 12px;
+  background: var(--glass);
+  backdrop-filter: var(--blur);
+  border-radius: var(--radius);
+  box-shadow: var(--ring), var(--shadow-panel);
+}
+.hud__ask { flex: 1; min-width: 0; max-width: 840px; }
+.hud__data { flex: none; margin-left: auto; padding-top: 5px; }
+
+.shell:has(.mock-banner) .hud { padding-top: calc(var(--gap) + 26px); }
+
+.brand { display: flex; align-items: center; gap: 9px; }
+.brand__mark { width: 21px; height: 21px; color: var(--ink); }
+.brand__name {
+  font-size: 19px;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+}
+.brand__line {
+  margin: 6px 0 0;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 11.5px;
+  line-height: 1.4;
+}
+
+/* What is loaded. Four counts, read as figures first. */
+.data-strip {
+  display: flex;
+  gap: 2px;
+  margin: 0;
+  padding: 7px 4px;
+  background: var(--glass-thin);
+  backdrop-filter: var(--blur);
+  border-radius: var(--radius);
+  box-shadow: var(--ring);
+}
+.data-strip > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  min-width: 62px;
+  padding: 0 10px;
+}
+.data-strip > div + div { border-left: 1px solid var(--line-faint); }
+.data-strip dd {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.data-strip dt {
+  color: var(--muted);
+  font-size: 9.5px;
   font-weight: 600;
-  letter-spacing: 0.075em;
-  line-height: 1.3;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.shell { height: 100%; display: flex; flex-direction: column; }
+/* The planner rail ------------------------------------------------------- */
+
+.rail {
+  position: absolute;
+  top: var(--hud-h);
+  right: var(--gap);
+  bottom: var(--gap);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  width: var(--rail-w);
+  overflow: hidden;
+  background: var(--glass);
+  backdrop-filter: var(--blur);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--ring), var(--shadow-rail);
+}
+
+.shell:has(.mock-banner) .rail { top: calc(var(--hud-h) + 26px); }
+
+/* Banners ---------------------------------------------------------------- */
 
 .mock-banner {
-  padding: 4px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 20;
+  padding: 5px;
   background: var(--warn);
   color: #fff;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
   text-align: center;
 }
 
 .error-banner {
-  padding: 8px 28px;
-  background: var(--warn-soft);
-  box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--warn) 25%, transparent);
-  color: var(--warn);
-  font-weight: 500;
-}
-
-/* Masthead ---------------------------------------------------------------- */
-
-.topbar {
-  flex: none;
-  display: flex;
-  align-items: baseline;
-  gap: 16px;
-  padding: 18px 28px 14px;
-}
-
-.topbar h1 {
-  margin: 0;
-  color: var(--accent);
-  font: 600 27px/1.1 var(--font-display);
-  letter-spacing: -0.015em;
-}
-
-/* A hairline between the wordmark and the line that explains it. */
-.topbar p {
-  position: relative;
-  margin: 0;
-  padding-left: 17px;
-  color: var(--muted);
-  font-size: 15px;
-}
-
-.topbar p::before {
   position: absolute;
-  left: 0;
-  width: 1px;
-  height: 1.05em;
-  background: var(--line-strong);
-  content: '';
-  transform: translateY(0.12em);
+  bottom: var(--gap);
+  left: var(--gap);
+  z-index: 20;
+  max-width: 520px;
+  padding: 11px 16px;
+  background: var(--warn);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-panel);
+  color: #fff;
+  font-size: 13.5px;
 }
-
-/* What is loaded, in the empty half of the masthead. Dots between the items, so
-   it reads as one quiet line and not as four competing figures. */
-.topbar__data {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 16px;
-  margin: 0 0 0 auto;
-  color: var(--muted);
-  font-size: 12.5px;
-}
-
-.topbar__data span { display: flex; align-items: baseline; gap: 5px; }
-
-.topbar__data span + span::before {
-  width: 3px;
-  height: 3px;
-  margin-right: 11px;
-  border-radius: 50%;
-  background: var(--line-strong);
-  content: '';
-  transform: translateY(-0.3em);
-}
-
-.topbar__data b { color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 650; }
-
-@media (max-width: 1100px) { .topbar__data { display: none; } }
-
-/* Workspace --------------------------------------------------------------- */
-
-.workspace {
-  flex: 1;
-  min-height: 0;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 452px;
-  gap: 16px;
-  padding: 10px 28px 28px;
-}
-
-.map-area, .side-area {
-  min-height: 0;
-  background: var(--surface);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-ring), var(--shadow-md);
-  overflow: hidden;
-}
-
-.side-area { overflow-y: auto; scrollbar-width: thin; }
 
 /* Scrollbars, so a long panel does not put a grey slab next to the design. */
-.side-area::-webkit-scrollbar, .zone-panel::-webkit-scrollbar, .memo-scroll::-webkit-scrollbar {
+.rail ::-webkit-scrollbar, .zone-panel::-webkit-scrollbar, .memo-scroll::-webkit-scrollbar {
   width: 10px;
 }
-.side-area::-webkit-scrollbar-thumb,
+.rail ::-webkit-scrollbar-thumb,
 .zone-panel::-webkit-scrollbar-thumb,
 .memo-scroll::-webkit-scrollbar-thumb {
   border: 3px solid transparent;
@@ -197,16 +233,21 @@ body {
   background: var(--line-strong);
   background-clip: content-box;
 }
-.side-area::-webkit-scrollbar-thumb:hover,
+.rail ::-webkit-scrollbar-thumb:hover,
 .zone-panel::-webkit-scrollbar-thumb:hover,
 .memo-scroll::-webkit-scrollbar-thumb:hover {
   background: var(--muted);
   background-clip: content-box;
 }
 
-@media (max-width: 1380px) {
-  .topbar, .workspace { padding-left: 20px; padding-right: 20px; }
-  .workspace { grid-template-columns: minmax(0, 1fr) 408px; }
+@media (max-width: 1320px) {
+  :root { --rail-w: 390px; }
+  .hud__data { display: none; }
+}
+
+@media (max-width: 1080px) {
+  .hud__brand { width: auto; }
+  .brand__line { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

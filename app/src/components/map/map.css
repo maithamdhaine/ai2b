@@ -1,49 +1,45 @@
-/* Layout: the map fills the root; controls float above it in a layer that ignores the pointer.
-   The floating cards are white on the basemap, so they are given elevation rather than a
-   border: on a projector a hairline on grey tiles disappears, a shadow does not. */
+/* The map is the floor of the app: it fills the window, and the only things on it
+   are the zone colours. Its controls live in one rail down the left, on glass, and
+   the zone card opens as a second rail beside the planner. */
+
 .map-root {
-  --panel-w: 352px;
-  --left-w: 234px;
+  --panel-w: 344px;
   position: relative;
   height: 100%;
-  min-height: 360px;
   overflow: hidden;
 }
 
 .map-defs { position: absolute; }
-.map-hatch-ground { fill: var(--bg); }
+.map-hatch-ground { fill: var(--sunken); }
 .map-hatch-line { stroke: var(--muted); stroke-width: 1.5; }
 
 .map-canvas {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: var(--bg);
+  background: var(--sunken);
   font: 14px/1.4 var(--font);
 }
 .map-canvas path.leaflet-interactive:focus { outline: none; }
 
+/* The overlay reserves the header at the top and the planner rail on the right,
+   so nothing it holds can ever land under them. */
 .map-overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 14px;
+  padding: var(--hud-h) calc(var(--rail-w) + var(--gap) * 2) var(--gap) var(--gap);
   pointer-events: none;
 }
-.map-overlay__top { flex: none; display: flex; flex-wrap: wrap; gap: 10px; }
-.map-overlay__body {
-  flex: 1;
-  min-height: 0;
-  display: flex;
-  gap: 14px;
-  align-items: flex-end;
-}
+
+.shell:has(.mock-banner) .map-overlay { padding-top: calc(var(--hud-h) + 26px); }
+
+.map-overlay__body { flex: 1; min-width: 0; display: flex; gap: var(--gap); align-items: flex-end; }
+
 .map-overlay__left {
   flex: none;
-  width: var(--left-w);
+  width: 232px;
   max-height: 100%;
   margin-right: auto;
   display: flex;
@@ -51,7 +47,10 @@
   gap: 10px;
   overflow-y: auto;
   pointer-events: auto;
+  scrollbar-width: none;
 }
+.map-overlay__left::-webkit-scrollbar { display: none; }
+
 .map-overlay__panel {
   flex: 0 1 var(--panel-w);
   align-self: stretch;
@@ -61,57 +60,61 @@
   pointer-events: auto;
 }
 
-/* Zoom buttons and attribution live between the legend and the panel, and the attribution wraps
-   to fit, so the floating controls can never hide it. */
-.map-canvas .leaflet-bottom.leaflet-right { left: calc(var(--left-w) + 28px); }
-.map-root--panel-open .leaflet-bottom.leaflet-right { right: calc(var(--panel-w) + 28px); }
+/* Leaflet's own furniture, tucked into the strip between the two rails. */
+.map-canvas .leaflet-bottom.leaflet-right { right: calc(var(--rail-w) + var(--gap) * 2); }
+.map-root--panel-open .leaflet-bottom.leaflet-right {
+  right: calc(var(--rail-w) + var(--panel-w) + var(--gap) * 3);
+}
+.map-canvas .leaflet-bottom.leaflet-left { left: 264px; }
 
 .map-card {
-  background: var(--surface);
+  background: var(--glass);
+  backdrop-filter: var(--blur);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-ring), var(--shadow-md);
+  box-shadow: var(--ring), var(--shadow-panel);
 }
 
-/* Lens switcher: one inset track, the chosen lens lifted out of it. */
-.map-lens-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2px;
-  padding: 4px;
-  pointer-events: auto;
-}
+/* Lenses: a list, not a row of tabs. The map has five of them and they are the
+   main thing you change, so they get names you can read down. */
+.map-lenses { padding: 6px; }
+.map-lens-bar { display: flex; flex-direction: column; gap: 1px; }
 .map-lens-bar button {
-  padding: 7px 14px;
+  padding: 8px 11px;
   border: 0;
-  border-radius: calc(var(--radius) - 5px);
+  border-radius: var(--radius-sm);
   background: transparent;
   color: var(--ink-soft);
   cursor: pointer;
   font: 500 13.5px/1.3 var(--font);
+  text-align: left;
   transition: background 0.15s var(--ease), color 0.15s var(--ease);
 }
-.map-lens-bar button:hover { background: var(--accent-tint); color: var(--accent); }
+.map-lens-bar button:hover { background: var(--sunken); color: var(--ink); }
 .map-lens-bar button[aria-pressed='true'] {
-  background: var(--accent);
-  box-shadow: var(--shadow-sm);
+  background: var(--primary);
   color: #fff;
   font-weight: 600;
 }
+
 .map-city-button {
-  padding: 7px 14px;
-  border-radius: var(--radius);
-  color: var(--ink-soft);
+  width: 100%;
+  margin-top: 5px;
+  padding: 8px 11px;
+  border-top: 1px solid var(--line-faint);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  color: var(--muted);
   cursor: pointer;
-  font: 500 13.5px/1.3 var(--font);
-  pointer-events: auto;
-  transition: background 0.15s var(--ease), color 0.15s var(--ease);
+  font: 500 12.5px/1.3 var(--font);
+  text-align: left;
+  transition: color 0.15s var(--ease);
 }
-.map-city-button:hover { background: var(--accent-tint); color: var(--accent); }
+.map-city-button:hover { color: var(--ink); }
+
 .map-lens-bar button:focus-visible,
 .map-city-button:focus-visible,
 .map-services summary:focus-visible,
 .zone-panel__close:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--ink);
   outline-offset: 1px;
 }
 
@@ -120,55 +123,55 @@
 .map-legend__title {
   margin: 0;
   color: var(--ink);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.075em;
+  letter-spacing: 0.09em;
   line-height: 1.3;
   text-transform: uppercase;
 }
-.map-legend__note { margin: 5px 0 10px; color: var(--muted); font-size: 12px; line-height: 1.45; }
+.map-legend__note { margin: 6px 0 10px; color: var(--muted); font-size: 11.5px; line-height: 1.45; }
 .map-legend__list { margin: 0; padding: 0; list-style: none; }
 .map-legend__list li {
   display: flex;
   align-items: center;
   gap: 9px;
-  min-height: 21px;
+  min-height: 20px;
   color: var(--ink-soft);
-  font-size: 12.5px;
+  font-size: 12px;
   font-variant-numeric: tabular-nums;
 }
 .map-legend__list--keys { margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--line-faint); }
 .map-legend__swatch {
   flex: none;
-  width: 26px;
-  height: 14px;
-  border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  width: 24px;
+  height: 13px;
+  border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
   border-radius: 3px;
 }
 .map-legend__swatch--plan { border: 2px solid var(--ink); }
 .map-legend__swatch--selected { border: 2.5px solid var(--warn); }
 
 /* Service points */
-.map-services { padding: 9px 15px 10px; }
+.map-services { padding: 10px 15px 11px; }
 .map-services summary {
   color: var(--ink);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.075em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
   cursor: pointer;
 }
-.map-services ul { margin: 7px 0 2px; padding: 0; list-style: none; }
+.map-services ul { margin: 8px 0 2px; padding: 0; list-style: none; }
 .map-services label {
   display: flex;
   align-items: center;
   gap: 8px;
-  min-height: 26px;
+  min-height: 25px;
   color: var(--ink-soft);
   font-size: 12.5px;
   cursor: pointer;
 }
-.map-services input { margin: 0; accent-color: var(--accent); }
+.map-services input { margin: 0; accent-color: var(--primary); }
 .map-services__count { margin-left: auto; color: var(--faint); font-variant-numeric: tabular-nums; }
 .map-service-marker {
   flex: none;
@@ -179,7 +182,7 @@
   height: 20px;
   border: 1.5px solid var(--ink);
   border-radius: 50%;
-  background: var(--surface);
+  background: var(--paper);
   color: var(--ink);
   font: 700 11px/1 var(--font);
 }
@@ -191,7 +194,7 @@
   border-radius: var(--radius-sm);
   background: var(--ink);
   color: #fff;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-panel);
   font: 13px/1.4 var(--font);
 }
 .leaflet-tooltip.map-tooltip::before { border-top-color: var(--ink); }
@@ -200,109 +203,122 @@
 .map-canvas .leaflet-bar {
   border: 0;
   border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-ring), var(--shadow-md);
+  box-shadow: var(--ring), var(--shadow-panel);
   overflow: hidden;
 }
 .map-canvas .leaflet-bar a {
+  background: var(--glass);
+  backdrop-filter: var(--blur);
   border-bottom-color: var(--line-faint);
   color: var(--ink-soft);
 }
-.map-canvas .leaflet-bar a:hover { background: var(--accent-tint); color: var(--accent); }
+.map-canvas .leaflet-bar a:hover { background: var(--paper); color: var(--ink); }
 .map-canvas .leaflet-control-attribution {
-  padding: 1px 7px;
-  border-radius: var(--radius-sm) 0 0 0;
-  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--glass-thin);
   color: var(--faint);
-  font-size: 11px;
-  text-align: right;
+  font-size: 10.5px;
 }
 .map-canvas .leaflet-control-attribution a { color: var(--muted); }
 
-/* Zone panel */
+/* Zone card: a rail of its own, beside the planner. */
 .zone-panel {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  background: var(--glass);
+  backdrop-filter: var(--blur);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--ring), var(--shadow-rail);
   scrollbar-width: thin;
+  animation: zone-in 0.22s var(--ease);
 }
+
+@keyframes zone-in { from { opacity: 0; transform: translateX(12px); } }
+
 .zone-panel__head {
   position: sticky;
   top: 0;
   z-index: 1;
-  padding: 15px 48px 13px 18px;
-  background: var(--surface);
+  padding: 16px 48px 14px 18px;
+  background: var(--glass);
+  backdrop-filter: var(--blur);
   box-shadow: inset 0 -1px 0 var(--line);
 }
-.zone-panel__head h2 {
-  margin: 0;
-  font: 600 21px/1.2 var(--font-display);
-  letter-spacing: -0.012em;
-}
-.zone-panel__head p { margin: 3px 0 0; color: var(--muted); font-size: 13px; }
+.zone-panel__head h2 { margin: 0; font-size: 19px; font-weight: 650; letter-spacing: -0.022em; line-height: 1.2; }
+.zone-panel__head p { margin: 3px 0 0; color: var(--muted); font-size: 12.5px; }
 .zone-panel__badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 .zone-panel__close {
   position: absolute;
-  top: 11px;
-  right: 11px;
-  width: 30px;
-  height: 30px;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
   border: 0;
-  border-radius: var(--radius-sm);
+  border-radius: 50%;
   background: transparent;
   color: var(--muted);
   cursor: pointer;
-  font: 400 19px/1 var(--font);
+  font: 400 18px/1 var(--font);
   transition: background 0.15s var(--ease), color 0.15s var(--ease);
 }
-.zone-panel__close:hover { background: var(--surface-sunken); color: var(--ink); }
+.zone-panel__close:hover { background: var(--sunken); color: var(--ink); }
 .zone-panel__notice {
   margin: 0;
   padding: 10px 18px;
   background: var(--warn-soft);
   box-shadow: inset 0 -1px 0 var(--line);
   color: var(--warn);
-  font-size: 12.5px;
+  font-size: 12px;
   line-height: 1.45;
 }
 .zone-panel__section { padding: 14px 18px 15px; box-shadow: inset 0 -1px 0 var(--line-faint); }
 .zone-panel__section:last-child { box-shadow: none; }
 .zone-panel__section h3 {
-  margin: 0 0 9px;
+  margin: 0 0 10px;
   color: var(--muted);
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.075em;
+  letter-spacing: 0.09em;
   line-height: 1.3;
   text-transform: uppercase;
 }
 .zone-panel__empty { margin: 7px 0 0; color: var(--muted); font-size: 12.5px; }
-.zone-panel__sources ul { margin: 0; padding: 0; list-style: none; color: var(--muted); font-size: 12px; line-height: 1.6; }
-.zone-panel__sources a { color: var(--accent); text-underline-offset: 2px; }
+.zone-panel__sources ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.6;
+}
+.zone-panel__sources a { color: var(--ink); text-underline-offset: 2px; }
 
 .zone-badge {
   padding: 2px 9px;
   border: 1px solid transparent;
   border-radius: var(--radius-pill);
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
 }
-.zone-badge--official { background: var(--accent-soft); color: var(--accent-deep); }
-.zone-badge--estimated { background: color-mix(in srgb, var(--ink) 6%, transparent); color: var(--muted); }
+.zone-badge--official { background: var(--data-soft); color: var(--data); }
+.zone-badge--estimated { background: color-mix(in srgb, var(--ink) 7%, transparent); color: var(--muted); }
 .zone-badge--low {
   background: var(--warn-soft);
   border-color: color-mix(in srgb, var(--warn) 30%, transparent);
   color: var(--warn);
 }
-.zone-badge--plan { background: var(--ink); color: #fff; }
+.zone-badge--plan { background: var(--primary); color: #fff; }
 
 .zone-figures {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 5px 14px;
+  gap: 6px 14px;
   margin: 0;
   color: var(--ink-soft);
-  font-size: 13.5px;
+  font-size: 13px;
 }
 .zone-figures--spaced { margin-top: 10px; }
 .zone-figures dd {
@@ -317,26 +333,26 @@
   margin-left: 7px;
   padding: 0 6px;
   border-radius: var(--radius-pill);
-  background: color-mix(in srgb, var(--ink) 6%, transparent);
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
   color: var(--muted);
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
   vertical-align: 1px;
 }
 
 .zone-scores { margin: 0; padding: 0; list-style: none; }
 .zone-score {
   display: grid;
-  grid-template-columns: 124px minmax(0, 1fr) 30px;
+  grid-template-columns: 118px minmax(0, 1fr) 28px;
   align-items: center;
   gap: 10px;
   min-height: 25px;
   color: var(--ink-soft);
-  font-size: 13.5px;
+  font-size: 13px;
 }
 .zone-score__track {
-  height: 6px;
+  height: 5px;
   border-radius: var(--radius-pill);
   background: color-mix(in srgb, var(--ink) 9%, transparent);
   overflow: hidden;
@@ -345,17 +361,19 @@
   display: block;
   height: 100%;
   border-radius: var(--radius-pill);
-  background: var(--accent);
+  background: var(--data);
   transition: width 0.3s var(--ease);
 }
 .zone-score__value { color: var(--ink); font-weight: 650; font-variant-numeric: tabular-nums; text-align: right; }
 
 .zone-projects { margin: 10px 0 0; padding: 0; list-style: none; }
 .zone-project { padding: 9px 0; border-top: 1px solid var(--line-faint); font-size: 12.5px; }
-.zone-project__title { color: var(--ink); font-size: 13.5px; font-weight: 600; line-height: 1.3; }
+.zone-project__title { color: var(--ink); font-size: 13px; font-weight: 600; line-height: 1.3; }
 .zone-project > div + div { margin-top: 2px; color: var(--ink-soft); }
-.zone-project__meta { color: var(--muted); font-size: 11.5px; }
+.zone-project__meta { color: var(--muted); font-size: 11px; }
 
-@media (max-width: 1380px) {
-  .map-root { --panel-w: 314px; --left-w: 210px; }
+@media (max-width: 1320px) {
+  .map-root { --panel-w: 310px; }
+  .map-overlay__left { width: 208px; }
+  .map-canvas .leaflet-bottom.leaflet-left { left: 240px; }
 }

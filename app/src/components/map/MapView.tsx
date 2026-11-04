@@ -7,7 +7,11 @@ import { SERVICE_ORDER, lensValue } from './mapConfig';
 import { ZoneMap } from './zoneMap';
 import './map.css';
 
-const OVERLAY_GAP = 14; // matches the padding of .map-overlay
+const OVERLAY_GAP = 16; // matches the padding of .map-overlay
+// The planner rail floats over the map but is owned by App, so the map cannot measure it.
+// Both numbers live in styles.css as --rail-w and --hud-h; keep the three in step.
+const RAIL_WIDTH = 436;
+const HUD_HEIGHT = 128;
 
 export default function MapView() {
   const zones = useStore((s) => s.zones);
@@ -23,7 +27,6 @@ export default function MapView() {
   const [shownServices, setShownServices] = useState<ServiceType[]>([]);
 
   const canvasRef = useRef<HTMLDivElement>(null);
-  const topRef = useRef<HTMLDivElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const zoneMapRef = useRef<ZoneMap | null>(null);
@@ -49,9 +52,10 @@ export default function MapView() {
     return counts;
   }, [services]);
 
+  // Keeps a fitted city clear of everything floating over the map.
   const overlayInsets = () => ({
-    top: (topRef.current?.offsetHeight ?? 0) + 2 * OVERLAY_GAP,
-    right: (panelRef.current?.offsetWidth ?? 0) + 2 * OVERLAY_GAP,
+    top: HUD_HEIGHT + OVERLAY_GAP,
+    right: RAIL_WIDTH + (panelRef.current?.offsetWidth ?? 0) + 2 * OVERLAY_GAP,
     left: (leftRef.current?.offsetWidth ?? 0) + 2 * OVERLAY_GAP,
   });
 
@@ -111,18 +115,18 @@ export default function MapView() {
       <HatchDefs />
       <div ref={canvasRef} className="map-canvas" />
       <div className="map-overlay">
-        <div ref={topRef} className="map-overlay__top">
-          <LensBar lens={lens} onChange={setLens} />
-          <button
-            type="button"
-            className="map-card map-city-button"
-            onClick={() => zoneMapRef.current?.fitCity(overlayInsets(), true)}
-          >
-            Tutta la città
-          </button>
-        </div>
         <div className="map-overlay__body">
           <div ref={leftRef} className="map-overlay__left">
+            <div className="map-card map-lenses">
+              <LensBar lens={lens} onChange={setLens} />
+              <button
+                type="button"
+                className="map-city-button"
+                onClick={() => zoneMapRef.current?.fitCity(overlayInsets(), true)}
+              >
+                Tutta la città
+              </button>
+            </div>
             <ServiceToggle counts={serviceCounts} shown={shownServices} onToggle={toggleService} />
             <MapLegend lens={lens} hasMissing={hasMissing} />
           </div>

@@ -19,6 +19,25 @@ change. While `meta.json` says `"mock": true` the app shows a red **DATI DI PROV
 banner, which must not be on screen during the demo. Run `npm run check-data` after
 copying new files in.
 
+## Layout
+
+The map fills the window and everything else floats over it: the header, the lens
+and legend rail on the left, the zone card, and the planner rail on the right. The
+map has to reserve that space when it fits the city, but it cannot measure a panel
+another component owns, so three numbers are paired by hand and must be changed
+together:
+
+| `src/styles.css` | `src/components/map/MapView.tsx` |
+| --- | --- |
+| `--rail-w` | `RAIL_WIDTH` |
+| `--hud-h` | `HUD_HEIGHT` |
+| `--gap` | `OVERLAY_GAP` |
+
+One rule holds the visual system together: **the chrome carries no colour.** Ink,
+white and glass, with black for the action you are meant to take. Every colour on
+screen therefore belongs to the data — the teal of the choropleth and the score
+bars, the terracotta of a warning.
+
 ## The AI server
 
 Machine B serves `/api/health`, `/api/agent` and `/api/memo` on port 8787. With the

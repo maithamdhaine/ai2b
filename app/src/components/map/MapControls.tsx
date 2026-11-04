@@ -20,7 +20,7 @@ export function HatchDefs() {
 
 export function LensBar({ lens, onChange }: { lens: Lens; onChange: (lens: Lens) => void }) {
   return (
-    <div className="map-card map-lens-bar" role="group" aria-label="Lente della mappa">
+    <div className="map-lens-bar" role="group" aria-label="Lente della mappa">
       {LENS_ORDER.map((id) => (
         <button key={id} type="button" aria-pressed={id === lens} onClick={() => onChange(id)}>
           {LENSES[id].label}
