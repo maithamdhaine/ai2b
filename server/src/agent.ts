@@ -9,7 +9,7 @@ import { getClient, modelName, noteLlmError } from "./llm.js";
 import { extractNumbers, findUnsupportedNumbers } from "./numbers.js";
 import { PROFILE_LABEL } from "./profiles.js";
 import { REPLY_TOOL, SYSTEM_PROMPT, TOOLS } from "./prompts.js";
-import { budgetKnown, runRules } from "./rules.js";
+import { budgetKnown, isRelativeBudgetChange, runRules } from "./rules.js";
 import { lastUserText, validateActions } from "./validate.js";
 
 type BetaMessage = Anthropic.Beta.Messages.BetaMessage;
@@ -226,6 +226,9 @@ function rulesAnswer(messages: ChatMessage[], state: AppState): AgentResponse {
  * or one already in the state. "Raddoppia il budget" is a calculation, so it goes to rules mode.
  */
 function assertFiguresWereStated(actions: Action[], messages: ChatMessage[], state: AppState): void {
+  if (actions.some((action) => action.tool === "set_budget") && isRelativeBudgetChange(lastUserText(messages))) {
+    throw new Error("relative budget change: the new total must come from the user");
+  }
   const said = messages.filter((message) => message.role === "user").map((message) => message.content);
   const stated = (value: number): boolean =>
     findUnsupportedNumbers(String(value), { said, budget: state.budget_eur, minimum: state.filters.min_over75 }).length === 0;

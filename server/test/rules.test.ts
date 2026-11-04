@@ -44,6 +44,39 @@ test('"senza" names the need when the missing thing is a resource', () => {
   assert.ok(!notAboutThem.actions.some((a) => a.tool === "set_weights"));
 });
 
+for (const said of ["togli 50k", "togliamo 20.000 euro", "aggiungi altri 50k", "altri 30 mila euro", "50k in più", "20.000 euro in meno", "aumenta di 50k", "alza il budget di centomila", "riduci il budget di 20.000 euro", "raddoppia il budget", "dimezza i fondi"]) {
+  test(`"${said}" asks for the new total instead of treating the change as the budget`, () => {
+    const r = runRules([{ role: "user", content: said }], state({ budget_eur: 200000 }));
+    assert.deepEqual(r.actions, []);
+    assert.equal(r.needs_clarification, true);
+    assert.match(r.reply, /nuovo budget totale/);
+  });
+}
+
+for (const [said, budget] of [
+  ["aumenta il budget a 300k", 300000],
+  ["riduci a 150k", 150000],
+  ["porta il budget a 250.000 euro", 250000],
+  ["e se avessimo 300k?", 300000],
+  ["ho 200k per ridurre la carenza di servizi", 200000],
+  ["ho 200k e in più voglio evitare il PNRR", 200000],
+] as const) {
+  test(`"${said}" still sets the budget it states`, () => {
+    const r = runRules([{ role: "user", content: said }], state());
+    const action = r.actions.find((a) => a.tool === "set_budget");
+    assert.ok(action && action.tool === "set_budget", said);
+    assert.equal(action.args.budget_eur, budget);
+    assert.equal(r.needs_clarification, false);
+  });
+}
+
+for (const said of ["togli i filtri", "togli la circoscrizione 6", "aggiungi la circoscrizione 3 e 5", "raddoppia l'impatto"]) {
+  test(`"${said}" is not a budget change`, () => {
+    const r = runRules([{ role: "user", content: said }], state({ budget_eur: 200000 }));
+    assert.doesNotMatch(r.reply, /nuovo budget totale/);
+  });
+}
+
 test('"budget di" makes a year-like figure money, without capturing a real year', () => {
   assert.equal(parseBudget("budget di 2000"), 2000);
   assert.equal(parseBudget("un budget pari a 2030"), 2030);

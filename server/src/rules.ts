@@ -501,10 +501,32 @@ function validated(raw: Action[]): Action[] {
   return out;
 }
 
+const MONEY_FIGURE = String.raw`(?:€\s*)?(?:\d|[a-z]*mila\b|un milione|mezzo milione|[a-z]+ milioni)`;
+const SCALES_THE_BUDGET = /\b(?:raddoppi|dimezz|triplic)\w*\b[^.;]{0,25}\b(?:budget|fondi|cifra|importo|stanziamento)\b/;
+const CHANGES_BY_A_FIGURE = [
+  new RegExp(String.raw`\b(?:togli\w*|sottra\w*|aggiung\w*)\b[^.;,]{0,25}?\b${MONEY_FIGURE}`),
+  new RegExp(String.raw`\b(?:aument|alz|increment|riduc|ridur|abbass|diminu|tagli)\w*\b[^.;,]{0,25}?\bdi\s+(?:circa\s+)?${MONEY_FIGURE}`),
+  new RegExp(String.raw`\baltri\s+${MONEY_FIGURE}`),
+  /(?:\d|k|mila|euro|€)\s+in (?:piu|meno)\b/,
+];
+
+/**
+ * "togli 50k", "aumenta di 50k", "50k in più", "raddoppia il budget": a change to the current budget, not a new one.
+ * The figure in it is not the budget, and nothing on the server may calculate the total.
+ */
+export function isRelativeBudgetChange(input: string): boolean {
+  const text = maskNonBudget(normalize(input));
+  if (SCALES_THE_BUDGET.test(text)) return true;
+  return parseBudget(input) !== null && CHANGES_BY_A_FIGURE.some((pattern) => pattern.test(text));
+}
+
 function answer(messages: ChatMessage[], rawState: AppState): AgentResponse {
   const state = normalizeState(rawState);
   const text = normalize(lastUserContent(messages));
   if (text === "") return goalClarification();
+  if (isRelativeBudgetChange(text)) {
+    return { reply: "Qual è il nuovo budget totale, in euro?", actions: [], needs_clarification: true, mode: "rules" };
+  }
 
   const budget = parseBudget(text);
   const { value: minOver75, rest: withoutMin } = extractMinOver75(text);

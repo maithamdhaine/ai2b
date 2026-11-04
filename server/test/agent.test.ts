@@ -79,6 +79,25 @@ test("a budget the user never stated falls back to rules: the model must not inv
   assert.ok(!result.actions.some((action) => action.tool === "set_budget"));
 });
 
+test("a relative budget change never sets the budget, even with a figure the user wrote", async () => {
+  for (const value of [50000, 150000]) {
+    fakeClient(message([call("set_budget", { budget_eur: value }), call("run_plan"), reply("Ricalcolo il piano.")]));
+    const result = await runAgent([user("togli 50k")], stateWith({ budget_eur: 200000 }));
+    assert.equal(result.mode, "rules");
+    assert.deepEqual(result.actions, []);
+    assert.equal(result.needs_clarification, true);
+    assert.match(result.reply, /nuovo budget totale/);
+  }
+});
+
+test("the model asking for the new total stays in llm mode", async () => {
+  fakeClient(message([reply("Qual è il nuovo budget totale?", true)]));
+  const result = await runAgent([user("togli 50k")], stateWith({ budget_eur: 200000 }));
+  assert.equal(result.mode, "llm");
+  assert.deepEqual(result.actions, []);
+  assert.equal(result.needs_clarification, true);
+});
+
 for (const [said, value] of [
   ["ho 200.000 euro", 200000],
   ["ho 200k", 200000],
