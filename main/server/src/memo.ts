@@ -74,14 +74,17 @@ function percentText(value: unknown): string {
   return `${format(Math.abs(n) <= 1 ? n * 100 : n, 1)}%`;
 }
 
+/**
+ * return_index comes over the wire as a value per euro (about 0,001 to 0,02), which is
+ * unreadable on a board paper. The app shows it per 1.000 euro, so the memo must use the
+ * same scale or the two disagree in front of the jury.
+ */
+const INDEX_SCALE = 1000;
+
 function indexText(value: unknown): string {
   const n = num(value);
   if (n === null) return NOT_AVAILABLE;
-  const abs = Math.abs(n);
-  if (abs > 0 && abs < 0.0005) {
-    return new Intl.NumberFormat("it-IT", { maximumSignificantDigits: 2 }).format(n);
-  }
-  return format(n, abs >= 100 ? 0 : abs >= 1 ? 2 : 3);
+  return format(n * INDEX_SCALE, 1);
 }
 
 function scoreText(value: unknown): string {
@@ -394,7 +397,7 @@ function whereSection(facts: MemoFacts): string {
         `| ${row.zone_name} | ${row.circ} | ${row.intervention} | ${row.budget} | ${row.people_reached_stima} | ${row.cost_per_person} | ${row.return_index} | ${row.confidence} |`,
     );
   const lines = [
-    "| Zona | Circ. | Intervento | Budget | Persone raggiunte (stima) | Costo per persona (ipotesi) | Indice di ritorno atteso | Affidabilità |",
+    "| Zona | Circ. | Intervento | Budget | Persone raggiunte (stima) | Costo per persona (ipotesi) | Indice di ritorno atteso (ogni 1.000 €) | Affidabilità |",
     "| --- | --- | --- | --- | --- | --- | --- | --- |",
     ...rows,
   ];

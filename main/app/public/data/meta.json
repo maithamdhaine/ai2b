@@ -1,0 +1,131 @@
+{
+ "mock": false,
+ "generated_at": "2026-11-04T15:00:02+01:00",
+ "sources": [
+  {
+   "key": "aperto_biblioteche",
+   "label": "Biblioteche, Comune di Torino, AperTO/Geoportale",
+   "url": "http://geoportale.comune.torino.it/geodati/zip/biblioteche_csv.zip",
+   "year": 2017,
+   "level": "punto"
+  },
+  {
+   "key": "aperto_mercati",
+   "label": "Mercati, Comune di Torino, AperTO/Geoportale",
+   "url": "http://geoportale.comune.torino.it/geodati/zip/mercati_csv.zip",
+   "year": 2016,
+   "level": "punto"
+  },
+  {
+   "key": "aperto_ospedali",
+   "label": "Ospedali, Comune di Torino, AperTO/Geoportale",
+   "url": "http://geoportale.comune.torino.it/geodati/zip/ospedali_csv.zip",
+   "year": 2016,
+   "level": "punto"
+  },
+  {
+   "key": "aperto_rsa",
+   "label": "Residenze sanitarie assistenziali private (fonte file: Regione Piemonte), AperTO",
+   "url": "https://risorse.comune.torino.it/opendata/salute/regpie_residente_sanitarie_assistenziali_private_comuneTO.csv",
+   "year": 2019,
+   "level": "punto"
+  },
+  {
+   "key": "circ_geo",
+   "label": "Circoscrizioni (confini), Comune di Torino, Geoportale",
+   "url": "http://geoportale.comune.torino.it/geodati/zip/circoscrizioni_csv.zip",
+   "year": 2025,
+   "level": "circoscrizione"
+  },
+  {
+   "key": "eta_circ_2025",
+   "label": "Popolazione residente per età e circoscrizione 2025, AperTO",
+   "url": "https://aperto.comune.torino.it/dataset/popolazione-residente-per-eta-e-circoscrizione-2025",
+   "year": 2025,
+   "level": "circoscrizione"
+  },
+  {
+   "key": "eta_zona_2020",
+   "label": "Popolazione registrata in anagrafe per età annuale e zona statistica 2020, AperTO",
+   "url": "https://aperto.comune.torino.it/dataset/popolazione-registrata-in-anagrafe-per-eta-annuale-e-zona-statistica-anno-2020",
+   "year": 2020,
+   "level": "zona"
+  },
+  {
+   "key": "famiglie_circ_2025",
+   "label": "Famiglie per tipologia e circoscrizione 2025, AperTO",
+   "url": "https://aperto.comune.torino.it/dataset/famiglie-per-tipologia-e-circoscrizione-2025",
+   "year": 2025,
+   "level": "circoscrizione"
+  },
+  {
+   "key": "indicatori_demo_2025",
+   "label": "Indicatori demografici 2025 (indice di vecchiaia, validazione), AperTO",
+   "url": "https://aperto.comune.torino.it/dataset/indicatori-demografici-2025",
+   "year": 2025,
+   "level": "circoscrizione"
+  },
+  {
+   "key": "minsalute_farmacie",
+   "label": "Farmacie, Ministero della Salute (indirizzi geocodificati con OSM)",
+   "url": "https://www.dati.salute.gov.it/sites/default/files/opendata/FRM_FARMA_5_20261104.csv",
+   "year": 2026,
+   "level": "punto"
+  },
+  {
+   "key": "osm_nominatim",
+   "label": "Geocodifica indirizzi: OpenStreetMap Nominatim (© OpenStreetMap contributors, ODbL)",
+   "url": "https://nominatim.openstreetmap.org",
+   "year": 2026,
+   "level": "punto"
+  },
+  {
+   "key": "pnrr_pnc",
+   "label": "Interventi PNRR e PNC, Comune di Torino (aggiornamento 30.06.2026), AperTO. Esclusi: Case e Ospedali di Comunità (ASL, non presenti nel file); 27 interventi sociali senza localizzazione restano a livello città",
+   "url": "https://risorse.comune.torino.it/opendata/pnrr/8_Riepilogo_interventi_PNRR_e_PNC_per_Sito_30.06.26_-_open_data.xlsx",
+   "year": 2026,
+   "level": "città"
+  },
+  {
+   "key": "pop_zona_2025",
+   "label": "Popolazione per sesso e zona statistica 2025, AperTO",
+   "url": "https://aperto.comune.torino.it/dataset/popolazione-per-sesso-e-zona-statistica-2025",
+   "year": 2025,
+   "level": "zona"
+  },
+  {
+   "key": "stranieri_zona_2025",
+   "label": "Stranieri residenti per zona statistica 2025, AperTO",
+   "url": "https://aperto.comune.torino.it/dataset/stranieri-residenti-per-zona-statistica-2025",
+   "year": 2025,
+   "level": "zona"
+  },
+  {
+   "key": "zone_geo",
+   "label": "Zone statistiche (confini), Comune di Torino, Geoportale",
+   "url": "http://geoportale.comune.torino.it/geodati/zip/zone_statistiche_csv.zip",
+   "year": 2025,
+   "level": "zona"
+  }
+ ],
+ "methods": {
+  "age": "ipf",
+  "isolation": "percentile(0.6*pct(quota over75 stimata) + 0.4*pct(tasso persone sole circoscrizione))",
+  "service_gap": "percentile(media pct: distanza ospedale, distanza RSA, distanza farmacia, -servizi entro 800 m)",
+  "future_pressure": "percentile(over75_2030 / over75 2025); over75_2030 = residenti 65+ nel 2020, senza morti né migrazioni: solo segnale relativo",
+  "inclusion": "percentile(quota residenti stranieri): bisogno di accesso e lingua",
+  "funded_share": "euro sociali PNRR/PNC per residente, normalizzati 0-1 sul massimo (zone non piccole)",
+  "percentile_reference": "zone con almeno 1.000 residenti",
+  "services_radius_m": 800,
+  "stability_top10": "1000 pesi casuali Dirichlet(1,1,1,1), seed 42: quota di volte nella top 10",
+  "assumptions": [
+   "Raggio 800 m: ipotesi del team",
+   "Costi interventi: ipotesi del team (app)",
+   "Zona 1 (Municipio): il seed 2020 è stato ridotto di 3.932 persone ritenute residenza virtuale (dedotto dal calo 2020-2025, non documentato nella fonte); confidenza bassa"
+  ]
+ },
+ "zone_id_notes": {
+  "93": "codice 09bis",
+  "94": "codice 17bis"
+ }
+}

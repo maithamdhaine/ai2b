@@ -4,7 +4,7 @@
     {
       "name": "bussola",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["--prefix", "app", "run", "dev"],
+      "runtimeArgs": ["--prefix", "main/app", "run", "dev"],
       "port": 5173
     }
   ]
