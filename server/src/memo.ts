@@ -42,7 +42,8 @@ function num(value: unknown): number | null {
 /** Text safe for one markdown table cell. Null when there is nothing printable. */
 function label(value: unknown): string | null {
   if (typeof value !== "string" && typeof value !== "number") return null;
-  const cleaned = String(value).replace(/\s+/g, " ").replace(/\|/g, "/").trim();
+  // A stray pipe, asterisk or backtick in a name would break the table or the bold around it.
+  const cleaned = String(value).replace(/\s+/g, " ").replace(/\|/g, "/").replace(/[*`]/g, "").trim();
   return cleaned === "" || /^(?:null|undefined|nan)$/i.test(cleaned) ? null : cleaned;
 }
 
@@ -539,7 +540,10 @@ function sourcesSection(facts: MemoFacts): string {
 function sourceText(source: Source): string {
   const name = (label(source.label) ?? label(source.key) ?? "Fonte senza nome").replace(/[[\]]/g, "");
   const url = typeof source.url === "string" ? source.url.trim() : "";
-  const shown = /^https?:\/\/\S+$/i.test(url) ? `[${name}](${url})` : /^www\.\S+$/i.test(url) ? `${name}, ${url}` : name;
+  // An unbalanced parenthesis would end the link early, so that target is percent-encoded.
+  const balanced = /^(?:[^()]|\([^()]*\))*$/.test(url);
+  const target = balanced ? url : url.replace(/\(/g, "%28").replace(/\)/g, "%29");
+  const shown = /^https?:\/\/\S+$/i.test(url) ? `[${name}](${target})` : /^www\.\S+$/i.test(url) ? `${name}, ${url}` : name;
   const year = num(source.year);
   return year === null ? shown : `${shown} (${year})`;
 }
@@ -613,9 +617,31 @@ function headingsAreExact(markdown: string): boolean {
   return found.length === MEMO_HEADINGS.length && MEMO_HEADINGS.every((heading, index) => found[index] === heading);
 }
 
+/** Markdown that would render wrongly: an open bold, a code fence, a broken link, an uneven table. */
+function markdownProblem(markdown: string): string | null {
+  if (markdown.includes("```")) return "blocco di codice";
+  for (const line of markdown.split("\n")) {
+    if ((line.match(/\*\*/g) ?? []).length % 2 !== 0) return "grassetto non chiuso";
+    if ((line.match(/\[/g) ?? []).length !== (line.match(/\]/g) ?? []).length) return "link non chiuso";
+  }
+  let columns: number | null = null;
+  for (const line of markdown.split("\n")) {
+    if (!line.trim().startsWith("|")) {
+      columns = null;
+      continue;
+    }
+    const count = (line.match(/\|/g) ?? []).length;
+    if (columns !== null && count !== columns) return "tabella irregolare";
+    columns = count;
+  }
+  return null;
+}
+
 /** Every rule the text breaks. Empty means it may be shown to the user. Safe to log: no secrets, no prompt. */
 export function checkMemo(markdown: string, facts: MemoFacts): string[] {
   const failures: string[] = [];
+  const broken = markdownProblem(markdown);
+  if (broken) failures.push(`markdown non valido: ${broken}`);
   const unsupported = findUnsupportedNumbers(markdown, facts);
   if (unsupported.length > 0) failures.push(`numeri non presenti nei dati: ${unsupported.join(", ")}`);
   if (!headingsAreExact(markdown)) failures.push("titoli mancanti o fuori ordine");

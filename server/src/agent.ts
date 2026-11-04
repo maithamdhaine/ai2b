@@ -100,6 +100,20 @@ interface ModelOutput {
   needsClarification: boolean;
 }
 
+const LEAKED_CALL = new RegExp(
+  String.raw`\x60\x60\x60|</?(?:thinking|function_calls|invoke|parameter|tool_use)\b|^\s*[{[]|"(?:tool|args)"\s*:|\b(?:${[...TOOL_NAMES, REPLY_TOOL].join("|")})\b`,
+  "im",
+);
+
+/**
+ * Text for the user, or "" if it is really a tool call or internal markup written as prose.
+ * Actions only ever come from native tool_use blocks: a call written as text is never executed.
+ */
+function usableReply(raw: string): string {
+  const text = raw.replace(/<thinking\b[^>]*>[\s\S]*?(?:<\/thinking>|$)/gi, " ").trim();
+  return LEAKED_CALL.test(text) ? "" : text;
+}
+
 /** Reads blocks by type, never by position: a response may begin with thinking blocks. */
 function readContent(content: BetaMessage["content"]): ModelOutput {
   const rawActions: ModelOutput["rawActions"] = [];
@@ -114,7 +128,7 @@ function readContent(content: BetaMessage["content"]): ModelOutput {
       const name = block.name.trim().toLowerCase();
       if (name === REPLY_TOOL) {
         const input = (block.input ?? {}) as { reply?: unknown; needs_clarification?: unknown };
-        if (typeof input.reply === "string") toolReply = input.reply.trim();
+        if (typeof input.reply === "string") toolReply = usableReply(input.reply);
         toolAskedQuestion = input.needs_clarification === true;
       } else {
         rawActions.push({ tool: name, args: block.input });
@@ -123,7 +137,7 @@ function readContent(content: BetaMessage["content"]): ModelOutput {
   }
 
   if (toolReply !== "") return { rawActions, reply: toolReply, needsClarification: toolAskedQuestion };
-  const text = texts.join("\n").trim();
+  const text = usableReply(texts.join("\n"));
   return { rawActions, reply: text, needsClarification: toolAskedQuestion || text.endsWith("?") };
 }
 

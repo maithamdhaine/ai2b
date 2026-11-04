@@ -1,6 +1,5 @@
 import { readFileSync } from "node:fs";
 import cors from "cors";
-import dotenv from "dotenv";
 import express from "express";
 import type { NextFunction, Request, Response } from "express";
 import { runAgent, warmUp } from "./agent.js";
@@ -13,33 +12,46 @@ import type {
   Source,
   ZoneProperties,
 } from "./contract.js";
-import { currentMode, ENV_PATH } from "./llm.js";
+import { currentMode, ENV_PATH, parseEnvFile } from "./llm.js";
 import { templateMemo, writeMemo } from "./memo.js";
 import { normalizeMessages, normalizeState, validateActions } from "./validate.js";
+
+interface ApiError {
+  error: string;
+}
 
 function configuredPort(): number {
   let fromFile: string | undefined;
   try {
-    fromFile = dotenv.parse(readFileSync(ENV_PATH)).PORT;
+    fromFile = parseEnvFile(readFileSync(ENV_PATH)).PORT;
   } catch {
     fromFile = undefined;
   }
-  const port = Number(fromFile ?? process.env.PORT ?? 8787);
+  const port = Number(fromFile || process.env.PORT || 8787);
   return Number.isInteger(port) && port > 0 ? port : 8787;
+}
+
+function isObject(value: unknown): boolean {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 export function createApp(): express.Express {
   const app = express();
-  app.use(cors());
+  // Local demo: the app may run on any port (Vite 5173, React 3000). There are no cookies or credentials.
+  app.use(cors({ origin: "*", methods: ["GET", "POST", "OPTIONS"], allowedHeaders: ["Content-Type"] }));
   app.use(express.json({ limit: "10mb" }));
 
   app.get("/api/health", (_req: Request, res: Response<HealthResponse>) => {
     res.json({ ok: true, mode: currentMode() });
   });
 
-  app.post("/api/agent", async (req: Request, res: Response<AgentResponse>) => {
-    const messages = normalizeMessages(req.body?.messages);
-    const state = normalizeState(req.body?.state);
+  app.post("/api/agent", async (req: Request, res: Response<AgentResponse | ApiError>) => {
+    if (!isObject(req.body) || !Array.isArray(req.body.messages) || !isObject(req.body.state)) {
+      res.status(400).json({ error: "Richiesta non valida: servono messages (lista) e state (oggetto)." });
+      return;
+    }
+    const messages = normalizeMessages(req.body.messages);
+    const state = normalizeState(req.body.state);
     const result = await runAgent(messages, state);
     // Final gate: whichever mode answered, only valid actions reach the browser.
     const { actions } = validateActions(result.actions);
@@ -51,15 +63,21 @@ export function createApp(): express.Express {
     });
   });
 
-  app.post("/api/memo", async (req: Request, res: Response<MemoResponse>) => {
-    const state = normalizeState(req.body?.state);
-    const bodyPlan: PlanItem[] = Array.isArray(req.body?.plan) ? req.body.plan : [];
+  app.post("/api/memo", async (req: Request, res: Response<MemoResponse | ApiError>) => {
+    const body = req.body;
+    const listsOk = isObject(body) && ["plan", "zones", "sources"].every((key) => body[key] === undefined || Array.isArray(body[key]));
+    if (!listsOk || !isObject(body.state)) {
+      res.status(400).json({ error: "Richiesta non valida: servono state (oggetto) e plan, zones, sources (liste)." });
+      return;
+    }
+    const state = normalizeState(body.state);
+    const bodyPlan: PlanItem[] = Array.isArray(body.plan) ? body.plan : [];
     const request: MemoRequest = {
       state,
       plan: bodyPlan.length > 0 ? bodyPlan : state.plan,
-      zones: Array.isArray(req.body?.zones) ? (req.body.zones as ZoneProperties[]) : [],
-      sources: Array.isArray(req.body?.sources) ? (req.body.sources as Source[]) : [],
-      mock: req.body?.mock === true,
+      zones: Array.isArray(body.zones) ? (body.zones as ZoneProperties[]) : [],
+      sources: Array.isArray(body.sources) ? (body.sources as Source[]) : [],
+      mock: body.mock === true,
     };
     try {
       res.json(await writeMemo(request));
@@ -69,9 +87,17 @@ export function createApp(): express.Express {
     }
   });
 
+  app.use((_req: Request, res: Response<ApiError>) => {
+    res.status(404).json({ error: "Percorso non trovato" });
+  });
+
   // The demo must keep answering: anything unexpected returns JSON, without internals.
-  app.use((error: unknown, _req: Request, res: Response, _next: NextFunction) => {
+  app.use((error: unknown, _req: Request, res: Response, next: NextFunction) => {
     console.warn(`[server] ${error instanceof Error ? error.message : String(error)}`);
+    if (res.headersSent) {
+      next(error);
+      return;
+    }
     const status = typeof (error as { status?: unknown })?.status === "number" ? (error as { status: number }).status : 500;
     res.status(status).json({ error: status < 500 ? "Richiesta non valida" : "Errore interno" });
   });
@@ -82,6 +108,14 @@ export function createApp(): express.Express {
 const isMain = process.argv[1] !== undefined && import.meta.url.endsWith(process.argv[1].replace(/\\/g, "/").split("/").pop() ?? "");
 
 if (isMain) {
+  // On stage a stray error must be logged, not end the process.
+  process.on("unhandledRejection", (reason) => {
+    console.error(`[server] unhandled rejection: ${reason instanceof Error ? reason.message : String(reason)}`);
+  });
+  process.on("uncaughtException", (error) => {
+    console.error(`[server] uncaught exception: ${error.message}`);
+  });
+
   const port = configuredPort();
   // Express 5 passes listen errors to this callback, so a busy port must be handled here.
   createApp().listen(port, (error?: Error) => {

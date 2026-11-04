@@ -80,9 +80,20 @@ test("agent in rules mode handles the example from the brief", async () => {
   assert.deepEqual(json.actions[2]?.args, { exclude_funded: true });
 });
 
-test("agent survives malformed bodies", async () => {
+test("agent answers 400 on a malformed body, and keeps serving", async () => {
   setClientForTests(null);
-  for (const body of [{}, { messages: "ciao" }, { messages: [], state: 5 }, { messages: [{ role: "user" }], state: null }]) {
+  for (const body of [{}, [], { messages: "ciao", state: {} }, { messages: [] }, { messages: [], state: 5 }, { messages: [{ role: "user" }], state: null }]) {
+    const { status, json } = await post<{ error: string }>("/api/agent", body);
+    assert.equal(status, 400, JSON.stringify(body));
+    assert.ok(json.error);
+  }
+  const health = await fetch(`${base}/api/health`);
+  assert.equal(health.status, 200);
+});
+
+test("agent asks a question when the body is well formed but has no usable message", async () => {
+  setClientForTests(null);
+  for (const body of [{ messages: [], state: {} }, { messages: [{ role: "user" }], state: {} }]) {
     const { status, json } = await post<AgentResponse>("/api/agent", body);
     assert.equal(status, 200);
     assertAgentShape(json);
@@ -164,7 +175,15 @@ test("memo returns the six sections from the template without a key", async () =
   assert.doesNotMatch(json.markdown, /\b(?:null|undefined|NaN)\b/);
 });
 
-test("memo uses state.plan when the body has no plan, and survives an empty body", async () => {
+test("memo answers 400 without state or with a non-list field", async () => {
+  for (const body of [{}, [], { state: 5 }, { state: {}, plan: "x" }, { state: {}, zones: {} }, { state: {}, sources: 3 }]) {
+    const { status, json } = await post<{ error: string }>("/api/memo", body);
+    assert.equal(status, 400, JSON.stringify(body));
+    assert.ok(json.error);
+  }
+});
+
+test("memo uses state.plan when the body has no plan, and handles an empty state", async () => {
   setClientForTests(null);
   const fromState = await post<MemoResponse>("/api/memo", {
     state: { ...memoRequest.state, plan: memoRequest.plan },
@@ -174,7 +193,7 @@ test("memo uses state.plan when the body has no plan, and survives an empty body
   assert.equal(fromState.status, 200);
   assert.match(fromState.json.markdown, /Pilonetto/);
 
-  const empty = await post<MemoResponse>("/api/memo", {});
+  const empty = await post<MemoResponse>("/api/memo", { state: {} });
   assert.equal(empty.status, 200);
   for (const heading of HEADINGS) assert.ok(empty.json.markdown.includes(`## ${heading}`), heading);
 });

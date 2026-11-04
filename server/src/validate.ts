@@ -165,7 +165,7 @@ export function normalizeState(raw: unknown): AppState {
     weights,
     filters,
     selected_zone_id: selected,
-    plan: Array.isArray(raw.plan) ? (raw.plan as PlanItem[]) : [],
+    plan: Array.isArray(raw.plan) ? (raw.plan.filter(isRecord) as unknown as PlanItem[]) : [],
   };
 }
 

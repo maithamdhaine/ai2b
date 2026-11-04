@@ -12,6 +12,8 @@ export interface NumberToken {
   /** Digits after the decimal separator, as written in the text. */
   decimals: number;
   percent: boolean;
+  /** The other reading of an ambiguous figure: "1.234" and "1,234" can each mean 1234 or 1.234. */
+  altValue?: number;
 }
 
 const UNITS: Record<string, number> = {
@@ -80,9 +82,10 @@ export function stripAccents(text: string): string {
 /** Parses "100.000", "1,5", "0.042" or "1.234,50" using Italian conventions. */
 export function parseNumeric(raw: string): { value: number; decimals: number } | null {
   const text = raw.trim();
-  if (/^\d{1,3}(?:[.  ]\d{3})+(?:,\d+)?$/.test(text) && !/^0\./.test(text)) {
+  if (/^\d{1,3}(?:,\d{3}){2,}$/.test(text)) return { value: Number(text.replace(/,/g, "")), decimals: 0 };
+  if (/^\d{1,3}(?:[.   ]\d{3})+(?:,\d+)?$/.test(text) && !/^0\./.test(text)) {
     const [whole = "", fraction = ""] = text.split(",");
-    const value = Number(`${whole.replace(/[.  ]/g, "")}.${fraction || "0"}`);
+    const value = Number(`${whole.replace(/[.   ]/g, "")}.${fraction || "0"}`);
     return Number.isFinite(value) ? { value, decimals: fraction.length } : null;
   }
   if (/^\d+[.,]\d+$/.test(text)) {
@@ -114,11 +117,19 @@ function maskNonFigures(text: string): string {
     .replace(/https?:\/\/\S+/gi, " ")
     .replace(/^\s*\d+[.)]\s+/gm, " ")
     .replace(/\b(?:over|ultra)[\s-]?(?:50|65|75)(?:enni)?\b/gi, " ")
-    .replace(/\b50\s?[-–]\s?64(?:\s?anni)?\b/g, " ");
+    .replace(/\b50\s?[-–]\s?64(?:\s?anni)?\b/g, " ")
+    .replace(/\s?\/\s?100\b/g, " "); // the scale in "62/100", not a figure
+}
+
+/** "1.234" is 1234 in Italian but 1.234 copied from JSON. "1,234" is the reverse for English text. */
+function alternativeReading(numeric: string): number | undefined {
+  if (/^[1-9]\d{0,2}\.\d{3}$/.test(numeric)) return Number(numeric);
+  if (/^[1-9]\d{0,2},\d{3}$/.test(numeric)) return Number(numeric.replace(",", ""));
+  return undefined;
 }
 
 const DIGIT_TOKEN =
-  /(?<![\p{L}\p{N}])(\d{1,3}(?:[.  ]\d{3})+(?:,\d+)?|\d+(?:[.,]\d+)?)(?:\s?(k(?!m)|mila|milion[ei]|miliard[oi]))?(?:km|mq|ha|m)?(?![\p{L}\p{N}])(\s?%|\s?per\s?cento)?/giu;
+  /(?<![\p{L}\p{N}])(\d{1,3}(?:,\d{3}){2,}|\d{1,3}(?: \d{3})+(?=\s?(?:€|euro\b|eur\b))|\d{1,3}(?:[.  ]\d{3})+(?:,\d+)?|\d+(?:[.,]\d+)?)(?:\s?(k(?!m)|mila|milion[ei]|miliard[oi]))?(?:km|mq|ha|m)?(?![\p{L}\p{N}])(\s?%|\s?per\s?cento)?/giu;
 
 const SEI_AS_NUMBER = /^\s+(?:zone|zona|interventi|circoscrizioni|quartieri|progetti|persone|mesi|anni|mila|milioni)\b/i;
 
@@ -131,11 +142,13 @@ export function extractNumbers(input: string): NumberToken[] {
     const parsed = parseNumeric(numeric);
     if (parsed) {
       const factor = scaleOf(scale);
+      const altValue = factor === 1 ? alternativeReading(numeric) : undefined;
       tokens.push({
         raw: match.trim(),
         value: parsed.value * factor,
         decimals: factor === 1 ? parsed.decimals : 0,
         percent: Boolean(pct),
+        ...(altValue === undefined ? {} : { altValue }),
       });
     }
     return " ".repeat(match.length);
@@ -212,6 +225,7 @@ function nearlyEqual(a: number, b: number): boolean {
 
 function isSupported(token: NumberToken, allowed: number[]): boolean {
   for (const candidate of allowed) {
+    if (token.altValue !== undefined && nearlyEqual(token.altValue, candidate)) return true;
     if (nearlyEqual(token.value, candidate)) return true;
     if (nearlyEqual(token.value, roundTo(candidate, token.decimals))) return true;
     if (token.percent && candidate >= 0 && candidate <= 1) {

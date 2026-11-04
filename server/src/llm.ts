@@ -16,18 +16,26 @@ export const ENV_PATH = path.join(here, "..", ".env");
 
 function envFile(): Record<string, string> {
   try {
-    return dotenv.parse(readFileSync(ENV_PATH));
+    return parseEnvFile(readFileSync(ENV_PATH));
   } catch {
     return {};
   }
 }
 
+/** Windows editors and PowerShell's ">" can write a BOM or UTF-16, which would silently hide the key. */
+export function parseEnvFile(bytes: Buffer): Record<string, string> {
+  const isUtf16 = bytes[0] === 0xff && bytes[1] === 0xfe;
+  const text = bytes.toString(isUtf16 ? "utf16le" : "utf8").replace(/^﻿/, "");
+  return dotenv.parse(text);
+}
+
+// "||", not "??": the shipped .env has an empty key line, which must not hide a key in the environment.
 function readKey(): string {
-  return (envFile().ANTHROPIC_API_KEY ?? process.env.ANTHROPIC_API_KEY ?? "").trim();
+  return (envFile().ANTHROPIC_API_KEY?.trim() || process.env.ANTHROPIC_API_KEY || "").trim();
 }
 
 export function modelName(): string {
-  return (envFile().ANTHROPIC_MODEL ?? process.env.ANTHROPIC_MODEL ?? "").trim() || DEFAULT_MODEL;
+  return envFile().ANTHROPIC_MODEL?.trim() || process.env.ANTHROPIC_MODEL?.trim() || DEFAULT_MODEL;
 }
 
 let client: Anthropic | null = null;

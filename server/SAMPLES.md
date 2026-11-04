@@ -50,6 +50,7 @@ Request: `samples/memo-request.json`. Response: `samples/memo.response.json`. Th
 
 ## Notes for the app
 
+- `POST /api/agent` needs `messages` (a list) and `state` (an object). `POST /api/memo` needs `state`. Otherwise the server answers 400 with `{"error": "..."}`, and all errors are JSON. An empty `state: {}` is fine and gets the contract defaults.
 - Apply `actions` in the order given.
 - `reply` is always a non-empty string, so show it in the chat.
 - Render the memo as markdown, including tables and blockquotes.
