@@ -1,3 +1,8 @@
+/* The memo is the deliverable: a one-page brief a programme officer could put in front
+   of a board. On screen it is set as a document, not as a panel — serif text column on
+   white, generous margins, a rule under the letterhead. The print block at the bottom
+   is what actually goes on paper and is kept as it was. */
+
 /* Leaflet controls use z-index up to 1000, and the overlay has to sit above them. */
 .memo-overlay {
   position: fixed;
@@ -5,8 +10,10 @@
   z-index: 2000;
   display: flex;
   justify-content: center;
-  padding: 20px;
-  background: rgba(29, 39, 51, 0.6);
+  padding: 28px;
+  background: rgb(14 20 26 / 48%);
+  backdrop-filter: blur(3px);
+  animation: memo-fade 0.18s var(--ease);
 }
 
 .memo-dialog {
@@ -16,41 +23,49 @@
   max-width: 1080px;
   max-height: 100%;
   overflow: hidden;
-  border-radius: var(--radius);
   background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
   outline: none;
+  animation: memo-rise 0.22s var(--ease);
 }
+
+@keyframes memo-fade { from { opacity: 0; } }
+@keyframes memo-rise { from { opacity: 0; transform: translateY(10px); } }
 
 .memo-toolbar {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  border-bottom: 1px solid var(--line);
-  background: var(--bg);
+  gap: 9px;
+  padding: 14px 24px;
+  background: var(--surface);
+  box-shadow: inset 0 -1px 0 var(--line);
 }
 
 .memo-toolbar h2 {
   margin: 0 auto 0 0;
-  color: var(--accent);
-  font-size: 19px;
+  color: var(--ink);
+  font: 600 18px/1.2 var(--font-display);
+  letter-spacing: -0.01em;
 }
 
 .memo-button {
-  padding: 7px 16px;
-  border: 1px solid var(--muted);
-  border-radius: var(--radius);
+  padding: 8px 17px;
   background: var(--surface);
-  color: var(--ink);
-  font: inherit;
-  font-size: 16px;
-  font-weight: 600;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  color: var(--ink-soft);
   cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  transition: border-color 0.15s var(--ease), color 0.15s var(--ease), background 0.15s var(--ease);
 }
 
 .memo-button:hover:not(:disabled) {
-  border-color: var(--accent);
+  background: var(--accent-tint);
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
   color: var(--accent);
 }
 
@@ -59,200 +74,188 @@
   outline-offset: 2px;
 }
 
-.memo-button:disabled {
-  border-color: var(--line);
-  color: var(--muted);
-  cursor: default;
-}
+.memo-button:disabled { border-color: var(--line-faint); color: var(--faint); cursor: default; }
 
 .memo-button--primary,
 .memo-button--primary:hover:not(:disabled) {
-  border-color: var(--accent);
   background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-sm);
   color: #fff;
 }
 
 .memo-notice {
   margin: 0;
-  padding: 5px 20px;
-  border-bottom: 1px solid var(--line);
+  padding: 7px 24px;
+  background: var(--surface-sunken);
+  box-shadow: inset 0 -1px 0 var(--line);
   color: var(--muted);
-  font-size: 14px;
+  font-size: 12px;
+  letter-spacing: 0.01em;
 }
 
 .memo-scroll {
   flex: 1;
   min-height: 0;
-  padding: 24px 44px 36px;
+  padding: 40px 56px 56px;
   overflow-y: auto;
+  background: var(--surface);
+  scrollbar-width: thin;
 }
 
 .memo-loading {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  padding: 72px 0;
-  font-size: 18px;
+  gap: 5px;
+  padding: 96px 0;
+  font-size: 16px;
 }
 
-.memo-loading p {
-  margin: 0;
-}
-
-.memo-loading .memo-loading__hint {
-  color: var(--muted);
-  font-size: 15px;
-}
+.memo-loading p { margin: 0; }
+.memo-loading .memo-loading__hint { color: var(--muted); font-size: 13.5px; }
 
 .memo-spinner {
-  width: 28px;
-  height: 28px;
-  margin-bottom: 12px;
-  border: 3px solid var(--line);
+  width: 26px;
+  height: 26px;
+  margin-bottom: 14px;
+  border: 2.5px solid var(--line);
   border-top-color: var(--accent);
   border-radius: 50%;
   animation: memo-spin 0.9s linear infinite;
 }
 
-@keyframes memo-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
+@keyframes memo-spin { to { transform: rotate(360deg); } }
 
-@media (prefers-reduced-motion: reduce) {
-  .memo-spinner {
-    animation-duration: 3s;
-  }
-}
+/* The document ------------------------------------------------------------ */
 
 .memo-paper {
-  max-width: 940px;
+  max-width: 820px;
   margin: 0 auto;
   color: var(--ink);
+  font-family: var(--font-display);
   font-size: 17px;
-  line-height: 1.5;
+  line-height: 1.62;
 }
 
 .memo-letterhead {
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  margin: 0 0 14px;
-  padding-bottom: 6px;
-  border-bottom: 2px solid var(--accent);
+  margin: 0 0 32px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--line-strong);
   color: var(--muted);
-  font-size: 14px;
+  font-family: var(--font);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
 }
 
-.memo-letterhead__mock {
-  color: var(--warn);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-}
+.memo-letterhead__mock { color: var(--warn); font-weight: 700; letter-spacing: 0.1em; }
 
 .memo-paper h1 {
-  margin: 0 0 8px;
-  color: var(--accent);
-  font-size: 30px;
-  line-height: 1.2;
+  margin: 0 0 10px;
+  color: var(--ink);
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
 }
 
+/* Each section opens with a short accent rule, the way a printed brief would. */
 .memo-paper h2 {
-  margin: 26px 0 8px;
-  color: var(--accent);
-  font-size: 22px;
+  margin: 40px 0 12px;
+  padding-top: 15px;
+  border-top: 2px solid var(--accent);
+  color: var(--accent-deep);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   line-height: 1.25;
 }
+
+.memo-paper h2:first-child { margin-top: 0; }
 
 .memo-paper h3,
 .memo-paper h4,
 .memo-paper h5,
 .memo-paper h6 {
-  margin: 18px 0 6px;
-  font-size: 18px;
+  margin: 22px 0 7px;
+  font-size: 17px;
+  font-weight: 600;
 }
 
-.memo-paper p {
-  margin: 0 0 10px;
-}
+.memo-paper p { margin: 0 0 13px; }
+
+.memo-paper strong { font-weight: 650; }
 
 .memo-paper ul,
-.memo-paper ol {
-  margin: 0 0 10px;
-  padding-left: 24px;
-}
+.memo-paper ol { margin: 0 0 13px; padding-left: 24px; }
 
-.memo-paper li {
-  margin-bottom: 5px;
-}
+.memo-paper li { margin-bottom: 6px; }
+.memo-paper li::marker { color: var(--faint); }
 
-.memo-paper a {
-  color: var(--accent);
-  overflow-wrap: anywhere;
-}
+.memo-paper a { color: var(--accent); overflow-wrap: anywhere; text-underline-offset: 2px; }
 
 .memo-paper blockquote {
-  margin: 0 0 12px;
-  padding: 8px 14px;
-  border: 1px solid var(--warn);
-  border-radius: var(--radius);
-  color: var(--warn);
-}
-
-.memo-paper blockquote p {
-  margin: 0;
-}
-
-.memo-paper hr {
-  margin: 18px 0;
+  margin: 0 0 14px;
+  padding: 11px 16px;
+  background: var(--warn-soft);
   border: 0;
-  border-top: 1px solid var(--line);
+  border-left: 3px solid var(--warn);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--ink-soft);
+  font-size: 15px;
 }
 
-.memo-paper code {
-  font-size: 0.92em;
-}
+.memo-paper blockquote p { margin: 0; }
+
+.memo-paper hr { margin: 22px 0; border: 0; border-top: 1px solid var(--line); }
+
+.memo-paper code { font-family: var(--font); font-size: 0.9em; }
 
 .memo-paper pre {
-  padding: 10px 12px;
+  padding: 12px 14px;
   overflow-x: auto;
-  border-radius: var(--radius);
-  background: var(--bg);
+  background: var(--surface-sunken);
+  border-radius: var(--radius-sm);
 }
 
-.memo-table-wrap {
-  margin: 0 0 12px;
-  overflow-x: auto;
-}
+/* The table of allocations is the centre of the memo, so it is set in the UI face,
+   with figures that line up and nothing but hairlines between the rows. */
+.memo-table-wrap { margin: 0 0 16px; overflow-x: auto; }
 
 .memo-paper table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 15px;
-  line-height: 1.3;
+  font-family: var(--font);
+  font-size: 13.5px;
+  line-height: 1.4;
 }
 
 .memo-paper th,
 .memo-paper td {
-  padding: 6px 8px;
-  border-bottom: 1px solid var(--line);
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--line-faint);
   text-align: left;
   vertical-align: top;
 }
 
 .memo-paper th {
-  border-bottom: 2px solid var(--muted);
+  border-bottom: 1px solid var(--line-strong);
   color: var(--muted);
+  font-size: 10.5px;
   font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   vertical-align: bottom;
 }
 
-.memo-paper td.memo-cell-right {
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-}
+.memo-paper tbody tr:last-child td { border-bottom: 0; }
+
+.memo-paper td.memo-cell-right { white-space: nowrap; font-variant-numeric: tabular-nums; }
 
 @page {
   size: A4;
@@ -276,6 +279,8 @@
     display: block;
     padding: 0;
     background: none;
+    backdrop-filter: none;
+    animation: none;
   }
 
   .memo-dialog {
@@ -284,6 +289,8 @@
     max-height: none;
     overflow: visible;
     border-radius: 0;
+    box-shadow: none;
+    animation: none;
   }
 
   .memo-toolbar,
@@ -315,6 +322,8 @@
 
   .memo-paper h2 {
     margin: 9pt 0 3pt;
+    padding-top: 3pt;
+    border-top-width: 1pt;
     font-size: 11.5pt;
     break-after: avoid;
   }

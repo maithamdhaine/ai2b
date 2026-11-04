@@ -1,238 +1,232 @@
+/* The command bar. It is the first thing the jury sees working, so it reads as one
+   confident field: a wide omnibox, a solid action, and a quiet line of examples. */
+
 .cmd {
+  flex: none;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 4px 16px 0;
+  gap: 9px;
+  padding: 2px 28px 0;
 }
 
-.cmd-form {
-  display: flex;
-  gap: 8px;
-}
+.cmd-form { display: flex; flex: none; gap: 10px; }
 
 .cmd-input {
   flex: 1;
   min-width: 0;
-  padding: 10px 14px;
-  border: 1px solid var(--muted);
-  border-radius: var(--radius);
+  height: 52px;
+  min-height: 52px;
+  padding: 0 20px;
   background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
   color: var(--ink);
   font: inherit;
-  font-size: 18px;
+  font-size: 17px;
+  transition: border-color 0.15s var(--ease), box-shadow 0.15s var(--ease);
 }
 
-.cmd-input::placeholder {
-  color: var(--muted);
-  opacity: 1;
+.cmd-input::placeholder { color: var(--faint); opacity: 1; }
+.cmd-input:hover:not(:read-only) { border-color: var(--line-strong); }
+
+.cmd-input:focus-visible {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+  outline: none;
 }
 
-.cmd-input:focus-visible,
+.cmd-input:read-only { background: var(--surface-sunken); color: var(--muted); }
+
+.cmd-send {
+  flex: none;
+  height: 52px;
+  padding: 0 28px;
+  background: var(--accent);
+  border: 0;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: background 0.15s var(--ease);
+}
+
+.cmd-send:hover:not(:disabled) { background: var(--accent-bright); }
+.cmd-send:active:not(:disabled) { background: var(--accent-deep); }
+.cmd-send:disabled { background: var(--surface-sunken); box-shadow: var(--shadow-ring); color: var(--faint); cursor: default; }
+
 .cmd-send:focus-visible,
 .cmd-example:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
-.cmd-input:read-only {
-  color: var(--muted);
-}
-
-.cmd-send {
-  padding: 0 22px;
-  border: 0;
-  border-radius: var(--radius);
-  background: var(--accent);
-  color: #fff;
-  font: inherit;
-  font-size: 17px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.cmd-send:disabled {
-  background: var(--line);
-  color: var(--muted);
-  cursor: default;
-}
-
-.cmd-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px 8px;
-}
+.cmd-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; }
 
 .cmd-meta__label {
   color: var(--muted);
-  font-size: 14px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
 }
 
 .cmd-example {
-  padding: 2px 12px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
+  padding: 5px 14px;
   background: var(--surface);
-  color: var(--accent);
-  font: inherit;
-  font-size: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  color: var(--ink-soft);
   cursor: pointer;
+  font: inherit;
+  font-size: 13.5px;
+  transition: border-color 0.15s var(--ease), background 0.15s var(--ease), color 0.15s var(--ease);
 }
 
 .cmd-example:hover:not(:disabled) {
-  border-color: var(--accent);
-  background: var(--accent-soft);
+  background: var(--accent-tint);
+  border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+  color: var(--accent);
 }
 
-.cmd-example:disabled {
-  color: var(--muted);
-  cursor: default;
-}
+.cmd-example:disabled { border-color: var(--line-faint); color: var(--faint); cursor: default; }
 
+/* Server state. "AI attiva" is a claim in front of a jury, so it is stated plainly. */
 .cmd-mode {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   margin-left: auto;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 600;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
 .cmd-mode__dot {
-  width: 10px;
-  height: 10px;
-  border: 2px solid var(--muted);
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
+  background: var(--faint);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--faint) 20%, transparent);
 }
 
-.cmd-mode[data-mode='llm'] {
-  color: var(--accent);
-}
-
+.cmd-mode[data-mode='llm'] { color: var(--accent); }
 .cmd-mode[data-mode='llm'] .cmd-mode__dot {
-  border-color: var(--accent);
-  background: var(--accent);
+  background: var(--accent-bright);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
-.cmd-mode[data-mode='rules'] {
-  color: var(--warn);
-}
-
+.cmd-mode[data-mode='rules'] { color: var(--warn); }
 .cmd-mode[data-mode='rules'] .cmd-mode__dot {
-  border-color: var(--warn);
   background: var(--warn);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--warn) 18%, transparent);
 }
 
 /* Capped so that a long reply scrolls instead of pushing the map off the projector. */
 .cmd-reply {
   max-height: 136px;
-  padding: 8px 12px;
+  padding: 11px 16px;
   overflow-y: auto;
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: var(--surface);
+  box-shadow: var(--shadow-sm);
 }
 
 .cmd-reply--loading {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
   color: var(--muted);
-  font-size: 16px;
+  font-size: 15px;
 }
 
-.cmd-reply--calm {
-  background: var(--bg);
-}
+.cmd-reply--calm { background: var(--surface-sunken); box-shadow: none; }
 
 .cmd-reply--question {
-  border-color: var(--accent);
-  background: var(--accent-soft);
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  background: var(--accent-tint);
 }
 
 .cmd-asked {
   overflow: hidden;
   margin: 0;
-  color: var(--muted);
-  font-size: 14px;
+  color: var(--faint);
+  font-size: 12px;
+  letter-spacing: 0.02em;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .cmd-text,
 .cmd-question {
-  margin: 2px 0 0;
-  font-size: 17px;
-  line-height: 1.35;
+  margin: 3px 0 0;
+  font-size: 16px;
+  line-height: 1.45;
   white-space: pre-line;
 }
 
-.cmd-question {
-  font-weight: 600;
-}
+.cmd-question { font-weight: 600; }
 
 .cmd-question__tag {
   display: inline-block;
-  margin-right: 8px;
-  padding: 0 8px;
-  border-radius: 4px;
+  margin-right: 9px;
+  padding: 1px 9px;
+  border-radius: var(--radius-pill);
   background: var(--accent);
   color: #fff;
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 600;
-  vertical-align: 1px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  vertical-align: 2px;
 }
 
 .cmd-chips {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin: 6px 0 0;
+  margin: 9px 0 0;
   padding: 0;
   list-style: none;
 }
 
 .cmd-chip {
-  padding: 1px 10px;
+  padding: 2px 11px;
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: var(--radius-pill);
   background: var(--accent-soft);
-  color: var(--accent);
-  font-size: 15px;
+  color: var(--accent-deep);
+  font-size: 13px;
   font-weight: 600;
 }
 
-.cmd-reply--question .cmd-chip {
-  background: var(--surface);
-}
+.cmd-reply--question .cmd-chip { background: var(--surface); }
 
 .cmd-chip--ignored,
 .cmd-reply--question .cmd-chip--ignored {
-  border-color: var(--warn);
-  background: transparent;
+  border-color: color-mix(in srgb, var(--warn) 45%, transparent);
+  background: var(--warn-soft);
   color: var(--warn);
 }
 
 .cmd-spinner {
   flex: none;
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   border: 2px solid var(--line);
   border-top-color: var(--accent);
   border-radius: 50%;
   animation: cmd-spin 0.8s linear infinite;
 }
 
-@keyframes cmd-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
+@keyframes cmd-spin { to { transform: rotate(360deg); } }
 
-@media (prefers-reduced-motion: reduce) {
-  .cmd-spinner {
-    animation-duration: 3s;
-  }
-}
+@media (max-width: 1380px) { .cmd { padding-left: 20px; padding-right: 20px; } }
