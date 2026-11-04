@@ -72,6 +72,48 @@ function planItem(zone_id: number): PlanItem {
 
 afterEach(() => setClientForTests(undefined));
 
+test("a budget the user never stated falls back to rules: the model must not invent or calculate one", async () => {
+  fakeClient(message([call("set_budget", { budget_eur: 200000 }), call("run_plan"), reply("Ricalcolo il piano.")]));
+  const result = await runAgent([user("raddoppia il budget")], stateWith());
+  assert.equal(result.mode, "rules");
+  assert.ok(!result.actions.some((action) => action.tool === "set_budget"));
+});
+
+for (const [said, value] of [
+  ["ho 200.000 euro", 200000],
+  ["ho 200k", 200000],
+  ["ho 80 mila euro", 80000],
+  ["ho 1,5 milioni", 1500000],
+  ["ho un milione", 1000000],
+  ["ho mezzo milione", 500000],
+  ["ho duecentomila euro", 200000],
+] as const) {
+  test(`a budget the user wrote stays in llm mode: "${said}"`, async () => {
+    fakeClient(message([call("set_budget", { budget_eur: value }), call("run_plan"), reply("Ricalcolo il piano.")]));
+    const result = await runAgent([user(said)], stateWith());
+    assert.equal(result.mode, "llm");
+    assert.deepEqual(result.actions[0], { tool: "set_budget", args: { budget_eur: value } });
+  });
+}
+
+test("a budget from an earlier user turn or from the state is allowed", async () => {
+  fakeClient(message([call("set_budget", { budget_eur: 200000 }), call("run_plan"), reply("Ricalcolo il piano.")]));
+  const earlier = await runAgent([user("ho 200k"), { role: "assistant", content: "Fatto." }, user("confermo")], stateWith());
+  assert.equal(earlier.mode, "llm");
+  const fromState = await runAgent([user("confermo il budget")], stateWith({ budget_eur: 200000 }));
+  assert.equal(fromState.mode, "llm");
+});
+
+test("a minimum of over 75 the user never stated falls back to rules", async () => {
+  fakeClient(message([call("set_budget", { budget_eur: 200000 }), call("filter_zones", { min_over75: 700 }), call("run_plan"), reply("Ricalcolo il piano.")]));
+  const invented = await runAgent([user("ho 200k per gli over 75 soli")], stateWith());
+  assert.equal(invented.mode, "rules");
+
+  fakeClient(message([call("set_budget", { budget_eur: 200000 }), call("filter_zones", { min_over75: 500 }), call("run_plan"), reply("Ricalcolo il piano.")]));
+  const stated = await runAgent([user("ho 200k e servono almeno 500 over 75")], stateWith());
+  assert.equal(stated.mode, "llm");
+});
+
 test("valid tool calls give mode llm in canonical order", async () => {
   fakeClient(
     message([

@@ -221,6 +221,24 @@ function rulesAnswer(messages: ChatMessage[], state: AppState): AgentResponse {
   }
 }
 
+/**
+ * The model never invents or calculates a figure. A budget or a minimum must be one the user wrote
+ * or one already in the state. "Raddoppia il budget" is a calculation, so it goes to rules mode.
+ */
+function assertFiguresWereStated(actions: Action[], messages: ChatMessage[], state: AppState): void {
+  const said = messages.filter((message) => message.role === "user").map((message) => message.content);
+  const stated = (value: number): boolean =>
+    findUnsupportedNumbers(String(value), { said, budget: state.budget_eur, minimum: state.filters.min_over75 }).length === 0;
+  for (const action of actions) {
+    if (action.tool === "set_budget" && !stated(action.args.budget_eur)) {
+      throw new Error("budget not stated by the user");
+    }
+    if (action.tool === "filter_zones" && action.args.min_over75 && !stated(action.args.min_over75)) {
+      throw new Error("min_over75 not stated by the user");
+    }
+  }
+}
+
 /** Throws whenever the LLM output cannot be used. The caller falls back to rules mode. */
 async function askModel(
   client: Anthropic,
@@ -239,6 +257,7 @@ async function askModel(
   const { rawActions, reply: modelReply, needsClarification } = readContent(response.content);
   const { actions: validated, dropped } = validateActions(rawActions);
   if (dropped > 0) throw new Error(`${dropped} invalid actions from the model`);
+  assertFiguresWereStated(validated, messages, state);
 
   const { actions, inventedZone } = postProcess(validated, needsClarification, messages, state);
   if (actions.length > MAX_ACTIONS) throw new Error("too many actions from the model");

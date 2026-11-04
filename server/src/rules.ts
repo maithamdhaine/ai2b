@@ -36,7 +36,8 @@ const MIN_OVER75 = String.raw`\b(?:almeno|minimo|piu di|oltre|sopra|con)\s+(?:di
 function digitsValue(raw: string): number | null {
   // "200,000" is a thousands separator typed the English way, not two hundred point zero.
   if (/^\d{1,3}(?:,\d{3})+$/.test(raw)) return Number(raw.replace(/,/g, ""));
-  return parseNumeric(raw)?.value ?? null;
+  // normalize() turns every thousands space into a plain one, which parseNumeric does not accept.
+  return parseNumeric(raw.replace(/ /g, "."))?.value ?? null;
 }
 
 /** Finds "almeno 500 over 75" and returns the text without it, so it cannot read as a goal or a budget. */
@@ -63,6 +64,8 @@ function maskNonBudget(text: string): string {
 
 const CURRENCY_AFTER = /^\s*(?:di\s+)?(?:euro\b|eur\b|€)/;
 const CURRENCY_BEFORE = /(?:€|\beuro|\beur)\s*$/;
+/** "budget di 2000" is money, not a year. "budget 2026 di 300k" keeps the year out on purpose. */
+const BUDGET_LABEL_BEFORE = /\bbudget\s+(?:di|da|pari a)\s+(?:circa\s+)?$/;
 const NOT_MONEY_AFTER =
   /^\s*(?:over|ultra|anzian[ioe]|persone|abitanti|residenti|utenti|famiglie|beneficiari|metri|km|m|mq|zone|progetti|interventi)\b/;
 /** "300k invece di 200k": the second figure is the one being replaced. */
@@ -111,7 +114,7 @@ function budgetCandidates(text: string): BudgetCandidate[] {
     const after = text.slice(end);
     if (REPLACED_BEFORE.test(before)) return;
     if (/\bda\s+$/.test(before) && /^\s+a\s+\d/.test(after)) return; // "da 200k a 300k"
-    const currency = CURRENCY_AFTER.test(after) || CURRENCY_BEFORE.test(before);
+    const currency = CURRENCY_AFTER.test(after) || CURRENCY_BEFORE.test(before) || BUDGET_LABEL_BEFORE.test(before);
     if (!currency) {
       if (NOT_MONEY_AFTER.test(after)) return;
       // Only a plain "2030" can be a year. "2.030" has a thousands separator.
@@ -201,7 +204,7 @@ const GOAL_PATTERNS: Array<[Goal, RegExp]> = [
   ],
   [
     "service_gap",
-    /\bcarenza (?:di |dei )?servizi\b|\bmancano (?:i )?servizi\b|\bservizi scarsi\b|\blontan[ie] dai servizi\b|\bpochi servizi\b|\bfarmacie\b|\bpresidi sanitari\b|\baccesso alla salute\b|\baccesso sanitario\b/g,
+    /\bcarenz[ae] (?:di |dei )?servizi\b|\bmancanza (?:di |dei )?servizi\b|\bmancano (?:i )?servizi\b|\bservizi scarsi\b|\bservizi lontani\b|\bsenza servizi\b|\bzone scoperte\b|\bvuot[io] di assistenza\b|\blontan[ie] dai servizi\b|\bpochi servizi\b|\bfarmacie\b|\bpresidi sanitari\b|\baccesso alla salute\b|\baccesso sanitario\b/g,
   ],
   [
     "future_pressure",
@@ -210,15 +213,19 @@ const GOAL_PATTERNS: Array<[Goal, RegExp]> = [
   [
     "inclusion",
     // "lavoro per il comune" is the speaker's job, not a goal.
-    /\binclusione\b|\binserimento lavorativo\b|\blavoro\b(?!\s+(?:per|in|con|presso|nel|nella|al|alla)\b)|\blavorativ[aoei]\b|\boccupazione\b|\b(?:over|ultra)[\s-]?50\b|\bnuovi residenti\b|\bstranier[ie]\b|\bmigranti\b|\bbarriere linguistiche\b|\blingua\b/g,
+    /\binclusione\b|\binserimento lavorativo\b|\blavoro\b(?!\s+(?:per|in|con|presso|nel|nella|al|alla)\b)|\blavorativ[aoei]\b|\boccupazione\b|\bdisoccupa\w+\b|\b(?:over|ultra)[\s-]?50\b|\bnuovi residenti\b|\bstranier[ie]\b|\bmigranti\b|\bbarriere linguistiche\b|\blingua\b/g,
   ],
 ];
+
+/** "persone senza lavoro", "zone senza farmacie": the missing thing is the need, so "senza" does not negate it. */
+const NEED_AFTER_SENZA = /^(?:lavoro|occupazione|farmacie|presidi sanitari)\b/;
 
 function detectGoals(text: string): Goal[] {
   const goals: Goal[] = [];
   for (const [goal, pattern] of GOAL_PATTERNS) {
     for (const match of text.matchAll(pattern)) {
-      if (!isNegated(text, match.index)) {
+      const namesTheNeed = NEED_AFTER_SENZA.test(match[0]) && /\bsenza\s+$/.test(text.slice(0, match.index));
+      if (namesTheNeed || !isNegated(text, match.index)) {
         goals.push(goal);
         break;
       }
@@ -580,7 +587,7 @@ function answer(messages: ChatMessage[], rawState: AppState): AgentResponse {
     if (reset) details.push("senza filtri");
 
     const who = profile ? ` ${PROFILE_DATIVE[profile]}` : "";
-    const how = details.length > 0 ? ` ${joinItalian(details)}` : changed ? "" : " con le impostazioni attuali";
+    const how = details.length > 0 ? ` ${details.join(", ")}` : changed ? "" : " con le impostazioni attuali";
     steps.push(`ricalcolo il piano${who}${how}`);
   }
   if (zone) steps.push(`apro ${zone.name ?? `la zona ${zone.id}`}`);

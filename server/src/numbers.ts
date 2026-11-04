@@ -118,7 +118,7 @@ function maskNonFigures(text: string): string {
 }
 
 const DIGIT_TOKEN =
-  /(?<![\p{L}\p{N}])(\d{1,3}(?:[.  ]\d{3})+(?:,\d+)?|\d+(?:[.,]\d+)?)(?:\s?(k|mila|milion[ei]|miliard[oi]))?(?![\p{L}\p{N}])(\s?%|\s?per\s?cento)?/giu;
+  /(?<![\p{L}\p{N}])(\d{1,3}(?:[.  ]\d{3})+(?:,\d+)?|\d+(?:[.,]\d+)?)(?:\s?(k(?!m)|mila|milion[ei]|miliard[oi]))?(?:km|mq|ha|m)?(?![\p{L}\p{N}])(\s?%|\s?per\s?cento)?/giu;
 
 const SEI_AS_NUMBER = /^\s+(?:zone|zona|interventi|circoscrizioni|quartieri|progetti|persone|mesi|anni|mila|milioni)\b/i;
 
@@ -151,7 +151,14 @@ export function extractNumbers(input: string): NumberToken[] {
     const isPerCento = previous === "per" && word === "cento";
     previous = word;
     if (isPerCento) continue;
-    if (word === "un" || word === "uno" || word === "una") continue;
+    if (word === "un" || word === "uno" || word === "una") {
+      // An article, unless it heads a scale: "un milione" is a figure.
+      const scale = /^\s+(milione|miliardo)\b/i.exec(after)?.[1];
+      if (scale) {
+        tokens.push({ raw: `${original} ${scale}`, value: scaleOf(scale), decimals: 0, percent: false });
+      }
+      continue;
+    }
     if (word === "mezzo" && /^\s+milione\b/i.test(after)) {
       tokens.push({ raw: "mezzo milione", value: 500_000, decimals: 0, percent: false });
       continue;

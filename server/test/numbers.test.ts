@@ -81,11 +81,15 @@ test("Italian display strings all parse back to their value", () => {
   }
 });
 
-// Known gaps in src/numbers.ts, reported to the lead. Marked todo so they stay visible without failing the run.
-test('GAP: "un milione" should be reported as an invented figure', { todo: "numbers.ts skips un/una/uno before reading the scale" }, () => {
+test('"un milione" is a figure, while "un" alone is an article', () => {
   assert.deepEqual(findUnsupportedNumbers("un milione di euro", { budget: 100000 }), ["un milione"]);
+  assert.deepEqual(findUnsupportedNumbers("un milione di euro", { budget: 1000000 }), []);
+  assert.deepEqual(findUnsupportedNumbers("un progetto per una zona", { x: 1 }), []);
 });
 
-test('GAP: a figure glued to a unit, like "999m", should be reported', { todo: "the digit regex refuses a letter right after the number" }, () => {
+test('a figure glued to a unit, like "999m", is checked', () => {
   assert.deepEqual(findUnsupportedNumbers("a 999m dal centro", { x: 1 }), ["999m"]);
+  assert.deepEqual(findUnsupportedNumbers("a 640m dal centro", { x: 640 }), []);
+  assert.deepEqual(findUnsupportedNumbers("a 5km dal centro", { x: 5 }), []);
+  assert.deepEqual(findUnsupportedNumbers("200k", { x: 200000 }), []);
 });

@@ -29,6 +29,28 @@ function state(overrides: Partial<AppState> = {}): AppState {
   return { ...structuredClone(DEFAULT_STATE), ...overrides };
 }
 
+test('"senza" names the need when the missing thing is a resource', () => {
+  for (const said of ["ho 100k per le persone senza lavoro", "ho 100k per i disoccupati over 50"]) {
+    const weights = runRules([{ role: "user", content: said }], state()).actions.find((a) => a.tool === "set_weights");
+    assert.ok(weights && weights.tool === "set_weights", said);
+    assert.ok(weights.args.inclusion > weights.args.isolation, said);
+  }
+  for (const said of ["ho 100k per le zone senza farmacie", "ho 100k per le zone senza servizi", "ho 100k per le zone scoperte"]) {
+    const weights = runRules([{ role: "user", content: said }], state()).actions.find((a) => a.tool === "set_weights");
+    assert.ok(weights && weights.tool === "set_weights", said);
+    assert.ok(weights.args.service_gap > weights.args.isolation, said);
+  }
+  const notAboutThem = runRules([{ role: "user", content: "ho 100k, senza gli anziani" }], state());
+  assert.ok(!notAboutThem.actions.some((a) => a.tool === "set_weights"));
+});
+
+test('"budget di" makes a year-like figure money, without capturing a real year', () => {
+  assert.equal(parseBudget("budget di 2000"), 2000);
+  assert.equal(parseBudget("un budget pari a 2030"), 2030);
+  assert.equal(parseBudget("budget 2026 di 300k"), 300000);
+  assert.equal(parseBudget("priorità al 2030"), null);
+});
+
 function user(content: string): ChatMessage {
   return { role: "user", content };
 }
@@ -643,7 +665,9 @@ for (const [text, appState] of CORPUS) {
     assert.ok(r.reply.trim().length > 0);
     assert.doesNotMatch(r.reply, /sroi/i);
     assert.doesNotMatch(r.reply, /rischio/i);
-    assert.deepEqual(findUnsupportedNumbers(r.reply, { text, zones: appState.plan.map((item) => item.zone_name) }), []);
+    // parseBudget supplies what the user wrote in words ("un milione e mezzo"), before any clamping.
+    const written = { text, budget: parseBudget(text), zones: appState.plan.map((item) => item.zone_name) };
+    assert.deepEqual(findUnsupportedNumbers(r.reply, written), []);
     // "over 75" is a label extractNumbers ignores, so check it directly: only echoed, never invented.
     if (/over 75/.test(r.reply)) assert.match(text.toLowerCase(), /(?:over|ultra)[\s-]?75/);
 
