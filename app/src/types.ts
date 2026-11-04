@@ -79,6 +79,8 @@ export interface Intervention {
   reach_share: number;
   fixed_eur: number;
   eur_per_person: number;
+  fit: Weights; // how strongly each need is addressed, 0 to 1 (team assumption)
+  depth: number; // relative benefit per person reached (team assumption)
 }
 
 export interface Weights {

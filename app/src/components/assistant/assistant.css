@@ -1,0 +1,238 @@
+.cmd {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 4px 16px 0;
+}
+
+.cmd-form {
+  display: flex;
+  gap: 8px;
+}
+
+.cmd-input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 14px;
+  border: 1px solid var(--muted);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 18px;
+}
+
+.cmd-input::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+.cmd-input:focus-visible,
+.cmd-send:focus-visible,
+.cmd-example:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.cmd-input:read-only {
+  color: var(--muted);
+}
+
+.cmd-send {
+  padding: 0 22px;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cmd-send:disabled {
+  background: var(--line);
+  color: var(--muted);
+  cursor: default;
+}
+
+.cmd-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+}
+
+.cmd-meta__label {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.cmd-example {
+  padding: 2px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--accent);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.cmd-example:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.cmd-example:disabled {
+  color: var(--muted);
+  cursor: default;
+}
+
+.cmd-mode {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.cmd-mode__dot {
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--muted);
+  border-radius: 50%;
+}
+
+.cmd-mode[data-mode='llm'] {
+  color: var(--accent);
+}
+
+.cmd-mode[data-mode='llm'] .cmd-mode__dot {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.cmd-mode[data-mode='rules'] {
+  color: var(--warn);
+}
+
+.cmd-mode[data-mode='rules'] .cmd-mode__dot {
+  border-color: var(--warn);
+  background: var(--warn);
+}
+
+/* Capped so that a long reply scrolls instead of pushing the map off the projector. */
+.cmd-reply {
+  max-height: 136px;
+  padding: 8px 12px;
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.cmd-reply--loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.cmd-reply--calm {
+  background: var(--bg);
+}
+
+.cmd-reply--question {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.cmd-asked {
+  overflow: hidden;
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cmd-text,
+.cmd-question {
+  margin: 2px 0 0;
+  font-size: 17px;
+  line-height: 1.35;
+  white-space: pre-line;
+}
+
+.cmd-question {
+  font-weight: 600;
+}
+
+.cmd-question__tag {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 0 8px;
+  border-radius: 4px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  vertical-align: 1px;
+}
+
+.cmd-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cmd-chip {
+  padding: 1px 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.cmd-reply--question .cmd-chip {
+  background: var(--surface);
+}
+
+.cmd-chip--ignored,
+.cmd-reply--question .cmd-chip--ignored {
+  border-color: var(--warn);
+  background: transparent;
+  color: var(--warn);
+}
+
+.cmd-spinner {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--line);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: cmd-spin 0.8s linear infinite;
+}
+
+@keyframes cmd-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cmd-spinner {
+    animation-duration: 3s;
+  }
+}

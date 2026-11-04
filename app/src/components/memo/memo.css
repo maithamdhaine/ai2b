@@ -1,0 +1,361 @@
+/* Leaflet controls use z-index up to 1000, and the overlay has to sit above them. */
+.memo-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(29, 39, 51, 0.6);
+}
+
+.memo-dialog {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1080px;
+  max-height: 100%;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--surface);
+  outline: none;
+}
+
+.memo-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.memo-toolbar h2 {
+  margin: 0 auto 0 0;
+  color: var(--accent);
+  font-size: 19px;
+}
+
+.memo-button {
+  padding: 7px 16px;
+  border: 1px solid var(--muted);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.memo-button:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.memo-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.memo-button:disabled {
+  border-color: var(--line);
+  color: var(--muted);
+  cursor: default;
+}
+
+.memo-button--primary,
+.memo-button--primary:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+.memo-notice {
+  margin: 0;
+  padding: 5px 20px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.memo-scroll {
+  flex: 1;
+  min-height: 0;
+  padding: 24px 44px 36px;
+  overflow-y: auto;
+}
+
+.memo-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 72px 0;
+  font-size: 18px;
+}
+
+.memo-loading p {
+  margin: 0;
+}
+
+.memo-loading .memo-loading__hint {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.memo-spinner {
+  width: 28px;
+  height: 28px;
+  margin-bottom: 12px;
+  border: 3px solid var(--line);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: memo-spin 0.9s linear infinite;
+}
+
+@keyframes memo-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .memo-spinner {
+    animation-duration: 3s;
+  }
+}
+
+.memo-paper {
+  max-width: 940px;
+  margin: 0 auto;
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.memo-letterhead {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 14px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--accent);
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.memo-letterhead__mock {
+  color: var(--warn);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.memo-paper h1 {
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+.memo-paper h2 {
+  margin: 26px 0 8px;
+  color: var(--accent);
+  font-size: 22px;
+  line-height: 1.25;
+}
+
+.memo-paper h3,
+.memo-paper h4,
+.memo-paper h5,
+.memo-paper h6 {
+  margin: 18px 0 6px;
+  font-size: 18px;
+}
+
+.memo-paper p {
+  margin: 0 0 10px;
+}
+
+.memo-paper ul,
+.memo-paper ol {
+  margin: 0 0 10px;
+  padding-left: 24px;
+}
+
+.memo-paper li {
+  margin-bottom: 5px;
+}
+
+.memo-paper a {
+  color: var(--accent);
+  overflow-wrap: anywhere;
+}
+
+.memo-paper blockquote {
+  margin: 0 0 12px;
+  padding: 8px 14px;
+  border: 1px solid var(--warn);
+  border-radius: var(--radius);
+  color: var(--warn);
+}
+
+.memo-paper blockquote p {
+  margin: 0;
+}
+
+.memo-paper hr {
+  margin: 18px 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+}
+
+.memo-paper code {
+  font-size: 0.92em;
+}
+
+.memo-paper pre {
+  padding: 10px 12px;
+  overflow-x: auto;
+  border-radius: var(--radius);
+  background: var(--bg);
+}
+
+.memo-table-wrap {
+  margin: 0 0 12px;
+  overflow-x: auto;
+}
+
+.memo-paper table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+.memo-paper th,
+.memo-paper td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.memo-paper th {
+  border-bottom: 2px solid var(--muted);
+  color: var(--muted);
+  font-weight: 600;
+  vertical-align: bottom;
+}
+
+.memo-paper td.memo-cell-right {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+@page {
+  size: A4;
+  margin: 14mm 15mm;
+}
+
+/* The class is on <html> only while the memo is open, so printing the app otherwise is unaffected. */
+@media print {
+  html.memo-open,
+  html.memo-open body {
+    height: auto;
+    background: #fff;
+  }
+
+  html.memo-open #root {
+    display: none;
+  }
+
+  .memo-overlay {
+    position: static;
+    display: block;
+    padding: 0;
+    background: none;
+  }
+
+  .memo-dialog {
+    display: block;
+    max-width: none;
+    max-height: none;
+    overflow: visible;
+    border-radius: 0;
+  }
+
+  .memo-toolbar,
+  .memo-notice {
+    display: none;
+  }
+
+  .memo-scroll {
+    padding: 0;
+    overflow: visible;
+  }
+
+  .memo-paper {
+    max-width: none;
+    color: #000;
+    font-size: 10pt;
+    line-height: 1.35;
+  }
+
+  .memo-letterhead {
+    margin-bottom: 8pt;
+    font-size: 8.5pt;
+  }
+
+  .memo-paper h1 {
+    margin-bottom: 4pt;
+    font-size: 16pt;
+  }
+
+  .memo-paper h2 {
+    margin: 9pt 0 3pt;
+    font-size: 11.5pt;
+    break-after: avoid;
+  }
+
+  .memo-paper p,
+  .memo-paper ul,
+  .memo-paper ol {
+    margin-bottom: 4pt;
+  }
+
+  .memo-paper li {
+    margin-bottom: 1.5pt;
+  }
+
+  .memo-table-wrap {
+    margin-bottom: 5pt;
+    overflow: visible;
+  }
+
+  .memo-paper table {
+    font-size: 8.5pt;
+  }
+
+  .memo-paper th,
+  .memo-paper td {
+    padding: 2pt 4pt;
+  }
+
+  .memo-paper tr {
+    break-inside: avoid;
+  }
+
+  /* A printed link cannot be followed, so the sources show their address. */
+  .memo-paper a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .memo-paper a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 8pt;
+    overflow-wrap: anywhere;
+  }
+}

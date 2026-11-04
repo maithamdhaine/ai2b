@@ -36,6 +36,13 @@ interface Store {
   applyAction: (action: Action) => void;
 }
 
+// Starting priorities per funder type. Team assumption; users and the AI can change them.
+const profileWeights: Record<Profile, Weights> = {
+  foundation: { isolation: 0.4, service_gap: 0.3, future_pressure: 0.2, inclusion: 0.1 },
+  third_sector: { isolation: 0.3, service_gap: 0.4, future_pressure: 0.1, inclusion: 0.2 },
+  institution: { isolation: 0.25, service_gap: 0.45, future_pressure: 0.1, inclusion: 0.2 },
+};
+
 export const useStore = create<Store>((set, get) => ({
   zones: null,
   services: null,
@@ -78,7 +85,7 @@ export const useStore = create<Store>((set, get) => ({
   },
 
   setLens: (lens) => set({ lens }),
-  setProfile: (profile) => set({ profile }),
+  setProfile: (profile) => { set({ profile, weights: profileWeights[profile] }); get().recompute(); },
   setBudget: (budget_eur) => { set({ budget_eur: Math.max(0, budget_eur) }); get().recompute(); },
   setWeights: (w) => { set({ weights: { ...get().weights, ...w } }); get().recompute(); },
   setFilters: (f) => { set({ filters: { ...get().filters, ...f } }); get().recompute(); },
