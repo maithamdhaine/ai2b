@@ -1,0 +1,17 @@
+:root {
+  --bg: #f6f4ef; --surface: #ffffff; --ink: #1d2733; --muted: #5d6875; --line: #dcd8cf;
+  --accent: #0f5c63; --accent-soft: #dcecec; --warn: #a8501c; --radius: 8px;
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.45 var(--font); }
+.shell { height: 100%; display: flex; flex-direction: column; }
+.mock-banner { background: var(--warn); color: #fff; text-align: center; font-weight: 600; padding: 3px; letter-spacing: .08em; }
+.error-banner { background: #fbebeb; color: #8a1f1f; padding: 6px 16px; }
+.topbar { display: flex; align-items: baseline; gap: 14px; padding: 10px 16px 4px; }
+.topbar h1 { margin: 0; font-size: 22px; color: var(--accent); }
+.topbar p { margin: 0; color: var(--muted); }
+.workspace { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 440px; gap: 12px; padding: 8px 16px 16px; }
+.map-area, .side-area { min-height: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.side-area { overflow-y: auto; }
