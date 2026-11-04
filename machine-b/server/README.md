@@ -8,7 +8,7 @@ The browser owns all maths. Port 8787. The app proxies `/api` to it.
 Tested on Node 26. The dependencies allow Node 18 or newer, but older versions have not been run.
 
 ```
-cd server
+cd machine-b/server
 npm install
 npm start
 ```
