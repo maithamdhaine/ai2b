@@ -3,7 +3,7 @@
     "id": "p01",
     "prompt": "ho 200.000 euro, priorità agli over 75 soli, evita le zone già coperte dal PNRR",
     "response": {
-      "reply": "Ricalcolo il piano con budget di 200.000 € e priorità all'isolamento degli anziani e senza le zone già finanziate. In primo piano: impatto e difendibilità della scelta davanti al consiglio.",
+      "reply": "Ricalcolo il piano con budget di 200.000 € e priorità all'isolamento degli anziani, senza le zone già finanziate. In primo piano: impatto e difendibilità della scelta davanti al consiglio.",
       "actions": [
         {
           "tool": "set_budget",
@@ -111,7 +111,7 @@
     "id": "p04",
     "prompt": "Come assessorato abbiamo 1,5 milioni, concentrati sulle circoscrizioni 5 e 6 ed evita sovrapposizioni con il PNRR",
     "response": {
-      "reply": "Ricalcolo il piano per l'istituzione pubblica con budget di 1.500.000 €, solo sulle circoscrizioni 5 e 6 e senza le zone già finanziate. In primo piano: copertura del territorio e sovrapposizioni con fondi già attivi.",
+      "reply": "Ricalcolo il piano per l'istituzione pubblica con budget di 1.500.000 €, solo sulle circoscrizioni 5 e 6, senza le zone già finanziate. In primo piano: copertura del territorio e sovrapposizioni con fondi già attivi.",
       "actions": [
         {
           "tool": "set_profile",
@@ -187,7 +187,7 @@
     "id": "p07",
     "prompt": "Solo Barriera di Milano, budget 150k",
     "response": {
-      "reply": "Ricalcolo il piano con budget di 150.000 € e solo sulla circoscrizione di Barriera di Milano. In primo piano: impatto e difendibilità della scelta davanti al consiglio.",
+      "reply": "Ricalcolo il piano con budget di 150.000 €, solo sulla circoscrizione di Barriera di Milano. In primo piano: impatto e difendibilità della scelta davanti al consiglio.",
       "actions": [
         {
           "tool": "set_budget",
@@ -216,7 +216,7 @@
     "id": "p08",
     "prompt": "Servono almeno 500 over 75 per zona, con 250.000 euro",
     "response": {
-      "reply": "Ricalcolo il piano con budget di 250.000 € e solo zone con almeno 500 over 75. In primo piano: impatto e difendibilità della scelta davanti al consiglio.",
+      "reply": "Ricalcolo il piano con budget di 250.000 €, solo zone con almeno 500 over 75. In primo piano: impatto e difendibilità della scelta davanti al consiglio.",
       "actions": [
         {
           "tool": "set_budget",

@@ -8,7 +8,7 @@ Request message: `ho 200.000 euro, priorità agli over 75 soli, evita le zone gi
 
 ```json
 {
-  "reply": "Ricalcolo il piano con budget di 200.000 € e priorità all'isolamento degli anziani e senza le zone già finanziate. In primo piano: impatto e difendibilità della scelta davanti al consiglio.",
+  "reply": "Ricalcolo il piano con budget di 200.000 € e priorità all'isolamento degli anziani, senza le zone già finanziate. In primo piano: impatto e difendibilità della scelta davanti al consiglio.",
   "actions": [
     {"tool": "set_budget", "args": {"budget_eur": 200000}},
     {"tool": "set_weights", "args": {"isolation": 0.55, "service_gap": 0.225, "future_pressure": 0.162, "inclusion": 0.063}},

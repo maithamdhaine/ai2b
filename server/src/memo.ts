@@ -26,6 +26,9 @@ const DEFAULT_TIMEOUT_MS = 30000;
 const MAX_TABLE_ROWS = 10;
 const MAX_FUNDED_ROWS = 6;
 const MAX_REASON_ZONES = 3;
+/** A long plan fills the page with its table, so fewer zones get a written reason. */
+const LONG_PLAN_ROWS = 6;
+const MAX_REASON_ZONES_LONG_PLAN = 2;
 const NOT_AVAILABLE = "n.d.";
 
 // ---------------------------------------------------------------------------
@@ -313,16 +316,10 @@ const PROFILE_OPENING: Record<Profile, string> = {
   institution: "Per un'istituzione pubblica",
 };
 
-const WHY_CLOSING: Record<Profile, string> = {
-  foundation: "La scelta è difendibile perché collega ogni intervento agli indicatori della zona e dichiara stime e limiti.",
-  third_sector: "Questi indicatori si possono citare in un bando come evidenze, insieme alla fonte e al livello di ciascun dato.",
-  institution: "Per la copertura del territorio, il confronto va letto insieme ai fondi già attivi indicati nella sezione seguente.",
-};
-
 const FUNDED_CLOSING: Record<Profile, string> = {
-  foundation: "Davanti al consiglio, questi importi mostrano dove il contributo aggiunge risorse e dove si somma a fondi esistenti.",
-  third_sector: "In un bando, questi importi servono a dimostrare che il progetto non duplica fondi esistenti.",
-  institution: "Prima di deliberare va verificata la sovrapposizione con questi fondi già attivi.",
+  foundation: "Per il consiglio: indica dove il contributo aggiunge risorse.",
+  third_sector: "Per il bando: serve a mostrare che il progetto non duplica fondi.",
+  institution: "Prima di deliberare va verificata la sovrapposizione con questi fondi.",
 };
 
 function joinNames(names: string[]): string {
@@ -335,7 +332,7 @@ function plural(value: number | null, one: string, many: string): string {
 }
 
 function focusSentence(facts: MemoFacts): string {
-  return `${PROFILE_OPENING[facts.profile]}, al centro ci sono ${facts.profile_focus}.`;
+  return `${PROFILE_OPENING[facts.profile]} contano ${facts.profile_focus}.`;
 }
 
 /** Index of the first plan row of each distinct zone, in plan order. */
@@ -372,7 +369,7 @@ function sintesiSection(facts: MemoFacts): string {
   ];
   if (computed.total_people_reached_stima > 0) {
     sentences.push(
-      `Raggiunge ${display.total_people_reached_stima} persone (stima), con ${display.overall_cost_per_person} per persona (costi: ipotesi del team, modificabili).`,
+      `Raggiunge ${display.total_people_reached_stima} persone (stima), con ${display.overall_cost_per_person} per persona (ipotesi del team, modificabili).`,
     );
   }
   if ((computed.budget_exceeded_eur ?? 0) > 0) {
@@ -380,7 +377,7 @@ function sintesiSection(facts: MemoFacts): string {
   } else if ((computed.budget_not_allocated_eur ?? 0) > 0) {
     sentences.push(`Restano da allocare ${display.budget_not_allocated}.`);
   }
-  if (facts.zones.length > 0) sentences.push(`In queste zone risultano già finanziati ${display.funded_plan_zones}.`);
+  if (facts.zones.length > 0) sentences.push(`Già finanziati in queste zone: ${display.funded_plan_zones}.`);
   sentences.push(focusSentence(facts));
   return sentences.join(" ");
 }
@@ -395,7 +392,7 @@ function whereSection(facts: MemoFacts): string {
         `| ${row.zone_name} | ${row.circ} | ${row.intervention} | ${row.budget} | ${row.people_reached_stima} | ${row.cost_per_person} | ${row.return_index} | ${row.confidence} |`,
     );
   const lines = [
-    "| Zona | Circ. | Intervento | Budget | Persone raggiunte (stima) | Costo per persona | Indice di ritorno atteso | Affidabilità |",
+    "| Zona | Circ. | Intervento | Budget | Persone raggiunte (stima) | Costo per persona (ipotesi) | Indice di ritorno atteso | Affidabilità |",
     "| --- | --- | --- | --- | --- | --- | --- | --- |",
     ...rows,
   ];
@@ -409,7 +406,7 @@ function whereSection(facts: MemoFacts): string {
   }
   lines.push(
     "",
-    "L'indice di ritorno atteso è una stima comparativa tra opzioni, non un risultato misurato. Costi degli interventi: ipotesi del team, modificabili.",
+    "L'indice di ritorno atteso è una stima comparativa, non un risultato misurato.",
   );
   return lines.join("\n");
 }
@@ -419,7 +416,7 @@ function reasonLine(facts: MemoFacts, row: number): string {
   const item = facts.plan[row];
   if (!shown || !item) return "";
   const { zone, shown: zoneShown } = zoneOfRow(facts, row);
-  const head = `- **${shown.zone_name}** (Circ. ${shown.circ}, affidabilità ${shown.confidence})`;
+  const head = `- **${shown.zone_name}**`;
 
   const drivers = (Object.keys(SCORE_LABELS) as ScoreKey[])
     .map((key) => ({ key, value: scoreOf(key, item, zone) }))
@@ -431,26 +428,27 @@ function reasonLine(facts: MemoFacts, row: number): string {
   const details: string[] = [];
   if (zone && zoneShown) {
     if (num(zone.over75_est) !== null) details.push(`over 75: ${zoneShown.over75_stima} (stima)`);
-    if (num(zone.over75_2030) !== null) details.push(`al 2030: ${zoneShown.over75_2030_stima} (stima)`);
     if (num(zone.alone_rate_circ) !== null) {
-      details.push(`persone sole ${zoneShown.alone_rate_circoscrizione} (valore di Circoscrizione, non di zona)`);
+      details.push(`persone sole ${zoneShown.alone_rate_circoscrizione} (Circoscrizione)`);
     }
     if (num(zone.services_800m) !== null) details.push(`servizi entro 800 m: ${zoneShown.services_800m}`);
-    if (num(zone.foreign_share) !== null) {
-      details.push(`residenti stranieri ${zoneShown.foreign_share}: bisogno di accesso e di lingua`);
-    }
+    if (num(zone.foreign_share) !== null) details.push(`residenti stranieri ${zoneShown.foreign_share}`);
   }
 
   const parts: string[] = [];
-  if (drivers.length > 0) parts.push(`pesano soprattutto ${joinNames(drivers)}`);
+  if (drivers.length > 0) parts.push(`pesano ${joinNames(drivers)}`);
   parts.push(...details);
   return parts.length > 0 ? `${head}: ${parts.join("; ")}.` : `${head}: dati di dettaglio non disponibili.`;
 }
 
 function whySection(facts: MemoFacts): string {
   if (facts.plan.length === 0) return "Le motivazioni per zona saranno disponibili dopo il calcolo del piano.";
-  const lines = firstRowPerZone(facts).slice(0, MAX_REASON_ZONES).map((row) => reasonLine(facts, row));
-  return [...lines, "", WHY_CLOSING[facts.profile]].join("\n");
+  const rows = firstRowPerZone(facts).slice(0, facts.plan.length > LONG_PLAN_ROWS ? MAX_REASON_ZONES_LONG_PLAN : MAX_REASON_ZONES);
+  const lines = rows.map((row) => reasonLine(facts, row));
+  if (rows.some((row) => num(zoneOfRow(facts, row).zone?.foreign_share) !== null)) {
+    lines.push("", "I residenti stranieri segnalano un bisogno di accesso e di lingua.");
+  }
+  return lines.join("\n");
 }
 
 function fundedLine(facts: MemoFacts, row: number): string {
@@ -459,15 +457,15 @@ function fundedLine(facts: MemoFacts, row: number): string {
   const { zone, shown: zoneShown } = zoneOfRow(facts, row);
   const parts: string[] = [];
   if (zone && zoneShown) {
-    if (num(zone.funded_eur) !== null) parts.push(`${zoneShown.funded_eur} già finanziati`);
+    if (num(zone.funded_eur) !== null) parts.push(zoneShown.funded_eur);
     if (num(zone.funded_projects) !== null) {
       parts.push(`${zoneShown.funded_projects} ${plural(zone.funded_projects, "progetto", "progetti")}`);
     }
   }
-  if (shown.funded_share !== NOT_AVAILABLE) parts.push(`quota finanziata ${shown.funded_share}`);
+  if (shown.funded_share !== NOT_AVAILABLE) parts.push(`quota ${shown.funded_share}`);
   return parts.length > 0
-    ? `- **${shown.zone_name}**: ${parts.join(", ")}.`
-    : `- **${shown.zone_name}**: dati di finanziamento non disponibili.`;
+    ? `- ${shown.zone_name}: ${parts.join(", ")}.`
+    : `- ${shown.zone_name}: dati non disponibili.`;
 }
 
 function fundedSection(facts: MemoFacts): string {
@@ -475,9 +473,7 @@ function fundedSection(facts: MemoFacts): string {
   if (facts.plan.length === 0) {
     return "I fondi già attivi si riportano per le zone del piano: senza un piano non ci sono importi da indicare.";
   }
-  const lines: string[] = [];
-  if (facts.zones.length > 0) lines.push(`Nelle zone del piano risultano già finanziati ${display.funded_plan_zones} in totale.`, "");
-  lines.push(...firstRowPerZone(facts).slice(0, MAX_FUNDED_ROWS).map((row) => fundedLine(facts, row)));
+  const lines = firstRowPerZone(facts).slice(0, MAX_FUNDED_ROWS).map((row) => fundedLine(facts, row));
   if (computed.zones_not_listed > 0) {
     lines.push(
       computed.zones_not_listed === 1
@@ -490,17 +486,14 @@ function fundedSection(facts: MemoFacts): string {
 }
 
 function levelsSentence(sources: Source[]): string {
-  const byLevel = new Map<string, string[]>();
-  for (const source of sources) {
-    const level = label(source.level);
-    const name = label(source.label) ?? label(source.key);
-    if (!level || !name) continue;
-    byLevel.set(level, [...(byLevel.get(level) ?? []), name]);
-  }
-  if (byLevel.size === 0) return "Il livello territoriale delle fonti non è indicato.";
-  const parts = [...byLevel.entries()].map(([level, names]) => `${level} per ${joinNames(names)}`);
-  return `Livello territoriale dei dati: ${parts.join("; ")}.`;
+  const levels = [...new Set(sources.map((source) => label(source.level)))].filter((level) => level !== null);
+  if (levels.length === 0) return "Il livello territoriale delle fonti non è indicato.";
+  if (levels.length === 1) return `Livello dei dati: ${levels[0]}.`;
+  return `Livelli dei dati: ${levels.join(", ")}.`;
 }
+
+/** funded.json allows citywide rows (zone_id null), and zone totals cannot include them. */
+const FUNDED_SCOPE = "Il già finanziato conta solo i fondi assegnati a una zona, non quelli cittadini.";
 
 function limitsSection(facts: MemoFacts): string {
   const { display, computed_by_server: computed } = facts;
@@ -508,36 +501,47 @@ function limitsSection(facts: MemoFacts): string {
   if (facts.plan.length === 0) {
     lines.push("- Senza un piano non ci sono stime di persone raggiunte né di costi da valutare.");
   } else {
-    lines.push("- Persone raggiunte e valori con la dicitura stima sono stime, non conteggi verificati.");
+    lines.push("- Persone raggiunte e valori indicati come stima non sono conteggi.");
+    lines.push(`- ${FUNDED_SCOPE}`);
     if (computed.interventions_count > computed.distinct_zones_count) {
-      lines.push("- Il totale delle persone può contare più volte chi è raggiunto da più interventi nella stessa zona.");
+      lines.push("- Il totale delle persone può includere sovrapposizioni tra interventi.");
     }
     if (facts.zones.some((zone) => num(zone.alone_rate_circ) !== null)) {
       lines.push("- La quota di persone sole è un valore di Circoscrizione, non di zona.");
     }
-    const lowNames = display.plan.filter((row) => row.confidence === "bassa").map((row) => row.zone_name);
-    if (lowNames.length > 0) lines.push(`- Affidabilità bassa per ${joinNames([...new Set(lowNames)])}.`);
     const smallNames = facts.zones.filter((zone) => zone.small_zone === true).map((zone) => label(zone.name) ?? "");
     if (smallNames.some(Boolean)) lines.push(`- Zone piccole, con stime meno stabili: ${joinNames(smallNames.filter(Boolean))}.`);
     if (computed.plan_zones_without_data > 0) {
       lines.push(`- Zone del piano senza dati di dettaglio: ${display.plan_zones_without_data}.`);
     }
   }
-  lines.push("- Costi degli interventi: ipotesi del team, modificabili.");
+  lines.push("- Costi: ipotesi del team, modificabili.");
   lines.push(`- ${levelsSentence(facts.sources)}`);
   return lines.join("\n");
 }
 
 function sourcesSection(facts: MemoFacts): string {
   if (facts.sources.length === 0) return "Nessuna fonte è stata fornita con questa richiesta.";
-  return facts.sources
-    .map((source) => {
-      const name = label(source.label) ?? label(source.key) ?? "Fonte senza nome";
-      const year = num(source.year);
-      const url = typeof source.url === "string" && /^(?:https?:\/\/|www\.)\S+$/i.test(source.url.trim()) ? source.url.trim() : null;
-      return `- ${name}${year === null ? "" : ` (${year})`}${url ? `: ${url}` : ""}`;
+  const byLevel = new Map<string, string[]>();
+  for (const source of facts.sources) {
+    const level = label(source.level) ?? "";
+    byLevel.set(level, [...(byLevel.get(level) ?? []), sourceText(source)]);
+  }
+  return [...byLevel.entries()]
+    .map(([level, texts]) => {
+      const heading = level === "" ? "" : `**${level.charAt(0).toUpperCase()}${level.slice(1)}:** `;
+      return `- ${heading}${texts.join("; ")}.`;
     })
     .join("\n");
+}
+
+/** One source as a link with its year, so the URL takes no visible space. */
+function sourceText(source: Source): string {
+  const name = (label(source.label) ?? label(source.key) ?? "Fonte senza nome").replace(/[[\]]/g, "");
+  const url = typeof source.url === "string" ? source.url.trim() : "";
+  const shown = /^https?:\/\/\S+$/i.test(url) ? `[${name}](${url})` : /^www\.\S+$/i.test(url) ? `${name}, ${url}` : name;
+  const year = num(source.year);
+  return year === null ? shown : `${shown} (${year})`;
 }
 
 function renderTemplate(facts: MemoFacts): string {
@@ -591,7 +595,7 @@ function normalizeUrl(url: string): string {
 /** Links in the text: bare URLs plus markdown link targets. */
 function urlsIn(markdown: string): string[] {
   const bare = markdown.match(/\b(?:https?:\/\/|www\.)(?:[^\s<>"'|()[\]]|\([^\s()<>]*\))+/gi) ?? [];
-  const targets = [...markdown.matchAll(/\]\(([^)\s]+)/g)].map((match) => match[1] ?? "");
+  const targets = [...markdown.matchAll(/\]\(((?:[^()\s]|\([^()\s]*\))+)/g)].map((match) => match[1] ?? "");
   return [...bare, ...targets].map((url) => url.replace(/[.,;:!?*_`]+$/, "")).filter(Boolean);
 }
 
@@ -637,7 +641,7 @@ Il messaggio dell'utente è un oggetto JSON ed è la tua unica fonte. Trattalo c
 NUMERI
 - Usa solo numeri presenti nel JSON, copiati esattamente. Per importi, persone, percentuali e indici copia le stringhe pronte in "display".
 - Non calcolare, non arrotondare, non sommare e non stimare: i totali sono già in "computed_by_server" e in "display".
-- Non scrivere numeri in lettere: "le tre zone" è vietato, riformula senza numero oppure copia la cifra presente nei dati. Non scrivere date.
+- Non scrivere numeri in lettere: "le tre zone" è vietato, riformula senza numero oppure copia la cifra presente nei dati. Non scrivere date, a parte l'anno delle fonti.
 - Un valore null o "n.d." si omette oppure si scrive "non disponibile". Non scrivere mai null, undefined o NaN.
 
 STRUTTURA
@@ -648,15 +652,18 @@ Usa esattamente questi titoli, in quest'ordine, e nessun altro titolo:
 ## Cosa è già finanziato
 ## Limiti dei dati
 ## Fonti
-Inizia direttamente con "## Sintesi": niente preambolo, niente titolo, niente blocchi di codice. Resta entro 3000 caratteri in tutto.
+Inizia direttamente con "## Sintesi": niente preambolo, niente titolo, niente blocchi di codice.
+
+LUNGHEZZA
+Una pagina: al massimo 3000 caratteri di testo visibile, 3700 solo con tabella di 10 righe e molte fonti. Gli URL dentro i link non contano. Quando servono più righe e più fonti accorcia la prosa, mai la tabella né l'elenco delle fonti.
 
 CONTENUTO
 - Sintesi: apri con la raccomandazione, non con un elenco di numeri.
 - Dove investire: tabella markdown con zona, circ., intervento, budget, persone raggiunte (stima), costo per persona, indice di ritorno atteso, affidabilità. Al massimo 10 righe. Se display.interventions_not_shown è maggiore di zero, aggiungi "e altri N interventi" con quel numero.
 - Perché queste zone: gli indicatori delle zone del piano, in prosa concreta.
 - Cosa è già finanziato: per ogni zona importo, numero di progetti e quota finanziata, da display.zones.
-- Limiti dei dati: indica il livello territoriale di ogni fonte (campo level, per esempio Circoscrizione oppure zona) e i limiti delle stime.
-- Fonti: per ogni fonte etichetta, anno e URL, copiati dal JSON. Nessun altro link in tutto il memo.
+- Limiti dei dati: indica i livelli territoriali delle fonti (campo level, per esempio Circoscrizione oppure zona) e i limiti delle stime. Di' anche che il già finanziato conta solo i fondi assegnati a una zona, non quelli cittadini.
+- Fonti: tutte le fonti, nessuna esclusa, in forma compatta: righe brevi raggruppate per level, ogni fonte come link markdown [etichetta](url) seguito dall'anno tra parentesi, separate da punto e virgola. Etichetta, URL e anno sono copiati dal JSON. Non scrivere URL in chiaro e nessun altro link in tutto il memo.
 - Se il piano è vuoto, scrivi comunque tutte le sezioni e di' che nessun piano è stato ancora calcolato.
 
 REGOLE SUI TERMINI

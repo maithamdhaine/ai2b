@@ -5,19 +5,30 @@ The browser owns all maths. Port 8787. The app proxies `/api` to it.
 
 ## Run
 
+Tested on Node 26. The dependencies allow Node 18 or newer, but older versions have not been run.
+
 ```
 cd server
 npm install
-npm run dev
+npm start
 ```
 
-`npm start` runs it without file watching, which is what to use on stage.
+Use `npm run dev` to restart on file changes while developing. `npm start` is what to use on stage.
+If port 8787 is busy, the server says so and exits, so stop the other copy first.
 
 ## API key
 
 Put `ANTHROPIC_API_KEY=...` in `server/.env`. The file is git-ignored, and the key must never go in chat or the tracker.
 The key is read on each request, so adding it does not need a restart.
-Without a key, or with a rejected key, the server stays in rules mode. `GET /api/health` always reports the real mode.
+Without a key, or with a rejected key, the server stays in rules mode. `GET /api/health` reports `llm` when a usable key is present, and every response carries the mode that really produced it.
+
+The key is not in git or in the hand-off zip. Whichever laptop runs the demo needs its own `server/.env`.
+
+To check LLM mode once a key is in place, run `npm start` and then `npm run prompts` in a second terminal. The server log prints the mode and latency of each request, and any API error.
+
+## LLM settings
+
+Model `claude-sonnet-5-5`, one call per turn, thinking set to `between_tools` and effort `low` for speed, with an 8-second limit and no retries. The request also sets `fallbacks: "default"` (beta), so if the model declines in certain safety categories, the API retries on another model inside the same call. For this topic that should be rare. Remove it from `src/agent.ts` and `src/memo.ts` if you do not want it.
 
 ## Endpoints
 

@@ -98,9 +98,9 @@ export const TOOLS: Tool[] = [
 
 const GOAL_LABEL: Record<Goal, string> = {
   isolation: "over 75 soli, solitudine, isolamento",
-  service_gap: "zone scoperte, servizi lontani, vuoti di assistenza",
+  service_gap: "carenza di servizi, zone scoperte, servizi lontani, vuoti di assistenza",
   future_pressure: "invecchiamento futuro, pressione attesa nei prossimi anni",
-  inclusion: "residenti stranieri, barriere di accesso e di lingua",
+  inclusion: "inclusione lavorativa degli over 50, nuovi residenti, barriere di accesso e di lingua",
 };
 
 const PROFILE_LINES = PROFILES.map(

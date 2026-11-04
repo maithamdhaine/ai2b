@@ -110,11 +110,18 @@ function nullsRequest(): MemoRequest {
   });
 }
 
+/** The link complaints checkMemo gives for this text, whatever else it finds. */
+function unknownLinksOf(markdown: string, sources: Source[]): string[] {
+  const facts = buildFacts(request({ sources }));
+  return checkMemo(markdown, facts).filter((failure) => failure.startsWith("link "));
+}
+
 const CASES: Array<[string, () => MemoRequest]> = [
   ["normal plan", () => request()],
   ["plan with nulls", nullsRequest],
   ["empty plan", () => request({ plan: [] })],
   ["empty plan, no sources, no zones", () => request({ plan: [], zones: [], sources: [] })],
+  ["10 rows and 15 sources", fullSizeRequest],
   [
     "long plan with no budget left",
     () => request({ plan: Array.from({ length: 13 }, (_, i) => planItem(i + 1, `Zona ${String.fromCharCode(65 + i)}`, { budget_eur: 10000 })) }),
@@ -123,6 +130,58 @@ const CASES: Array<[string, () => MemoRequest]> = [
 
 function headingsOf(markdown: string): string[] {
   return [...markdown.matchAll(/^## (.+)$/gm)].map((match) => match[1] ?? "");
+}
+
+/** What counts toward one page: everything except link targets, which the reader does not see. */
+function visibleLength(markdown: string): number {
+  return markdown.replace(/\]\((?:[^()\s]|\([^()\s]*\))+\)/g, "]").length;
+}
+
+const ONE_PAGE = 3000;
+const ONE_PAGE_FULL_TABLE = 3700;
+
+/** Real-size request: 10 plan rows in 10 zones and 15 sources, as in Machine C's meta.json. */
+function fullSizeRequest(): MemoRequest {
+  const names = [
+    "Barriera di Milano", "Falchera", "Vallette", "Mirafiori Nord", "Aurora", "San Salvario",
+    "Borgo Vittoria", "Madonna di Campagna", "Lucento", "Parella",
+  ];
+  const interventions = [
+    "Sicurezza digitale e anti-truffa", "Presidio di prossimità per anziani", "Trasporto sociale a chiamata",
+    "Sportello linguistico e di accesso", "Assistenza domiciliare leggera",
+  ];
+  const plan = names.map((name, i) =>
+    planItem(i + 1, name, {
+      circ: (i % 8) + 1,
+      intervention_label: interventions[i % interventions.length] ?? "",
+      budget_eur: 10000,
+      people_reached: 210 + i * 37,
+      cost_per_person_eur: Math.round((10000 / (210 + i * 37)) * 100) / 100,
+      return_index: 0.0118 + i / 1000,
+      scores: { isolation: 62 - i, service_gap: 48 + i, future_pressure: 55, inclusion: 21, funded_share: 0.1 },
+      confidence: i % 3 === 0 ? "official" : i % 3 === 1 ? "estimated" : "low",
+    }),
+  );
+  const levels = ["zona statistica", "Circoscrizione", "punto", "città"];
+  const labels = [
+    "Anagrafe del Comune di Torino", "Censimento ISTAT della popolazione", "Bandi delle fondazioni torinesi",
+    "Mappa dei servizi sociosanitari", "Farmacie della Regione Piemonte", "Presidi sanitari della ASL Città di Torino",
+    "Progetti finanziati dal Comune", "Osservatorio sulla popolazione anziana", "Proiezioni demografiche regionali",
+    "Stranieri residenti per Circoscrizione", "Famiglie unipersonali per Circoscrizione", "Centri di incontro per anziani",
+    "Trasporto pubblico locale GTT", "Rete delle case del quartiere", "Registro degli enti del terzo settore",
+  ];
+  return {
+    state: { ...DEFAULT_STATE, plan },
+    plan,
+    zones: names.map((name, i) => zone(i + 1, name, { circ: (i % 8) + 1, funded_eur: 25000 * (i + 1), funded_projects: i + 1, funded_share: (i + 1) / 20 })),
+    sources: labels.map((sourceLabel, i) => ({
+      key: `fonte_${i}`,
+      label: sourceLabel,
+      url: `https://dati.example.org/torino/dataset-${i}/risorsa/ultima-versione`,
+      year: 2019 + (i % 7),
+      level: levels[i % levels.length] ?? "",
+    })),
+  };
 }
 
 for (const [name, make] of CASES) {
@@ -152,40 +211,85 @@ for (const [name, make] of CASES) {
   });
 }
 
-test("template meets the format rules for a normal plan", () => {
+test("template meets the format rules for a normal plan", (t) => {
   const markdown = templateMemo(request());
-  assert.ok(markdown.length <= 3000, `${markdown.length} caratteri`);
+  t.diagnostic(`piano normale: ${visibleLength(markdown)} caratteri visibili`);
+  assert.ok(visibleLength(markdown) <= ONE_PAGE, `${visibleLength(markdown)} caratteri`);
   assert.match(markdown, /^## Sintesi\n\nRaccomandiamo di destinare il prossimo investimento a Barriera di Milano, Falchera e Vallette/);
   assert.match(markdown, /indice di ritorno atteso è una stima comparativa/i);
-  assert.match(markdown, /Costi degli interventi: ipotesi del team, modificabili/);
+  assert.match(markdown, /\| Costo per persona \(ipotesi\) \|/);
+  assert.match(markdown, /persona \(ipotesi del team, modificabili\)/);
+  assert.match(markdown, /## Limiti dei dati[\s\S]*non quelli cittadini[\s\S]*## Fonti/);
   assert.match(markdown, /## Limiti dei dati[\s\S]*ipotesi del team, modificabili[\s\S]*## Fonti/);
   assert.match(markdown, /valore di Circoscrizione, non di zona/);
-  assert.match(markdown, /Livello territoriale dei dati: zona statistica per/);
-  assert.match(markdown, /Circoscrizione per Censimento ISTAT/);
-  assert.match(markdown, /Censimento ISTAT \(2021\): https:\/\/www\.istat\.it\/censimenti\/popolazione/);
+  assert.match(markdown, /persone sole 32% \(Circoscrizione\)/);
+  assert.match(markdown, /Livelli dei dati: zona statistica, Circoscrizione, punto/);
+  assert.match(markdown, /\*\*Circoscrizione:\*\* \[Censimento ISTAT\]\(https:\/\/www\.istat\.it\/censimenti\/popolazione\) \(2021\)\./);
   assert.match(markdown, /\| Barriera di Milano \| 6 \| Presidio di prossimità \| 50\.000 € \| 1200 \| 41,67 € \| 0,042 \| ufficiale \|/);
   assert.match(markdown, /\| Falchera .* \| stimata \|/);
   assert.match(markdown, /\| Vallette .* \| bassa \|/);
-  assert.match(markdown, /Barriera di Milano\*\*: 120\.000 € già finanziati, 3 progetti, quota finanziata 42%\./);
-  assert.match(markdown, /Vallette\*\*: 1000 € già finanziati, 1 progetto, quota finanziata 12,5%\./);
-  assert.match(markdown, /residenti stranieri 28%: bisogno di accesso e di lingua/);
+  assert.match(markdown, /- Barriera di Milano: 120\.000 €, 3 progetti, quota 42%\./);
+  assert.match(markdown, /- Falchera: 0 €, 0 progetti, quota 0%\./);
+  assert.match(markdown, /- Vallette: 1000 €, 1 progetto, quota 12,5%\./);
+  assert.match(markdown, /residenti stranieri 28%/);
+  assert.match(markdown, /bisogno di accesso e di lingua/);
   assert.match(markdown, /over 75: 2300 \(stima\)/);
   assert.match(markdown, /Restano da allocare 5000 €/);
-  assert.match(markdown, /già finanziati 121\.000 €/);
+  assert.match(markdown, /Già finanziati in queste zone: 121\.000 €/);
+  assert.equal([...markdown.matchAll(/121\.000 €/g)].length, 1, "il totale dei fondi compare una volta sola");
 });
 
 test("template stays near one page with a full table", () => {
-  const req = CASES[4]?.[1]();
+  const req = CASES.find(([name]) => name.startsWith("long plan"))?.[1]();
   assert.ok(req);
   const markdown = templateMemo(req);
-  assert.ok(markdown.length <= 3700, `${markdown.length} caratteri`);
+  assert.ok(visibleLength(markdown) <= ONE_PAGE_FULL_TABLE, `${visibleLength(markdown)} caratteri`);
+});
+
+test("template stays within the ceiling with 10 rows and 15 sources", (t) => {
+  const req = fullSizeRequest();
+  const markdown = templateMemo(req);
+  t.diagnostic(`10 righe, 15 fonti: ${visibleLength(markdown)} caratteri visibili`);
+  assert.ok(visibleLength(markdown) <= ONE_PAGE_FULL_TABLE, `${visibleLength(markdown)} caratteri`);
+  assert.deepEqual(checkMemo(markdown, buildFacts(req)), []);
+  assert.equal([...markdown.matchAll(/^\| (?!Zona |---)/gm)].length, 10);
+});
+
+test("Fonti keeps every source and year as a link, with no visible URL", () => {
+  const req = fullSizeRequest();
+  const markdown = templateMemo(req);
+  const fonti = markdown.slice(markdown.indexOf("## Fonti"));
+  assert.equal(req.sources.length, 15);
+  for (const source of req.sources) {
+    assert.ok(fonti.includes(`[${source.label}](${source.url}) (${source.year})`), source.label);
+  }
+  assert.doesNotMatch(fonti.replace(/\]\([^)]*\)/g, "]"), /https?:/);
+  for (const level of ["Zona statistica", "Circoscrizione", "Punto", "Città"]) assert.ok(fonti.includes(`**${level}:**`), level);
+});
+
+test("Fonti stays correct without a link, year or level", () => {
+  const markdown = templateMemo(
+    request({
+      sources: [
+        { key: "a", label: "Solo testo", url: "", year: 2020, level: "" },
+        { key: "b", label: "Con [parentesi] quadre", url: "https://esempio.org/a_(b)", year: 2021, level: "zona" },
+        { key: "c", label: "Senza schema", url: "www.esempio.org/c", year: 2022, level: "zona" },
+      ],
+    }),
+  );
+  assert.match(markdown, /- Solo testo \(2020\)\./);
+  assert.match(markdown, /\[Con parentesi quadre\]\(https:\/\/esempio\.org\/a_\(b\)\) \(2021\); Senza schema, www\.esempio\.org\/c \(2022\)\./);
+  assert.deepEqual(unknownLinksOf(markdown, [
+    { key: "b", label: "", url: "https://esempio.org/a_(b)", year: 2021, level: "zona" },
+    { key: "c", label: "", url: "www.esempio.org/c", year: 2022, level: "zona" },
+  ]), []);
 });
 
 test("template adapts to the funder profile", () => {
   const expected: Record<Profile, RegExp> = {
-    foundation: /Per una fondazione, al centro ci sono impatto e difendibilità[\s\S]*Davanti al consiglio/,
-    third_sector: /Per un ente del terzo settore, al centro ci sono evidenze da usare in un bando[\s\S]*In un bando/,
-    institution: /Per un'istituzione pubblica, al centro ci sono copertura del territorio[\s\S]*sovrapposizione/,
+    foundation: /Per una fondazione contano impatto e difendibilità[\s\S]*Per il consiglio:/,
+    third_sector: /Per un ente del terzo settore contano evidenze da usare in un bando[\s\S]*Per il bando:/,
+    institution: /Per un'istituzione pubblica contano copertura del territorio[\s\S]*sovrapposizione/,
   };
   for (const [profile, pattern] of Object.entries(expected)) {
     const req = request();
@@ -202,7 +306,7 @@ test("template says when no plan has been calculated", () => {
 });
 
 test("template shows at most 10 rows, and the remainder is a supported figure", () => {
-  const req = CASES[4]?.[1]();
+  const req = CASES.find(([name]) => name.startsWith("long plan"))?.[1]();
   assert.ok(req);
   const markdown = templateMemo(req);
   assert.equal([...markdown.matchAll(/^\| Zona [A-Z] \|/gm)].length, 10);
