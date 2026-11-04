@@ -107,17 +107,17 @@ describe('ZonePanel', () => {
     expect(html).toContain('1.886.674');
   });
 
-  it('labels age figures as estimates unless the zone is official', () => {
+  it('labels every 2025 age figure as an estimate, whatever the confidence', () => {
     const tags = (html: string) => html.match(/>stima</g)?.length ?? 0;
     expect(tags(panel({ confidence: 'estimated' }))).toBe(2);
     expect(tags(panel({ confidence: 'low' }))).toBe(2);
-    expect(tags(panel({ confidence: 'official' }))).toBe(0);
+    expect(tags(panel({ confidence: 'official' }))).toBe(2);
   });
 
   it('names each confidence level', () => {
     expect(panel({ confidence: 'official' })).toContain('Dato ufficiale');
     expect(panel({ confidence: 'estimated' })).toContain('>Stima<');
-    expect(panel({ confidence: 'low' })).toContain('Bassa affidabilità');
+    expect(panel({ confidence: 'low' })).toContain('Affidabilità bassa');
   });
 
   it('survives every nullable field', () => {

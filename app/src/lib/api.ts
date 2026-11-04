@@ -30,6 +30,8 @@ export interface MemoRequestBody {
   plan: PlanItem[];
   zones: ZoneProps[];
   sources: SourceRef[];
+  /** Added at Machine B's request: it lets the server mark a memo built on test data. */
+  mock: boolean;
 }
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>

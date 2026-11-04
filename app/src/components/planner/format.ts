@@ -89,8 +89,6 @@ export interface PlanSummary {
   zones: number;
   /** True when a zone holds more than one intervention, so one person can be counted twice. */
   overlapping_zones: boolean;
-  /** True when a row shows a higher index than the row above, which a scaled-down item can cause. */
-  index_out_of_order: boolean;
 }
 
 export function summarisePlan(plan: PlanItem[]): PlanSummary {
@@ -104,7 +102,6 @@ export function summarisePlan(plan: PlanItem[]): PlanSummary {
     avg_cost_eur: people > 0 ? used_eur / people : NaN,
     zones,
     overlapping_zones: zones < plan.length,
-    index_out_of_order: plan.some((item, i) => i > 0 && item.return_index > plan[i - 1].return_index),
   };
 }
 

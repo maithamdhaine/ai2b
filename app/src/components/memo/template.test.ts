@@ -107,12 +107,6 @@ describe('buildMemoTemplate', () => {
     expect(memoOf()).toContain("conta le persone raggiunte, pesate per beneficio dell'intervento, bisogno della zona e addizionalità, ogni 1.000 € di costo");
   });
 
-  it('explains a row that shows a higher index than the row above, only when there is one', () => {
-    const note = "se i fondi lo riducono, l'indice mostrato scende";
-    expect(memoOf()).not.toContain(note);
-    expect(memoOf({ state: state({ plan: [item(), secondItem] }) })).toContain(note);
-  });
-
   it('labels estimates in the table, and says what the index is without the forbidden term', () => {
     const memo = memoOf();
     expect(memo).toContain('Persone (stima)');

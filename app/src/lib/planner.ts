@@ -120,8 +120,9 @@ const percentOf = (total: number, percent: number): number => Math.floor((total 
  * Greedy allocation by return_index, where
  *   pair_need    = weighted mean of the zone scores, each multiplied by the intervention's fit, 0 to 1
  *   return_index = people * depth * pair_need * additionality / cost.
- * The plan keeps that ranking order, taken from the whole pairs. A scaled-down item reports the
- * return_index of its reduced people and cost, so it can show less than an item ranked below it.
+ * Money goes to the whole pairs in that order. A scaled-down item reports the return_index of its
+ * reduced people and cost, which is lower, so the finished plan is sorted again by the index each
+ * item actually shows: the list always reads from the highest number down.
  */
 export function computePlan(
   zones: ZoneProps[], interventions: Intervention[], weights: Weights, filters: Filters, budget: number,
@@ -160,5 +161,10 @@ export function computePlan(
     spentByIntervention.set(intervention.id, interventionSpent + allocation.budget_eur);
     plan.push(toPlanItem(candidate, allocation));
   }
-  return plan;
+  return plan.sort(
+    (a, b) =>
+      b.return_index - a.return_index ||
+      a.zone_id - b.zone_id ||
+      compareIds(a.intervention_id, b.intervention_id),
+  );
 }

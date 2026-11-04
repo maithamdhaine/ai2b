@@ -7,7 +7,7 @@ import { LENSES, NEED_LENSES, lensValue } from './mapConfig';
 const CONFIDENCE: Record<Confidence, string> = {
   official: 'Dato ufficiale',
   estimated: 'Stima',
-  low: 'Bassa affidabilità',
+  low: 'Affidabilità bassa',
 };
 
 interface FigureProps {
@@ -59,7 +59,9 @@ export interface ZonePanelProps {
 }
 
 export default function ZonePanel({ zone, projects, sources, inPlan, onClose }: ZonePanelProps) {
-  const estimateTag = zone.confidence === 'official' ? undefined : 'stima';
+  // Zone-level age data stops at 2020, so every 2025 age figure here is projected forward,
+  // however reliable the rest of the zone's data is.
+  const estimateTag = 'stima';
   const confidence = CONFIDENCE[zone.confidence];
 
   return (

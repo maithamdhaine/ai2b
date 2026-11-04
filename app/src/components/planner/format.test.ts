@@ -95,12 +95,6 @@ describe('summarisePlan', () => {
     expect(summary).toMatchObject({ zones: 1, overlapping_zones: true });
   });
 
-  it('notices a row showing a higher index than the row above', () => {
-    const inOrder = [item({ return_index: 0.009 }), item({ return_index: 0.006 })];
-    expect(summarisePlan(inOrder).index_out_of_order).toBe(false);
-    expect(summarisePlan([...inOrder].reverse()).index_out_of_order).toBe(true);
-  });
-
   it('has no average for an empty plan', () => {
     expect(summarisePlan([])).toMatchObject({ used_eur: 0, people: 0, zones: 0, overlapping_zones: false });
     expect(summarisePlan([]).avg_cost_eur).toBeNaN();

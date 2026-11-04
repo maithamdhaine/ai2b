@@ -64,7 +64,7 @@ describe('loadMemo', () => {
 
   afterEach(() => vi.unstubAllGlobals());
 
-  it('posts state, plan, zones and sources, and shows the text of the server', async () => {
+  it('posts state, plan, zones, sources and the mock flag, and shows the text of the server', async () => {
     const fetchMock = vi.fn(async (_url: string, _init?: RequestInit) => new Response(
       JSON.stringify({ markdown: '# Dal server', mode: 'llm' }),
       { headers: { 'Content-Type': 'application/json' } },
@@ -78,6 +78,7 @@ describe('loadMemo', () => {
     expect(fetchMock.mock.calls[0][0]).toBe('/api/memo');
     expect(JSON.parse(String(fetchMock.mock.calls[0][1]?.body))).toEqual({
       state: memoInput.state, plan: memoInput.state.plan, zones: memoInput.zones, sources: [source],
+      mock: false,
     });
   });
 

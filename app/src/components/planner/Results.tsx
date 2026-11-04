@@ -119,7 +119,7 @@ export function PlanResults() {
   const selectedZone = useStore((s) => s.selected_zone_id);
   const selectZone = useStore((s) => s.selectZone);
   const listRef = useRef<HTMLOListElement>(null);
-  const { overlapping_zones, index_out_of_order } = useMemo(() => summarisePlan(plan), [plan]);
+  const { overlapping_zones } = useMemo(() => summarisePlan(plan), [plan]);
 
   // A zone picked on the map may be further down the list: bring it into view.
   useEffect(() => {
@@ -157,7 +157,6 @@ export function PlanResults() {
             L'indice di ritorno atteso conta le persone raggiunte, pesate per beneficio
             dell'intervento, bisogno della zona e addizionalità, ogni 1.000 € di costo. È una stima
             per confrontare le opzioni, non un ritorno misurato.
-            {index_out_of_order && " L'ordine segue l'intervento completo: se i fondi lo riducono, l'indice mostrato scende."}
             {overlapping_zones && ' Nelle zone con più interventi la stessa persona può essere contata più volte.'}
           </p>
         </>

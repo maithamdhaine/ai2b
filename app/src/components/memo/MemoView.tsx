@@ -35,7 +35,10 @@ export function readMemoInput(): MemoInput {
 /** Asks the server for the memo. Never rejects: on any problem the template takes its place. */
 export async function loadMemo(input: MemoInput, signal: AbortSignal): Promise<ChosenMemo> {
   const { state, zones, meta } = input;
-  const result = await postMemo({ state, plan: state.plan, zones, sources: meta?.sources ?? [] }, signal);
+  const result = await postMemo(
+    { state, plan: state.plan, zones, sources: meta?.sources ?? [], mock: meta?.mock ?? false },
+    signal,
+  );
   return chooseMemo(result, buildMemoTemplate(input));
 }
 

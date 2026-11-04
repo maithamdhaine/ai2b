@@ -185,28 +185,28 @@ describe('computePlan: hand-computed example', () => {
 
   it('ranks the five real interventions as computed by hand', () => {
     // Default zone, weights 0.4/0.3/0.2/0.1:
-    // pair_need:  sicurezza (19.2 + 1.8 + 2.4 + 0.4) / 100 = 0.238
-    //             visite    (32 + 5.4 + 4 + 0.2)     / 100 = 0.416
-    //             accesso   (12.8 + 16.2 + 2.4 + 0.8)/ 100 = 0.322
-    //             hub       (16 + 18 + 4 + 0.6)      / 100 = 0.386
-    //             inser.    (3.2 + 1.8 + 0.8 + 2)    / 100 = 0.078
-    // index:      sicurezza 200*1*0.238 / 11000 = 0.0043273
-    //             visite     40*6*0.416 / 24000 = 0.0041600
-    //             accesso   100*2*0.322 / 17000 = 0.0037882
-    //             hub       150*3*0.386 / 72000 = 0.0024125
-    //             inser.     60*5*0.078 / 69000 = 0.0003391
+    // pair_need:  visite    (32 + 5.4 + 4 + 0.2)      / 100 = 0.416
+    //             accesso   (12.8 + 16.2 + 2.4 + 0.8) / 100 = 0.322
+    //             sicurezza (9.6 + 1.8 + 2.4 + 0.4)   / 100 = 0.142
+    //             hub       (16 + 18 + 4 + 0.6)       / 100 = 0.386
+    //             inser.    (3.2 + 1.8 + 0.8 + 2)     / 100 = 0.078
+    // index:      visite     40*10*0.416 / 24000 = 0.0069333
+    //             accesso   100*2*0.322  / 17000 = 0.0037882
+    //             sicurezza 200*1*0.142  / 11000 = 0.0025818
+    //             hub       150*3*0.386  / 72000 = 0.0024125
+    //             inser.     60*12*0.078 / 69000 = 0.0008139
     // With a budget of 1000000 the caps are 350000 and 400000, so all of them fit whole.
     const all = computePlan([makeZone(1)], interventions, WEIGHTS, NO_FILTERS, 1000000);
     expect(all.map((i) => [i.intervention_id, i.budget_eur, i.people_reached])).toEqual([
-      ['sicurezza_digitale', 11000, 200],
       ['visite_domiciliari', 24000, 40],
       ['accesso_salute', 17000, 100],
+      ['sicurezza_digitale', 11000, 200],
       ['hub_prossimita', 72000, 150],
       ['inserimento_lavoro', 69000, 60],
     ]);
     expect(all.map((i) => i.return_index)).toEqual([
-      expect.closeTo(0.0043273, 6), expect.closeTo(0.00416, 6), expect.closeTo(0.0037882, 6),
-      expect.closeTo(0.0024125, 6), expect.closeTo(0.0003391, 6),
+      expect.closeTo(0.0069333, 6), expect.closeTo(0.0037882, 6), expect.closeTo(0.0025818, 6),
+      expect.closeTo(0.0024125, 6), expect.closeTo(0.0008139, 6),
     ]);
   });
 });
@@ -448,17 +448,17 @@ describe('computePlan: scaling down', () => {
     expect(item.return_index).toBeCloseTo(0.0062626848, 9);
   });
 
-  it('keeps the ranking order even when a scaled item shows less than the item below it', () => {
+  it('lists a scaled item below a whole item that shows more, though the money went first to the scaled one', () => {
     // Budget 10000, zone cap 3500, type cap 4000.
-    // Whole pairs: x 500 * 0.6 / 51000 = 0.00588, y 25 * 0.6 / 3000 = 0.005, so x ranks first.
+    // Whole pairs: x 500 * 0.6 / 51000 = 0.00588, y 25 * 0.6 / 3000 = 0.005, so x is funded first.
     // Zone 1 scales x down to 25 people for 3500, showing 0.00429. Zone 2 cannot fund x, as the type cap
-    // leaves only 500, so it funds y whole, showing 0.005.
+    // leaves only 500, so it funds y whole, showing 0.005. The list then puts y first, the number it shows.
     const x = makeIntervention('x');
     const y = makeIntervention('y', { reach_share: 0.025, fixed_eur: 500 });
     const plan = computePlan([makeZone(1), makeZone(2)], [x, y], WEIGHTS, NO_FILTERS, 10000);
-    expect(plan.map((i) => [i.zone_id, i.intervention_id])).toEqual([[1, 'x'], [2, 'y']]);
-    expect(plan[0].return_index).toBeCloseTo(0.0042857143, 9);
-    expect(plan[1].return_index).toBeCloseTo(0.005, 9);
+    expect(plan.map((i) => [i.zone_id, i.intervention_id])).toEqual([[2, 'y'], [1, 'x']]);
+    expect(plan[0].return_index).toBeCloseTo(0.005, 9);
+    expect(plan[1].return_index).toBeCloseTo(0.0042857143, 9);
   });
 
   it('always shows a reduced index below the whole-pair index', () => {
@@ -520,16 +520,25 @@ describe('computePlan: zone selection', () => {
 });
 
 describe('computePlan: ranking', () => {
-  it('orders every plan by the whole-pair ranking', () => {
+  it('orders every plan by the index each item shows, highest first', () => {
+    const zones = manyZones();
+    for (const budget of BUDGETS) {
+      const indices = computePlan(zones, interventions, WEIGHTS, NO_FILTERS, budget).map((i) => i.return_index);
+      expect(indices).toEqual([...indices].sort((a, b) => b - a));
+    }
+  });
+
+  it('funds the whole pairs in whole-pair ranking order', () => {
     const zones = manyZones();
     // An effectively unlimited budget funds every pair whole, which shows the full ranking.
     const ranking = computePlan(zones, interventions, WEIGHTS, NO_FILTERS, 1e9);
-    const indices = ranking.map((i) => i.return_index);
-    expect(indices).toEqual([...indices].sort((a, b) => b - a));
-
     const position = new Map(ranking.map((item, index) => [pairOf(item), index]));
     for (const budget of BUDGETS) {
-      const positions = computePlan(zones, interventions, WEIGHTS, NO_FILTERS, budget).map((i) => position.get(pairOf(i))!);
+      // Only the whole items can be checked against that ranking: a scaled one is sorted by its
+      // reduced index, which is exactly what this plan's order is meant to show.
+      const positions = computePlan(zones, interventions, WEIGHTS, NO_FILTERS, budget)
+        .filter((item) => item.return_index === ranking[position.get(pairOf(item))!].return_index)
+        .map((i) => position.get(pairOf(i))!);
       expect(positions).toEqual([...positions].sort((a, b) => a - b));
     }
   });

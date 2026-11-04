@@ -149,15 +149,13 @@ function whyTheseZones({ state, zones }: MemoInput): string {
   const items = firstItemPerZone(state.plan);
   const shown = items.slice(0, MAX_ZONE_DETAILS);
   const hidden = items.length - shown.length;
-  const { index_out_of_order: outOfOrder } = summarisePlan(state.plan);
 
   return present([
     '## Perché queste zone',
     'Le coppie zona-intervento sono ordinate per **indice di ritorno atteso**: conta le persone '
       + "raggiunte, pesate per beneficio dell'intervento, bisogno della zona e addizionalità, "
       + `ogni ${formatEur(INDEX_SCALE)} di costo. `
-      + 'È una stima per confrontare le opzioni, non un ritorno misurato.'
-      + (outOfOrder ? " L'ordine segue l'intervento completo: se i fondi lo riducono, l'indice mostrato scende." : ''),
+      + 'È una stima per confrontare le opzioni, non un ritorno misurato.',
     `**Pesi del bisogno:** ${describeWeights(state.weights)}. **Filtri:** ${filtersRecap(state.filters)}. `
       + 'I punteggi vanno da 0 a 100: più alto significa più bisogno.',
     shown.map((item) => zoneDetail(item, byId.get(item.zone_id))).join('\n'),
