@@ -1,0 +1,28 @@
+{
+  "name": "bussola-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Bussola AI server: turns Italian language into planner actions and writes the funding memo.",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test test/*.test.ts",
+    "prompts": "tsx scripts/run-prompts.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.4.0",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.6",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}
