@@ -1,0 +1,158 @@
+{
+  "_note": "MOCK DATA. mock_plan values are invented for this test set and are not results about Turin. Prompts with use_mock_plan send mock_state with plan = mock_plan and the budget unchanged.",
+  "mock_state": {
+    "profile": "foundation",
+    "budget_eur": 100000,
+    "weights": { "isolation": 0.4, "service_gap": 0.3, "future_pressure": 0.2, "inclusion": 0.1 },
+    "filters": { "circ": [], "exclude_funded": false, "min_over75": 0 },
+    "selected_zone_id": null,
+    "plan": []
+  },
+  "mock_plan": [
+    {
+      "zone_id": 70,
+      "zone_name": "Pilonetto",
+      "circ": 8,
+      "intervention_id": "visite_domiciliari",
+      "intervention_label": "Visite e compagnia a domicilio",
+      "budget_eur": 60000,
+      "people_reached": 120,
+      "cost_per_person_eur": 500,
+      "return_index": 0.0012,
+      "scores": { "isolation": 62, "service_gap": 48, "future_pressure": 55, "inclusion": 21, "funded_share": 0.1 },
+      "confidence": "estimated"
+    },
+    {
+      "zone_id": 12,
+      "zone_name": "Zona di prova",
+      "circ": 6,
+      "intervention_id": "sicurezza_digitale",
+      "intervention_label": "Sicurezza digitale e anti-truffa",
+      "budget_eur": 40000,
+      "people_reached": 870,
+      "cost_per_person_eur": 46,
+      "return_index": 0.0144,
+      "scores": { "isolation": 81, "service_gap": 59, "future_pressure": 40, "inclusion": 66, "funded_share": 0.35 },
+      "confidence": "low"
+    }
+  ],
+  "prompts": [
+    {
+      "id": "p01",
+      "prompt": "ho 200.000 euro, priorità agli over 75 soli, evita le zone già coperte dal PNRR",
+      "expect": {
+        "tools": ["set_budget", "set_weights", "filter_zones", "run_plan"],
+        "needs_clarification": false,
+        "args": {
+          "set_budget": { "budget_eur": 200000 },
+          "filter_zones": { "exclude_funded": true }
+        }
+      }
+    },
+    {
+      "id": "p02",
+      "prompt": "Siamo una fondazione bancaria con 500k: dove investiamo per ridurre la carenza di servizi?",
+      "expect": {
+        "tools": ["set_profile", "set_budget", "set_weights", "run_plan"],
+        "needs_clarification": false,
+        "args": {
+          "set_profile": { "profile": "foundation" },
+          "set_budget": { "budget_eur": 500000 }
+        }
+      }
+    },
+    {
+      "id": "p03",
+      "prompt": "Terzo settore, abbiamo 80 mila euro per l'inclusione lavorativa degli over 50",
+      "expect": {
+        "tools": ["set_profile", "set_budget", "set_weights", "run_plan"],
+        "needs_clarification": false,
+        "args": {
+          "set_profile": { "profile": "third_sector" },
+          "set_budget": { "budget_eur": 80000 }
+        }
+      }
+    },
+    {
+      "id": "p04",
+      "prompt": "Come assessorato abbiamo 1,5 milioni, concentrati sulle circoscrizioni 5 e 6 ed evita sovrapposizioni con il PNRR",
+      "expect": {
+        "tools": ["set_profile", "set_budget", "set_weights", "filter_zones", "run_plan"],
+        "needs_clarification": false,
+        "args": {
+          "set_profile": { "profile": "institution" },
+          "set_budget": { "budget_eur": 1500000 },
+          "filter_zones": { "circ": [5, 6], "exclude_funded": true }
+        }
+      }
+    },
+    {
+      "id": "p05",
+      "prompt": "Voglio aiutare gli anziani soli",
+      "expect": {
+        "tools": ["set_weights"],
+        "needs_clarification": true
+      }
+    },
+    {
+      "id": "p06",
+      "prompt": "Buongiorno, cosa puoi fare?",
+      "expect": {
+        "tools": [],
+        "needs_clarification": true
+      }
+    },
+    {
+      "id": "p07",
+      "prompt": "Solo Barriera di Milano, budget 150k",
+      "expect": {
+        "tools": ["set_budget", "filter_zones", "run_plan"],
+        "needs_clarification": false,
+        "args": {
+          "set_budget": { "budget_eur": 150000 },
+          "filter_zones": { "circ": [6] }
+        }
+      }
+    },
+    {
+      "id": "p08",
+      "prompt": "Servono almeno 500 over 75 per zona, con 250.000 euro",
+      "expect": {
+        "tools": ["set_budget", "filter_zones", "run_plan"],
+        "needs_clarification": false,
+        "args": {
+          "set_budget": { "budget_eur": 250000 },
+          "filter_zones": { "min_over75": 500 }
+        }
+      }
+    },
+    {
+      "id": "p09",
+      "prompt": "e se avessimo 300k?",
+      "history": [
+        { "role": "user", "content": "ho 200.000 euro, priorità agli over 75 soli" },
+        { "role": "assistant", "content": "Ho impostato budget e priorità." }
+      ],
+      "use_mock_plan": true,
+      "expect": {
+        "tools": ["set_budget", "run_plan"],
+        "needs_clarification": false,
+        "args": {
+          "set_budget": { "budget_eur": 300000 }
+        }
+      }
+    },
+    {
+      "id": "p10",
+      "prompt": "Apri la zona 70 e scrivi il memo per il consiglio",
+      "use_mock_plan": true,
+      "expect": {
+        "tools": ["select_zone", "write_memo"],
+        "needs_clarification": false,
+        "args": {
+          "select_zone": { "zone_id": 70 }
+        }
+      }
+    }
+  ]
+}

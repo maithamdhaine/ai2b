@@ -87,7 +87,10 @@ export function validateAction(raw: unknown): Action | null {
           .map(toFiniteNumber)
           .filter((n): n is number => n !== null && Number.isInteger(n))
           .filter((n) => n >= MIN_CIRC && n <= MAX_CIRC);
-        out.circ = [...new Set(circ)].sort((a, b) => a - b);
+        // An empty list means "no filter", so a list of only invalid values must not become one.
+        if (args.circ.length === 0 || circ.length > 0) {
+          out.circ = [...new Set(circ)].sort((a, b) => a - b);
+        }
       }
       if (typeof args.exclude_funded === "boolean") out.exclude_funded = args.exclude_funded;
       const minOver75 = toFiniteNumber(args.min_over75);

@@ -1,0 +1,1 @@
+{"reply":"Quale budget vuoi destinare all'isolamento degli anziani?","actions":[{"tool":"set_weights","args":{"isolation":0.55,"service_gap":0.225,"future_pressure":0.162,"inclusion":0.063}}],"needs_clarification":true,"mode":"rules"}

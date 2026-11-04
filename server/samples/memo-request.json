@@ -1,0 +1,52 @@
+{
+  "mock": true,
+  "state": {
+    "profile": "foundation",
+    "budget_eur": 100000,
+    "weights": { "isolation": 0.4, "service_gap": 0.3, "future_pressure": 0.2, "inclusion": 0.1 },
+    "filters": { "circ": [], "exclude_funded": false, "min_over75": 0 },
+    "selected_zone_id": null,
+    "plan": []
+  },
+  "plan": [
+    {
+      "zone_id": 70, "zone_name": "Pilonetto", "circ": 8,
+      "intervention_id": "sicurezza_digitale", "intervention_label": "Sicurezza digitale e anti-truffa",
+      "budget_eur": 21600, "people_reached": 465, "cost_per_person_eur": 46, "return_index": 0.0118,
+      "scores": { "isolation": 62, "service_gap": 48, "future_pressure": 55, "inclusion": 21, "funded_share": 0.1 },
+      "confidence": "estimated"
+    },
+    {
+      "zone_id": 12, "zone_name": "Zona di prova", "circ": 6,
+      "intervention_id": "visite_domiciliari", "intervention_label": "Visite e compagnia a domicilio",
+      "budget_eur": 34500, "people_reached": 70, "cost_per_person_eur": 493, "return_index": 0.0014,
+      "scores": { "isolation": 81, "service_gap": 59, "future_pressure": 40, "inclusion": 66, "funded_share": 0.35 },
+      "confidence": "low"
+    }
+  ],
+  "zones": [
+    {
+      "id": 70, "name": "Pilonetto", "circ": 8,
+      "pop_2025": 9120, "over65_est": 2325, "over75_est": 1140, "adults_50_64_est": 2010,
+      "over75_2030": null, "alone_rate_circ": 0.41, "foreign_share": 0.09,
+      "isolation": 62, "service_gap": 48, "future_pressure": 55, "inclusion": 21,
+      "funded_eur": 120000, "funded_projects": 2, "funded_share": 0.1,
+      "nearest": { "health_m": 640, "care_m": 910, "pharmacy_m": null },
+      "services_800m": 5, "stability_top10": null,
+      "confidence": "estimated", "small_zone": false
+    },
+    {
+      "id": 12, "name": "Zona di prova", "circ": 6,
+      "pop_2025": 6400, "over65_est": 1500, "over75_est": 700, "adults_50_64_est": 1300,
+      "over75_2030": 780, "alone_rate_circ": 0.38, "foreign_share": 0.27,
+      "isolation": 81, "service_gap": 59, "future_pressure": 40, "inclusion": 66,
+      "funded_eur": 410000, "funded_projects": 3, "funded_share": 0.35,
+      "nearest": { "health_m": 1200, "care_m": 1500, "pharmacy_m": 700 },
+      "services_800m": 2, "stability_top10": 0.7,
+      "confidence": "low", "small_zone": false
+    }
+  ],
+  "sources": [
+    { "key": "mock_demo", "label": "Dati di prova del team, non reali", "url": "https://example.org/dati-di-prova", "year": 2025, "level": "zona statistica" }
+  ]
+}

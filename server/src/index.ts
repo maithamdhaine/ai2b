@@ -83,7 +83,13 @@ const isMain = process.argv[1] !== undefined && import.meta.url.endsWith(process
 
 if (isMain) {
   const port = configuredPort();
-  createApp().listen(port, () => {
+  // Express 5 passes listen errors to this callback, so a busy port must be handled here.
+  createApp().listen(port, (error?: Error) => {
+    if (error) {
+      const busy = (error as NodeJS.ErrnoException).code === "EADDRINUSE";
+      console.error(busy ? `Port ${port} is already in use: another server is running. Stop it first.` : `Could not start: ${error.message}`);
+      process.exit(1);
+    }
     console.log(`Bussola AI server on http://localhost:${port} (mode: ${currentMode()})`);
     if (currentMode() === "rules") {
       console.log("No ANTHROPIC_API_KEY in server/.env: running in rules mode. Add it and LLM mode turns on without a restart.");

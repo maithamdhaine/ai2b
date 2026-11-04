@@ -1,0 +1,284 @@
+[
+  {
+    "id": "p01",
+    "prompt": "ho 200.000 euro, priorità agli over 75 soli, evita le zone già coperte dal PNRR",
+    "response": {
+      "reply": "Ricalcolo il piano con budget di 200.000 € e priorità all'isolamento degli anziani e senza le zone già finanziate. In primo piano: impatto e difendibilità della scelta davanti al consiglio.",
+      "actions": [
+        {
+          "tool": "set_budget",
+          "args": {
+            "budget_eur": 200000
+          }
+        },
+        {
+          "tool": "set_weights",
+          "args": {
+            "isolation": 0.55,
+            "service_gap": 0.225,
+            "future_pressure": 0.162,
+            "inclusion": 0.063
+          }
+        },
+        {
+          "tool": "filter_zones",
+          "args": {
+            "exclude_funded": true
+          }
+        },
+        {
+          "tool": "run_plan",
+          "args": {}
+        }
+      ],
+      "needs_clarification": false,
+      "mode": "rules"
+    }
+  },
+  {
+    "id": "p02",
+    "prompt": "Siamo una fondazione bancaria con 500k: dove investiamo per ridurre la carenza di servizi?",
+    "response": {
+      "reply": "Ricalcolo il piano per la fondazione con budget di 500.000 € e priorità alla carenza di servizi. In primo piano: impatto e difendibilità della scelta davanti al consiglio.",
+      "actions": [
+        {
+          "tool": "set_profile",
+          "args": {
+            "profile": "foundation"
+          }
+        },
+        {
+          "tool": "set_budget",
+          "args": {
+            "budget_eur": 500000
+          }
+        },
+        {
+          "tool": "set_weights",
+          "args": {
+            "isolation": 0.25,
+            "service_gap": 0.525,
+            "future_pressure": 0.162,
+            "inclusion": 0.063
+          }
+        },
+        {
+          "tool": "run_plan",
+          "args": {}
+        }
+      ],
+      "needs_clarification": false,
+      "mode": "rules"
+    }
+  },
+  {
+    "id": "p03",
+    "prompt": "Terzo settore, abbiamo 80 mila euro per l'inclusione lavorativa degli over 50",
+    "response": {
+      "reply": "Ricalcolo il piano per l'ente del terzo settore con budget di 80.000 € e priorità all'inclusione. In primo piano: evidenze da usare in un bando.",
+      "actions": [
+        {
+          "tool": "set_profile",
+          "args": {
+            "profile": "third_sector"
+          }
+        },
+        {
+          "tool": "set_budget",
+          "args": {
+            "budget_eur": 80000
+          }
+        },
+        {
+          "tool": "set_weights",
+          "args": {
+            "isolation": 0.2,
+            "service_gap": 0.175,
+            "future_pressure": 0.1,
+            "inclusion": 0.525
+          }
+        },
+        {
+          "tool": "run_plan",
+          "args": {}
+        }
+      ],
+      "needs_clarification": false,
+      "mode": "rules"
+    }
+  },
+  {
+    "id": "p04",
+    "prompt": "Come assessorato abbiamo 1,5 milioni, concentrati sulle circoscrizioni 5 e 6 ed evita sovrapposizioni con il PNRR",
+    "response": {
+      "reply": "Ricalcolo il piano per l'istituzione pubblica con budget di 1.500.000 €, solo sulle circoscrizioni 5 e 6 e senza le zone già finanziate. In primo piano: copertura del territorio e sovrapposizioni con fondi già attivi.",
+      "actions": [
+        {
+          "tool": "set_profile",
+          "args": {
+            "profile": "institution"
+          }
+        },
+        {
+          "tool": "set_budget",
+          "args": {
+            "budget_eur": 1500000
+          }
+        },
+        {
+          "tool": "set_weights",
+          "args": {
+            "isolation": 0.25,
+            "service_gap": 0.45,
+            "future_pressure": 0.2,
+            "inclusion": 0.1
+          }
+        },
+        {
+          "tool": "filter_zones",
+          "args": {
+            "circ": [
+              5,
+              6
+            ],
+            "exclude_funded": true
+          }
+        },
+        {
+          "tool": "run_plan",
+          "args": {}
+        }
+      ],
+      "needs_clarification": false,
+      "mode": "rules"
+    }
+  },
+  {
+    "id": "p05",
+    "prompt": "Voglio aiutare gli anziani soli",
+    "response": {
+      "reply": "Quale budget vuoi destinare all'isolamento degli anziani?",
+      "actions": [
+        {
+          "tool": "set_weights",
+          "args": {
+            "isolation": 0.55,
+            "service_gap": 0.225,
+            "future_pressure": 0.162,
+            "inclusion": 0.063
+          }
+        }
+      ],
+      "needs_clarification": true,
+      "mode": "rules"
+    }
+  },
+  {
+    "id": "p06",
+    "prompt": "Buongiorno, cosa puoi fare?",
+    "response": {
+      "reply": "Su cosa vuoi concentrare i fondi: isolamento degli anziani, carenza di servizi o inclusione?",
+      "actions": [],
+      "needs_clarification": true,
+      "mode": "rules"
+    }
+  },
+  {
+    "id": "p07",
+    "prompt": "Solo Barriera di Milano, budget 150k",
+    "response": {
+      "reply": "Ricalcolo il piano con budget di 150.000 € e solo sulla circoscrizione di Barriera di Milano. In primo piano: impatto e difendibilità della scelta davanti al consiglio.",
+      "actions": [
+        {
+          "tool": "set_budget",
+          "args": {
+            "budget_eur": 150000
+          }
+        },
+        {
+          "tool": "filter_zones",
+          "args": {
+            "circ": [
+              6
+            ]
+          }
+        },
+        {
+          "tool": "run_plan",
+          "args": {}
+        }
+      ],
+      "needs_clarification": false,
+      "mode": "rules"
+    }
+  },
+  {
+    "id": "p08",
+    "prompt": "Servono almeno 500 over 75 per zona, con 250.000 euro",
+    "response": {
+      "reply": "Ricalcolo il piano con budget di 250.000 € e solo zone con almeno 500 over 75. In primo piano: impatto e difendibilità della scelta davanti al consiglio.",
+      "actions": [
+        {
+          "tool": "set_budget",
+          "args": {
+            "budget_eur": 250000
+          }
+        },
+        {
+          "tool": "filter_zones",
+          "args": {
+            "min_over75": 500
+          }
+        },
+        {
+          "tool": "run_plan",
+          "args": {}
+        }
+      ],
+      "needs_clarification": false,
+      "mode": "rules"
+    }
+  },
+  {
+    "id": "p09",
+    "prompt": "e se avessimo 300k?",
+    "response": {
+      "reply": "Ricalcolo il piano con budget di 300.000 €. In primo piano: impatto e difendibilità della scelta davanti al consiglio.",
+      "actions": [
+        {
+          "tool": "set_budget",
+          "args": {
+            "budget_eur": 300000
+          }
+        },
+        {
+          "tool": "run_plan",
+          "args": {}
+        }
+      ],
+      "needs_clarification": false,
+      "mode": "rules"
+    }
+  },
+  {
+    "id": "p10",
+    "prompt": "Apri la zona 70 e scrivi il memo per il consiglio",
+    "response": {
+      "reply": "Apro Pilonetto e preparo il memo. In primo piano: impatto e difendibilità della scelta davanti al consiglio.",
+      "actions": [
+        {
+          "tool": "select_zone",
+          "args": {
+            "zone_id": 70
+          }
+        },
+        {
+          "tool": "write_memo",
+          "args": {}
+        }
+      ],
+      "needs_clarification": false,
+      "mode": "rules"
+    }
+  }
+]
