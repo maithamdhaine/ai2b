@@ -1,14 +1,9 @@
-import type { Confidence, FundedProject, SourceRef, ZoneProps } from '../../types';
+import { useCopy } from '../../store';
+import type { FundedProject, SourceRef, ZoneProps } from '../../types';
 import {
   formatEuro, formatInteger, formatMeters, formatPercentage, formatShare, isNumber,
 } from './format';
-import { LENSES, NEED_LENSES, lensValue } from './mapConfig';
-
-const CONFIDENCE: Record<Confidence, string> = {
-  official: 'Dato ufficiale',
-  estimated: 'Stima',
-  low: 'Affidabilità bassa',
-};
+import { NEED_LENSES, lensText, lensValue } from './mapConfig';
 
 interface FigureProps {
   label: string;
@@ -39,12 +34,13 @@ function ScoreBar({ label, value }: { label: string; value: number | null }) {
 }
 
 function ProjectItem({ project }: { project: FundedProject }) {
+  const t = useCopy().zone;
   return (
     <li className="zone-project">
       <div className="zone-project__title">{project.title}</div>
       <div>{project.programme} · {formatEuro(project.amount_eur)}</div>
       <div className="zone-project__meta">
-        Avanzamento {formatPercentage(project.progress_pct)} · {project.theme} · Fonte: {project.source}
+        {t.progress} {formatPercentage(project.progress_pct)} · {project.theme} · {t.source}: {project.source}
       </div>
     </li>
   );
@@ -59,81 +55,83 @@ export interface ZonePanelProps {
 }
 
 export default function ZonePanel({ zone, projects, sources, inPlan, onClose }: ZonePanelProps) {
+  const copy = useCopy();
+  const t = copy.zone;
   // Zone-level age data stops at 2020, so every 2025 age figure here is projected forward,
   // however reliable the rest of the zone's data is.
-  const estimateTag = 'stima';
-  const confidence = CONFIDENCE[zone.confidence];
+  const estimateTag = t.estimateTag;
+  const confidence = copy.planner.confidence[zone.confidence];
 
   return (
-    <aside className="map-card zone-panel" aria-label={`Scheda zona ${zone.name}`}>
+    <aside className="map-card zone-panel" aria-label={t.panelAria(zone.name)}>
       <header className="zone-panel__head">
         <h2>{zone.name}</h2>
-        <p>Circoscrizione {formatInteger(zone.circ)}</p>
+        <p>{t.circ(formatInteger(zone.circ))}</p>
         <div className="zone-panel__badges">
           {confidence && <span className={`zone-badge zone-badge--${zone.confidence}`}>{confidence}</span>}
-          {inPlan && <span className="zone-badge zone-badge--plan">Nel piano</span>}
+          {inPlan && <span className="zone-badge zone-badge--plan">{t.inPlan}</span>}
         </div>
-        <button type="button" className="zone-panel__close" aria-label="Chiudi scheda zona" onClick={onClose}>
+        <button type="button" className="zone-panel__close" aria-label={t.closeAria} onClick={onClose}>
           ×
         </button>
       </header>
 
       {zone.small_zone && (
-        <p className="zone-panel__notice">Zona piccola, sotto 1.000 residenti: esclusa dalla classifica.</p>
+        <p className="zone-panel__notice">{t.smallZone}</p>
       )}
 
       <section className="zone-panel__section">
-        <h3>Popolazione</h3>
+        <h3>{t.sections.population}</h3>
         <dl className="zone-figures">
-          <Figure label="Residenti 2025" value={formatInteger(zone.pop_2025)} />
-          <Figure label="Over 65" tag={estimateTag} value={formatInteger(zone.over65_est)} />
-          <Figure label="Over 75" tag={estimateTag} value={formatInteger(zone.over75_est)} />
-          <Figure label="Vivono sole" tag="dato di Circoscrizione" value={formatShare(zone.alone_rate_circ)} />
+          <Figure label={t.residents} value={formatInteger(zone.pop_2025)} />
+          <Figure label={t.over65} tag={estimateTag} value={formatInteger(zone.over65_est)} />
+          <Figure label={t.over75} tag={estimateTag} value={formatInteger(zone.over75_est)} />
+          <Figure label={t.aloneRate} tag={t.circFigure} value={formatShare(zone.alone_rate_circ)} />
         </dl>
       </section>
 
       <section className="zone-panel__section">
-        <h3>Punteggi di bisogno (0-100)</h3>
+        <h3>{t.sections.needs}</h3>
         <ul className="zone-scores">
           {NEED_LENSES.map((lens) => (
-            <ScoreBar key={lens} label={LENSES[lens].label} value={lensValue(zone, lens)} />
+            <ScoreBar key={lens} label={lensText(lens, copy.lang).label} value={lensValue(zone, lens)} />
           ))}
         </ul>
         {isNumber(zone.stability_top10) && (
           <dl className="zone-figures zone-figures--spaced">
-            <Figure label="Resta tra le prime 10 con pesi casuali" value={formatShare(zone.stability_top10)} />
+            <Figure label={t.stability} value={formatShare(zone.stability_top10)} />
           </dl>
         )}
       </section>
 
       <section className="zone-panel__section">
-        <h3>Vicinanza ai servizi</h3>
+        <h3>{t.sections.nearby}</h3>
         <dl className="zone-figures">
-          <Figure label="Presidio sanitario più vicino" value={formatMeters(zone.nearest?.health_m)} />
-          <Figure label="Struttura di cura più vicina" value={formatMeters(zone.nearest?.care_m)} />
-          <Figure label="Farmacia più vicina" value={formatMeters(zone.nearest?.pharmacy_m)} />
-          <Figure label="Servizi entro 800 m" value={formatInteger(zone.services_800m)} />
+          <Figure label={t.nearestHealth} value={formatMeters(zone.nearest?.health_m)} />
+          <Figure label={t.nearestCare} value={formatMeters(zone.nearest?.care_m)} />
+          <Figure label={t.nearestPharmacy} value={formatMeters(zone.nearest?.pharmacy_m)} />
+          <Figure label={t.services800} value={formatInteger(zone.services_800m)} />
         </dl>
       </section>
 
       <section className="zone-panel__section">
-        <h3>Già finanziato</h3>
+        <h3>{t.sections.funded}</h3>
         <dl className="zone-figures">
-          <Figure label="Importo" value={formatEuro(zone.funded_eur)} />
-          <Figure label="Progetti" value={formatInteger(zone.funded_projects)} />
+          <Figure label={t.amount} value={formatEuro(zone.funded_eur)} />
+          <Figure label={t.projects} value={formatInteger(zone.funded_projects)} />
         </dl>
         {projects.length > 0 ? (
           <ul className="zone-projects">
             {projects.map((project) => <ProjectItem key={project.id} project={project} />)}
           </ul>
         ) : (
-          <p className="zone-panel__empty">Nessun progetto localizzato in questa zona.</p>
+          <p className="zone-panel__empty">{t.noProjects}</p>
         )}
       </section>
 
       {sources.length > 0 && (
         <section className="zone-panel__section zone-panel__sources">
-          <h3>Fonti e anno dei dati</h3>
+          <h3>{t.sections.sources}</h3>
           <ul>
             {sources.map((source, index) => (
               <li key={`${source.key}-${index}`}>

@@ -1,30 +1,32 @@
 import { useEffect, useMemo, useRef } from 'react';
-import { useStore } from '../../store';
+import { interventionLabel } from '../../i18n';
+import { useCopy, useStore } from '../../store';
 import type { Confidence, PlanItem } from '../../types';
 import {
-  CONFIDENCE_LABEL, formatEur, formatInt, formatReturnIndex, hasActiveFilters,
+  confidenceLabels, formatEur, formatInt, formatReturnIndex, hasActiveFilters,
   reasonFor, summarisePlan,
 } from './format';
 
 export function PlanSummary() {
+  const t = useCopy().planner;
   const plan = useStore((s) => s.plan);
   const summary = useMemo(() => summarisePlan(plan), [plan]);
   return (
-    <dl className="pl-summary" aria-label="Sintesi del piano">
+    <dl className="pl-summary" aria-label={t.summaryAria}>
       <div>
-        <dt>impiegati</dt>
+        <dt>{t.summary.used}</dt>
         <dd>{formatEur(summary.used_eur)}</dd>
       </div>
       <div>
-        <dt>persone (stima)</dt>
+        <dt>{t.summary.people}</dt>
         <dd>{formatInt(summary.people)}</dd>
       </div>
       <div>
-        <dt>media a persona</dt>
+        <dt>{t.summary.perPerson}</dt>
         <dd>{formatEur(summary.avg_cost_eur)}</dd>
       </div>
       <div>
-        <dt>zone</dt>
+        <dt>{t.summary.zones}</dt>
         <dd>{formatInt(summary.zones)}</dd>
       </div>
     </dl>
@@ -32,7 +34,8 @@ export function PlanSummary() {
 }
 
 function ConfidenceBadge({ level }: { level: Confidence }) {
-  return <span className={`pl-badge pl-badge--${level}`}>{CONFIDENCE_LABEL[level]}</span>;
+  const t = useCopy();
+  return <span className={`pl-badge pl-badge--${level}`}>{confidenceLabels(t.lang)[level]}</span>;
 }
 
 function Metric({ value, label }: { value: string; label: string }) {
@@ -53,6 +56,8 @@ interface ResultItemProps {
 }
 
 function ResultItem({ item, rank, reason, selected, onSelect }: ResultItemProps) {
+  const t = useCopy();
+  const circLabel = t.zone.circ(String(item.circ));
   return (
     <li>
       <button type="button" className="pl-item" aria-pressed={selected} onClick={onSelect}>
@@ -63,16 +68,16 @@ function ResultItem({ item, rank, reason, selected, onSelect }: ResultItemProps)
             <span className="pl-item__amount">{formatEur(item.budget_eur)}</span>
           </span>
           <span className="pl-item__what">
-            Circoscrizione {item.circ} · {item.intervention_label}
+            {circLabel} · {interventionLabel(item.intervention_id, item.intervention_label, t.lang)}
           </span>
           <span className="pl-item__why">
             <span>{reason}</span>
             <ConfidenceBadge level={item.confidence} />
           </span>
           <span className="pl-item__metrics">
-            <Metric value={formatInt(item.people_reached)} label="persone" />
-            <Metric value={formatEur(item.cost_per_person_eur)} label="a persona" />
-            <Metric value={formatReturnIndex(item.return_index)} label="indice di ritorno atteso" />
+            <Metric value={formatInt(item.people_reached)} label={t.planner.metrics.people} />
+            <Metric value={formatEur(item.cost_per_person_eur)} label={t.planner.metrics.perPerson} />
+            <Metric value={formatReturnIndex(item.return_index)} label={t.planner.metrics.index} />
           </span>
         </span>
       </button>
@@ -81,23 +86,24 @@ function ResultItem({ item, rank, reason, selected, onSelect }: ResultItemProps)
 }
 
 function EmptyPlan() {
+  const t = useCopy().planner;
   const zones = useStore((s) => s.zones);
   const loadError = useStore((s) => s.loadError);
   const interventions = useStore((s) => s.interventions);
   const filters = useStore((s) => s.filters);
   const setFilters = useStore((s) => s.setFilters);
 
-  if (loadError) return <p className="pl-empty">Dati non disponibili: il piano non si può calcolare.</p>;
-  if (!zones) return <p className="pl-empty">Caricamento dei dati delle zone…</p>;
+  if (loadError) return <p className="pl-empty">{t.emptyError}</p>;
+  if (!zones) return <p className="pl-empty">{t.emptyLoading}</p>;
 
   const filtered = hasActiveFilters(filters);
-  let hint = 'Con questo budget nessun intervento è finanziabile. Prova ad aumentarlo.';
-  if (interventions.length === 0) hint = 'Non ci sono interventi da valutare.';
-  else if (filtered) hint = 'Nessuna zona rispetta i filtri con questo budget. Allenta i filtri o aumenta il budget.';
+  let hint = t.emptyBudget;
+  if (interventions.length === 0) hint = t.emptyNoInterventions;
+  else if (filtered) hint = t.emptyFiltered;
 
   return (
     <div className="pl-empty">
-      <p className="pl-empty__title">Nessun intervento nel piano</p>
+      <p className="pl-empty__title">{t.emptyTitle}</p>
       <p>{hint}</p>
       {filtered && (
         <button
@@ -105,7 +111,7 @@ function EmptyPlan() {
           className="pl-link"
           onClick={() => setFilters({ circ: [], exclude_funded: false, min_over75: 0 })}
         >
-          Azzera i filtri
+          {t.clearFilters}
         </button>
       )}
     </div>
@@ -113,6 +119,8 @@ function EmptyPlan() {
 }
 
 export function PlanResults() {
+  const copy = useCopy();
+  const t = copy.planner;
   const plan = useStore((s) => s.plan);
   const weights = useStore((s) => s.weights);
   const interventions = useStore((s) => s.interventions);
@@ -130,10 +138,8 @@ export function PlanResults() {
   return (
     <section className="pl-results" aria-labelledby="pl-results-title">
       <header className="pl-results__head">
-        <h2 id="pl-results-title">Portafoglio proposto</h2>
-        {plan.length > 0 && (
-          <span>{plan.length === 1 ? '1 intervento' : `${plan.length} interventi`}</span>
-        )}
+        <h2 id="pl-results-title">{t.resultsTitle}</h2>
+        {plan.length > 0 && <span>{t.interventionCount(plan.length)}</span>}
       </header>
       {plan.length === 0 ? <EmptyPlan /> : (
         <>
@@ -147,6 +153,7 @@ export function PlanResults() {
                   item.scores,
                   weights,
                   interventions.find(({ id }) => id === item.intervention_id)?.fit,
+                  copy.lang,
                 )}
                 selected={item.zone_id === selectedZone}
                 onSelect={() => selectZone(item.zone_id)}
@@ -154,10 +161,8 @@ export function PlanResults() {
             ))}
           </ol>
           <p className="pl-footnote">
-            L'indice di ritorno atteso conta le persone raggiunte, pesate per beneficio
-            dell'intervento, bisogno della zona e addizionalità, ogni 1.000 € di costo. È una stima
-            per confrontare le opzioni, non un ritorno misurato.
-            {overlapping_zones && ' Nelle zone con più interventi la stessa persona può essere contata più volte.'}
+            {t.footnote}
+            {overlapping_zones && t.overlapNote}
           </p>
         </>
       )}

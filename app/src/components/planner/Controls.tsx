@@ -1,19 +1,15 @@
 import type { CSSProperties } from 'react';
-import { useStore } from '../../store';
+import { useCopy, useStore } from '../../store';
 import type { Profile } from '../../types';
 import Group from './Group';
 import NumberField from './NumberField';
 import {
-  BUDGET_MAX, BUDGET_MID, BUDGET_MIN, BUDGET_POSITIONS, CRITERIA,
-  allWeightsZero, budgetToPosition, filtersRecap, formatEur, formatInt,
+  BUDGET_MAX, BUDGET_MID, BUDGET_MIN, BUDGET_POSITIONS,
+  allWeightsZero, budgetToPosition, criteriaList, filtersRecap, formatEur, formatInt,
   positionToBudget, weightShares,
 } from './format';
 
-const PROFILES: { id: Profile; label: string }[] = [
-  { id: 'foundation', label: 'Fondazione' },
-  { id: 'third_sector', label: 'Terzo settore' },
-  { id: 'institution', label: 'Istituzione' },
-];
+const PROFILE_ORDER: Profile[] = ['foundation', 'third_sector', 'institution'];
 
 const CIRCOSCRIZIONI = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -21,6 +17,7 @@ const CIRCOSCRIZIONI = [1, 2, 3, 4, 5, 6, 7, 8];
 const trackFill = (percent: number) => ({ '--pl-fill': `${percent}%` }) as CSSProperties;
 
 export function ProfileControl() {
+  const t = useCopy().planner;
   const profile = useStore((s) => s.profile);
   const setProfile = useStore((s) => s.setProfile);
   return (
@@ -28,11 +25,11 @@ export function ProfileControl() {
       className="pl-row"
       role="radiogroup"
       aria-labelledby="pl-profile-label"
-      title="Il profilo va all'assistente e al memo; non cambia la classifica."
+      title={t.profileTitle}
     >
-      <span className="pl-label" id="pl-profile-label">Profilo</span>
+      <span className="pl-label" id="pl-profile-label">{t.profileLabel}</span>
       <div className="pl-segments">
-        {PROFILES.map(({ id, label }) => (
+        {PROFILE_ORDER.map((id) => (
           <label key={id} className="pl-segment">
             <input
               type="radio"
@@ -41,7 +38,7 @@ export function ProfileControl() {
               checked={profile === id}
               onChange={() => setProfile(id)}
             />
-            <span>{label}</span>
+            <span>{t.profiles[id]}</span>
           </label>
         ))}
       </div>
@@ -50,13 +47,14 @@ export function ProfileControl() {
 }
 
 export function BudgetControl() {
+  const t = useCopy().planner;
   const budget = useStore((s) => s.budget_eur);
   const setBudget = useStore((s) => s.setBudget);
   const position = budgetToPosition(budget);
   return (
     <div className="pl-field">
       <div className="pl-row pl-row--budget">
-        <label className="pl-label" htmlFor="pl-budget">Budget</label>
+        <label className="pl-label" htmlFor="pl-budget">{t.budgetLabel}</label>
         <div className="pl-money pl-money--large">
           <NumberField id="pl-budget" value={budget} onCommit={setBudget} />
           <span aria-hidden="true">€</span>
@@ -65,7 +63,7 @@ export function BudgetControl() {
       <input
         className="pl-range"
         type="range"
-        aria-label="Budget, cursore"
+        aria-label={t.budgetSliderAria}
         aria-valuetext={formatEur(budget)}
         min={0}
         max={BUDGET_POSITIONS}
@@ -84,6 +82,8 @@ export function BudgetControl() {
 }
 
 export function WeightsControl() {
+  const copy = useCopy();
+  const t = copy.planner;
   const weights = useStore((s) => s.weights);
   const setWeights = useStore((s) => s.setWeights);
   const shares = weightShares(weights);
@@ -91,13 +91,13 @@ export function WeightsControl() {
   return (
     <div className="pl-field" role="group" aria-labelledby="pl-weights-label">
       <div className="pl-heading">
-        <span className="pl-label" id="pl-weights-label">Priorità</span>
+        <span className="pl-label" id="pl-weights-label">{t.weightsLabel}</span>
         <span className={noWeights ? 'pl-note pl-note--warn' : 'pl-note'}>
-          {noWeights ? 'Pesi a zero: criteri alla pari' : 'Percentuale sul totale'}
+          {noWeights ? t.weightsZero : t.weightsTotal}
         </span>
       </div>
       <div className="pl-weights">
-        {CRITERIA.map(({ key, label }) => {
+        {criteriaList(copy.lang).map(({ key, label }) => {
           const id = `pl-weight-${key}`;
           return (
             <div className="pl-weight" key={key}>
@@ -107,7 +107,7 @@ export function WeightsControl() {
                 id={id}
                 className="pl-range"
                 type="range"
-                aria-valuetext={`${shares[key]}% del totale`}
+                aria-valuetext={t.weightShareAria(shares[key])}
                 min={0}
                 max={1}
                 step={0.01}
@@ -124,6 +124,8 @@ export function WeightsControl() {
 }
 
 export function FiltersControl() {
+  const copy = useCopy();
+  const t = copy.planner;
   const filters = useStore((s) => s.filters);
   const setFilters = useStore((s) => s.setFilters);
 
@@ -134,8 +136,8 @@ export function FiltersControl() {
   });
 
   return (
-    <Group title="Filtri" recap={filtersRecap(filters)}>
-      <span className="pl-label" id="pl-circ-label">Circoscrizione</span>
+    <Group title={t.filtersTitle} recap={filtersRecap(filters, copy.lang)}>
+      <span className="pl-label" id="pl-circ-label">{t.circLabel}</span>
       <div className="pl-chips" role="group" aria-labelledby="pl-circ-label">
         <button
           type="button"
@@ -143,14 +145,14 @@ export function FiltersControl() {
           aria-pressed={filters.circ.length === 0}
           onClick={() => setFilters({ circ: [] })}
         >
-          Tutte
+          {t.allCirc}
         </button>
         {CIRCOSCRIZIONI.map((circ) => (
           <button
             key={circ}
             type="button"
             className="pl-chip"
-            aria-label={`Circoscrizione ${circ}`}
+            aria-label={t.circAria(circ)}
             aria-pressed={filters.circ.includes(circ)}
             onClick={() => toggleCirc(circ)}
           >
@@ -164,10 +166,10 @@ export function FiltersControl() {
           checked={filters.exclude_funded}
           onChange={(event) => setFilters({ exclude_funded: event.target.checked })}
         />
-        <span>Escludi zone già finanziate</span>
+        <span>{t.excludeFunded}</span>
       </label>
       <div className="pl-row pl-row--spread">
-        <label htmlFor="pl-min-over75">Minimo over 75 per zona</label>
+        <label htmlFor="pl-min-over75">{t.minOver75}</label>
         <div className="pl-money">
           <NumberField
             id="pl-min-over75"

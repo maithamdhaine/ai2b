@@ -1,8 +1,21 @@
-import { describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
+import { setFormatLang } from '../../lib/intl';
+import { setNotAvailable } from '../map/format';
 import type { FundedProject, Intervention, Meta, PlanItem, PlannerState, ZoneProps } from '../../types';
-import { CONFIDENCE_LABEL } from '../planner/format';
+import { confidenceLabels } from '../planner/format';
 import { parseBlocks } from './Markdown';
-import { buildMemoTemplate, chooseMemo, type MemoInput } from './template';
+import { buildMemoTemplate, chooseMemo as chooseIn, type MemoInput } from './template';
+
+// The app ships in English and is demonstrated in Italian. This suite asserts the
+// Italian wording, so it pins the language; i18n.test.ts covers the English side.
+beforeAll(() => {
+  setFormatLang('it');
+  setNotAvailable('it');
+});
+
+const CONFIDENCE_LABEL = confidenceLabels('it');
+const chooseMemo = (result: Parameters<typeof chooseIn>[0], template: string) =>
+  chooseIn(result, template, 'it');
 
 const zone = (over: Partial<ZoneProps> = {}): ZoneProps => ({
   id: 70, name: 'Pilonetto', circ: 8, pop_2025: 3006, over65_est: 790, over75_est: 425,
@@ -70,7 +83,7 @@ const state = (over: Partial<PlannerState> = {}): PlannerState => ({
 });
 
 const input = (over: Partial<MemoInput> = {}): MemoInput => ({
-  state: state(), zones: [zone(), secondZone], meta, funded, interventions, ...over,
+  state: state(), zones: [zone(), secondZone], meta, funded, interventions, lang: 'it', ...over,
 });
 
 /** Non-breaking spaces from Intl become plain ones, so expectations stay readable. */

@@ -1,20 +1,22 @@
-import type { Confidence, Filters, PlanItem, TargetField, Weights } from '../../types';
+import { copyFor, type Lang } from '../../i18n';
+import { nf } from '../../lib/intl';
+import type { Filters, PlanItem, Weights } from '../../types';
 
 // it-IT leaves four-digit numbers ungrouped by default ("9500"), which would sit
 // badly next to "12.000" in the same column, so grouping is forced everywhere.
 const grouping = { useGrouping: 'always' } as unknown as Intl.NumberFormatOptions;
-const intFormat = new Intl.NumberFormat('it-IT', { ...grouping, maximumFractionDigits: 0 });
-const eurFormat = new Intl.NumberFormat('it-IT', {
+const intOptions: Intl.NumberFormatOptions = { ...grouping, maximumFractionDigits: 0 };
+const eurOptions: Intl.NumberFormatOptions = {
   ...grouping, style: 'currency', currency: 'EUR', maximumFractionDigits: 0,
-});
-const indexFormat = new Intl.NumberFormat('it-IT', {
+};
+const indexOptions: Intl.NumberFormatOptions = {
   ...grouping, minimumFractionDigits: 1, maximumFractionDigits: 1,
-});
+};
 
 const MISSING = '—';
 
-export const formatInt = (n: number) => (Number.isFinite(n) ? intFormat.format(n) : MISSING);
-export const formatEur = (n: number) => (Number.isFinite(n) ? eurFormat.format(n) : MISSING);
+export const formatInt = (n: number) => (Number.isFinite(n) ? nf(intOptions).format(n) : MISSING);
+export const formatEur = (n: number) => (Number.isFinite(n) ? nf(eurOptions).format(n) : MISSING);
 
 /**
  * The raw return_index is a value per euro (about 0,001 to 0,02), unreadable on a projector.
@@ -22,18 +24,22 @@ export const formatEur = (n: number) => (Number.isFinite(n) ? eurFormat.format(n
  */
 export const INDEX_SCALE = 1000;
 export const formatReturnIndex = (rawIndex: number) =>
-  (Number.isFinite(rawIndex) ? indexFormat.format(rawIndex * INDEX_SCALE) : MISSING);
+  (Number.isFinite(rawIndex) ? nf(indexOptions).format(rawIndex * INDEX_SCALE) : MISSING);
 
 export type Criterion = keyof Weights;
 
-export const CRITERIA: { key: Criterion; label: string }[] = [
-  { key: 'isolation', label: 'Isolamento' },
-  { key: 'service_gap', label: 'Carenza servizi' },
-  { key: 'future_pressure', label: 'Pressione futura' },
-  { key: 'inclusion', label: 'Inclusione' },
-];
+/** The four criteria, always in this order. Their names come from the language. */
+export const CRITERIA: Criterion[] = ['isolation', 'service_gap', 'future_pressure', 'inclusion'];
 
-export const allWeightsZero = (weights: Weights) => CRITERIA.every(({ key }) => !(weights[key] > 0));
+export const criteriaList = (lang: Lang): { key: Criterion; label: string }[] => {
+  const { criteria } = copyFor(lang).planner;
+  return CRITERIA.map((key) => ({ key, label: criteria[key] }));
+};
+
+export const confidenceLabels = (lang: Lang) => copyFor(lang).planner.confidence;
+export const targetLabels = (lang: Lang) => copyFor(lang).planner.targets;
+
+export const allWeightsZero = (weights: Weights) => CRITERIA.every((key) => !(weights[key] > 0));
 
 /**
  * Each weight as a whole percentage of the total, always adding up to 100.
@@ -44,8 +50,8 @@ export function weightShares(weights: Weights): Record<Criterion, number> {
   if (allWeightsZero(weights)) {
     return { isolation: 25, service_gap: 25, future_pressure: 25, inclusion: 25 };
   }
-  const total = CRITERIA.reduce((sum, { key }) => sum + weights[key], 0);
-  const exact = CRITERIA.map(({ key }) => (weights[key] / total) * 100);
+  const total = CRITERIA.reduce((sum, key) => sum + weights[key], 0);
+  const exact = CRITERIA.map((key) => (weights[key] / total) * 100);
   const shares = exact.map(Math.floor);
   const missing = 100 - shares.reduce((sum, share) => sum + share, 0);
   const byRemainder = exact
@@ -105,63 +111,39 @@ export function summarisePlan(plan: PlanItem[]): PlanSummary {
   };
 }
 
-const REASONS: Record<Criterion, { high: string; medium: string; low: string }> = {
-  isolation: { high: 'Forte isolamento', medium: 'Isolamento medio', low: 'Isolamento basso' },
-  service_gap: {
-    high: 'Forte carenza di servizi', medium: 'Carenza di servizi media', low: 'Carenza di servizi bassa',
-  },
-  future_pressure: {
-    high: 'Forte pressione futura', medium: 'Pressione futura media', low: 'Pressione futura bassa',
-  },
-  inclusion: {
-    high: 'Forte bisogno di inclusione',
-    medium: 'Bisogno di inclusione medio',
-    low: 'Bisogno di inclusione basso',
-  },
-};
-
 /**
  * One line naming what weighed most on this pair: zone score x the user's weight x how
  * well the intervention addresses that need, the same product the planner sums. The
  * highest raw score alone can name a need the intervention barely touches. The wording
  * follows the score itself, so a score of 35 is never described as "forte".
  */
-export function reasonFor(scores: PlanItem['scores'], weights: Weights, fit?: Weights): string | null {
+export function reasonFor(
+  scores: PlanItem['scores'], weights: Weights, fit: Weights | undefined, lang: Lang,
+): string | null {
   const noWeights = allWeightsZero(weights);
   const weightOf = (key: Criterion) =>
     (noWeights ? 1 : weights[key]) * (fit ? fit[key] : 1) * scores[key];
-  const candidates = CRITERIA.map(({ key }) => key).filter((key) => Number.isFinite(weightOf(key)));
+  const candidates = CRITERIA.filter((key) => Number.isFinite(weightOf(key)));
   if (candidates.length === 0) return null;
 
   const strongest = candidates.reduce((best, key) => (weightOf(key) > weightOf(best) ? key : best));
   const score = Math.round(scores[strongest]);
   const level = score >= 70 ? 'high' : score >= 40 ? 'medium' : 'low';
-  return `${REASONS[strongest][level]} (${score}/100)`;
+  return `${copyFor(lang).planner.reasons[strongest][level]} (${score}/100)`;
 }
-
-export const CONFIDENCE_LABEL: Record<Confidence, string> = {
-  official: 'Dato ufficiale',
-  estimated: 'Stima',
-  low: 'Affidabilità bassa',
-};
-
-export const TARGET_LABEL: Record<TargetField, string> = {
-  over75_est: 'over 75',
-  over65_est: 'over 65',
-  adults_50_64_est: 'adulti 50-64',
-};
 
 export const hasActiveFilters = (filters: Filters) =>
   filters.circ.length > 0 || filters.exclude_funded || filters.min_over75 > 0;
 
-export function filtersRecap(filters: Filters): string {
+export function filtersRecap(filters: Filters, lang: Lang): string {
+  const t = copyFor(lang).planner;
   const circ = [...filters.circ].sort((a, b) => a - b);
   const parts = [
-    circ.length === 0 ? 'Tutte le circoscrizioni'
-      : circ.length === 1 ? `Circoscrizione ${circ[0]}`
-        : `Circoscrizioni ${circ.join(', ')}`,
+    circ.length === 0 ? t.recapAllCirc
+      : circ.length === 1 ? t.recapOneCirc(circ[0])
+        : t.recapManyCirc(circ.join(', ')),
   ];
-  if (filters.exclude_funded) parts.push('senza zone finanziate');
-  if (filters.min_over75 > 0) parts.push(`almeno ${formatInt(filters.min_over75)} over 75`);
+  if (filters.exclude_funded) parts.push(t.recapNoFunded);
+  if (filters.min_over75 > 0) parts.push(t.recapMinOver75(formatInt(filters.min_over75)));
   return parts.join(' · ');
 }

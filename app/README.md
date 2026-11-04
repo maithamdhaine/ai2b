@@ -38,6 +38,26 @@ white and glass, with black for the action you are meant to take. Every colour o
 screen therefore belongs to the data — the teal of the choropleth and the score
 bars, the terracotta of a warning.
 
+## Language
+
+The app ships in **English** and switches to **Italian** from the EN/IT control in the
+masthead. The choice is kept in `localStorage`, so a reload mid-demo does not drop the
+room back into English.
+
+Every word lives in `src/i18n.ts`, one typed `Copy` object per language, so TypeScript
+refuses a language that is missing a string. Components read it through `useCopy()`, which
+subscribes them to the switch; pure modules (the planner formats, the memo template) take a
+`Lang` argument. Number and date formats follow the language through `src/lib/intl.ts`:
+`€100,000` in English, `100.000 €` in Italian.
+
+Two things stay in the shared contract's own words. Zone names are the real place names from
+Machine C's data. Intervention ids keep their contract `label`, which Machine B reads; the
+English name is a display lookup by id in `i18n.ts` and never changes the contract.
+
+The suites assert the Italian wording the app is demonstrated in, so each one pins the
+language; `src/i18n.test.ts` covers the English side and checks that the two dictionaries
+hold exactly the same keys.
+
 ## The AI server
 
 Machine B serves `/api/health`, `/api/agent` and `/api/memo` on port 8787. With the

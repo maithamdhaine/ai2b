@@ -1,5 +1,16 @@
 import { renderToStaticMarkup } from 'react-dom/server';
-import { describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
+import { setFormatLang } from '../../lib/intl';
+import { useStore } from '../../store';
+import { setNotAvailable } from './format';
+
+// The app ships in English and is demonstrated in Italian. This suite asserts the
+// Italian wording, so it pins the language; i18n.test.ts covers the English side.
+beforeAll(() => {
+  setFormatLang('it');
+  setNotAvailable('it');
+  useStore.setState({ lang: 'it' });
+});
 import type { FundedProject, ZoneProps } from '../../types';
 import ZonePanel from './ZonePanel';
 import { formatEuro, formatInteger, formatMeters, formatPercentage, formatShare } from './format';
@@ -87,9 +98,9 @@ describe('Italian formats', () => {
   });
 
   it('states the scale of a lens value', () => {
-    expect(formatLensValue(51, 'isolation')).toBe('51 su 100');
-    expect(formatLensValue(0.456, 'funded_share')).toBe('0,46 su 1');
-    expect(formatLensValue(null, 'isolation')).toBe('n.d.');
+    expect(formatLensValue(51, 'isolation', 'it')).toBe('51 su 100');
+    expect(formatLensValue(0.456, 'funded_share', 'it')).toBe('0,46 su 1');
+    expect(formatLensValue(null, 'isolation', 'it')).toBe('n.d.');
   });
 });
 

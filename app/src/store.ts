@@ -1,5 +1,9 @@
+import { useSyncExternalStore } from 'react';
 import { create } from 'zustand';
 import { interventions as defaultInterventions } from './data/interventions';
+import { DEFAULT_LANG, copyFor, isLang, type Copy, type Lang } from './i18n';
+import { setNotAvailable } from './components/map/format';
+import { setFormatLang } from './lib/intl';
 import { computePlan } from './lib/planner';
 import type {
   Action, FundedProject, Filters, Intervention, Lens, Meta, PlanItem, Profile,
@@ -21,8 +25,10 @@ interface Store {
   plan: PlanItem[];
   interventions: Intervention[];
   lens: Lens;
+  lang: Lang;
   memoRequest: number; // bumped by write_memo; the memo view watches it
 
+  setLang: (lang: Lang) => void;
   load: () => Promise<void>;
   recompute: () => void;
   setLens: (lens: Lens) => void;
@@ -43,6 +49,18 @@ const profileWeights: Record<Profile, Weights> = {
   institution: { isolation: 0.25, service_gap: 0.45, future_pressure: 0.1, inclusion: 0.2 },
 };
 
+const LANG_KEY = 'bussola.lang';
+
+/** A reload mid-demo must not drop the room back into English. */
+function storedLang(): Lang {
+  try {
+    const saved = localStorage.getItem(LANG_KEY);
+    return isLang(saved) ? saved : DEFAULT_LANG;
+  } catch {
+    return DEFAULT_LANG;
+  }
+}
+
 export const useStore = create<Store>((set, get) => ({
   zones: null,
   services: null,
@@ -58,6 +76,7 @@ export const useStore = create<Store>((set, get) => ({
   plan: [],
   interventions: defaultInterventions,
   lens: 'isolation',
+  lang: storedLang(),
   memoRequest: 0,
 
   load: async () => {
@@ -85,6 +104,18 @@ export const useStore = create<Store>((set, get) => ({
   },
 
   setLens: (lens) => set({ lens }),
+  // Number formats and the "not available" marker are not React state, so they are
+  // switched here, next to the language every component re-renders on.
+  setLang: (lang) => {
+    try {
+      localStorage.setItem(LANG_KEY, lang);
+    } catch {
+      // A blocked store only costs the choice on the next reload.
+    }
+    setFormatLang(lang);
+    setNotAvailable(lang);
+    set({ lang });
+  },
   setProfile: (profile) => { set({ profile, weights: profileWeights[profile] }); get().recompute(); },
   setBudget: (budget_eur) => { set({ budget_eur: Math.max(0, budget_eur) }); get().recompute(); },
   setWeights: (w) => { set({ weights: { ...get().weights, ...w } }); get().recompute(); },
@@ -114,3 +145,14 @@ export const plannerState = () => {
   const { profile, budget_eur, weights, filters, selected_zone_id, plan } = useStore.getState();
   return { profile, budget_eur, weights, filters, selected_zone_id, plan };
 };
+
+// react-dom/server renders from a store's server snapshot, and zustand 4 falls back to
+// getInitialState when a store has none, so a server-rendered tree would always show the
+// language the app started with. This app never renders on a server: the only such render
+// is in the tests, where "server" means "right now". Subscribing by hand lets both
+// snapshots read the live state, exactly as the browser does.
+const readLang = () => useStore.getState().lang;
+
+/** The words of the current language. Using it subscribes the component to a switch. */
+export const useCopy = (): Copy =>
+  copyFor(useSyncExternalStore(useStore.subscribe, readLang, readLang));

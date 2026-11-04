@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { getHealth } from '../../lib/api';
+import { useCopy } from '../../store';
+import type { Copy } from '../../i18n';
 import type { ChatMessage } from '../../types';
 import { renderInline } from '../memo/Markdown';
 import { runCommand, type AgentMode, type ChangeChip, type Outcome } from './actions';
@@ -7,35 +9,13 @@ import './assistant.css';
 
 type Mode = 'checking' | AgentMode;
 
-const MODE_LABELS: Record<Mode, string> = {
-  checking: 'Verifica AI…',
-  llm: 'AI attiva',
-  rules: 'Modalità regole',
-  offline: 'AI non connessa',
-};
-
-const EXAMPLES = [
-  {
-    label: '200.000 € per gli over 75 soli, senza PNRR',
-    prompt: 'Ho 200.000 euro, priorità agli over 75 soli, evita le zone già coperte dal PNRR',
-  },
-  {
-    label: 'Carenza di servizi in Circoscrizione 6',
-    prompt: 'Budget di 150.000 euro, priorità alla carenza di servizi nella Circoscrizione 6',
-  },
-  {
-    label: 'Inclusione e memo per il consiglio',
-    prompt: 'Ho 100.000 euro, priorità all\'inclusione, poi prepara il memo per il consiglio',
-  },
-];
-
-const PLANNER_STILL_WORKS = 'Il planner funziona comunque: budget, pesi e filtri restano disponibili nel pannello a destra.';
 const HEALTH_POLL_MS = 30_000;
 
 function Chips({ chips }: { chips: ChangeChip[] }) {
+  const t = useCopy().cmd;
   if (chips.length === 0) return null;
   return (
-    <ul className="cmd-chips" aria-label="Modifiche applicate">
+    <ul className="cmd-chips" aria-label={t.chipsAria}>
       {chips.map(({ text, applied }, index) => (
         <li key={index} className={applied ? 'cmd-chip' : 'cmd-chip cmd-chip--ignored'}>{text}</li>
       ))}
@@ -43,23 +23,25 @@ function Chips({ chips }: { chips: ChangeChip[] }) {
   );
 }
 
-export function ReplyArea({ busy, outcome }: { busy: boolean; outcome: Outcome | null }) {
+export function ReplyArea(
+  { busy, outcome, t }: { busy: boolean; outcome: Outcome | null; t: Copy['cmd'] },
+) {
   if (busy) {
     return (
       <div className="cmd-reply cmd-reply--loading">
         <span className="cmd-spinner" aria-hidden="true" />
-        Sto interpretando la richiesta…
+        {t.interpreting}
       </div>
     );
   }
   if (!outcome) return null;
-  const asked = <p className="cmd-asked" title={outcome.asked}>Richiesta: {outcome.asked}</p>;
+  const asked = <p className="cmd-asked" title={outcome.asked}>{t.askedPrefix}{outcome.asked}</p>;
 
   if (outcome.kind === 'failure') {
     return (
       <div className="cmd-reply cmd-reply--calm">
         {asked}
-        <p className="cmd-text">{outcome.message} {PLANNER_STILL_WORKS}</p>
+        <p className="cmd-text">{outcome.message} {t.plannerStillWorks}</p>
       </div>
     );
   }
@@ -68,7 +50,7 @@ export function ReplyArea({ busy, outcome }: { busy: boolean; outcome: Outcome |
       <div className="cmd-reply cmd-reply--question">
         {asked}
         <p className="cmd-question">
-          <span className="cmd-question__tag">Domanda</span>
+          <span className="cmd-question__tag">{t.questionTag}</span>
           {renderInline(outcome.reply)}
         </p>
         <Chips chips={outcome.chips} />
@@ -85,6 +67,8 @@ export function ReplyArea({ busy, outcome }: { busy: boolean; outcome: Outcome |
 }
 
 export default function CommandBar() {
+  const copy = useCopy();
+  const t = copy.cmd;
   const [text, setText] = useState('');
   const [busy, setBusy] = useState(false);
   const [mode, setMode] = useState<Mode>('checking');
@@ -116,7 +100,7 @@ export default function CommandBar() {
     setBusy(true);
     setText(asked);
 
-    const result = await runCommand(asked, historyRef.current);
+    const result = await runCommand(asked, historyRef.current, copy.lang);
     busyRef.current = false;
     setBusy(false);
     historyRef.current = result.history;
@@ -138,7 +122,7 @@ export default function CommandBar() {
   const waitingForAnswer = outcome?.kind === 'reply' && outcome.clarification;
 
   return (
-    <section className="cmd" aria-label="Assistente del planner">
+    <section className="cmd" aria-label={t.sectionAria}>
       <form className="cmd-form" onSubmit={onSubmit}>
         <input
           ref={inputRef}
@@ -147,19 +131,17 @@ export default function CommandBar() {
           value={text}
           onChange={(event) => setText(event.target.value)}
           readOnly={busy}
-          placeholder={waitingForAnswer
-            ? 'Scrivi qui la risposta'
-            : 'Es. ho 200.000 euro, priorità agli over 75 soli, evita le zone già coperte dal PNRR'}
-          aria-label="Richiesta al planner"
+          placeholder={waitingForAnswer ? t.answerPlaceholder : t.placeholder}
+          aria-label={t.inputAria}
           autoComplete="off"
           enterKeyHint="send"
         />
-        <button className="cmd-send" type="submit" disabled={busy || !text.trim()}>Invia</button>
+        <button className="cmd-send" type="submit" disabled={busy || !text.trim()}>{t.send}</button>
       </form>
 
       <div className="cmd-meta">
-        <span className="cmd-meta__label">Esempi</span>
-        {EXAMPLES.map(({ label, prompt }) => (
+        <span className="cmd-meta__label">{t.examplesLabel}</span>
+        {t.examples.map(({ label, prompt }) => (
           <button
             key={label}
             className="cmd-example"
@@ -173,12 +155,12 @@ export default function CommandBar() {
         ))}
         <span className="cmd-mode" data-mode={mode} role="status">
           <span className="cmd-mode__dot" aria-hidden="true" />
-          {MODE_LABELS[mode]}
+          {t.modes[mode]}
         </span>
       </div>
 
       <div aria-live="polite">
-        <ReplyArea busy={busy} outcome={outcome} />
+        <ReplyArea busy={busy} outcome={outcome} t={t} />
       </div>
     </section>
   );

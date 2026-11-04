@@ -1,10 +1,20 @@
-import { describe, expect, it } from 'vitest';
-import type { PlanItem, Weights } from '../../types';
+import { beforeAll, describe, expect, it } from 'vitest';
+import { setFormatLang } from '../../lib/intl';
+import type { Filters, PlanItem, Weights } from '../../types';
 import {
   BUDGET_MAX, BUDGET_MID, BUDGET_MIN, BUDGET_POSITIONS,
-  budgetToPosition, filtersRecap, formatEur, formatInt, formatReturnIndex,
-  positionToBudget, reasonFor, summarisePlan, weightShares,
+  budgetToPosition, formatEur, formatInt, formatReturnIndex,
+  positionToBudget, reasonFor as reasonIn, summarisePlan, weightShares,
+  filtersRecap as recapIn,
 } from './format';
+
+// The app ships in English and is demonstrated in Italian. This suite asserts the
+// Italian wording, so it pins the language; i18n.test.ts covers the English side.
+beforeAll(() => setFormatLang('it'));
+
+const reasonFor = (scores: PlanItem['scores'], weights: Weights, fit?: Weights) =>
+  reasonIn(scores, weights, fit, 'it');
+const filtersRecap = (filters: Filters) => recapIn(filters, 'it');
 
 const NBSP = ' ';
 const scores = { isolation: 10, service_gap: 10, future_pressure: 10, inclusion: 10, funded_share: 0 };

@@ -1,12 +1,14 @@
+import { copyFor, interventionLabel, type Lang } from '../../i18n';
 import type { ApiResult } from '../../lib/api';
+import { longDate } from '../../lib/intl';
 import type {
-  Confidence, FundedProject, Intervention, MemoResponse, Meta, PlanItem, PlannerState, Profile,
+  Confidence, FundedProject, Intervention, MemoResponse, Meta, PlanItem, PlannerState,
   Weights, ZoneProps,
 } from '../../types';
-import { formatFixed, formatMeters, formatPercentage, formatShare, isNumber } from '../map/format';
+import { formatFixed, formatMeters, formatPercentage, formatShare, isNumber, notAvailable } from '../map/format';
 import {
-  CONFIDENCE_LABEL, CRITERIA, INDEX_SCALE, TARGET_LABEL, filtersRecap, formatEur, formatInt,
-  formatReturnIndex, hasActiveFilters, summarisePlan, weightShares,
+  INDEX_SCALE, confidenceLabels, criteriaList, filtersRecap, formatEur, formatInt,
+  formatReturnIndex, hasActiveFilters, summarisePlan, targetLabels, weightShares,
 } from '../planner/format';
 
 export interface MemoInput {
@@ -16,29 +18,25 @@ export interface MemoInput {
   meta: Meta | null;
   funded: FundedProject[];
   interventions: Intervention[];
+  lang: Lang;
 }
 
-export const PROFILE_LABELS: Record<Profile, string> = {
-  foundation: 'Fondazione',
-  third_sector: 'Terzo settore',
-  institution: 'Istituzione',
-};
-
-// Keeps the memo near one page. The full plan is always in the "Dove investire" table.
+// Keeps the memo near one page. The full plan is always in the "where to invest" table.
 const MAX_ZONE_DETAILS = 8;
 const MAX_PROJECTS = 5;
 
 /** Data text goes into Markdown, so a "|" in a project title must not split a table row. */
 const esc = (text: string) => text.replace(/\s+/g, ' ').trim().replace(/[\\`*_[\]|]/g, '\\$&');
 
-const counted = (count: number, one: string, many: string) =>
-  `${formatInt(count)} ${count === 1 ? one : many}`;
-
 const present = <T,>(values: (T | null)[]) => values.filter((value): value is T => value !== null);
 
-export const describeWeights = (weights: Weights) => {
+const counted = (count: number, word: (n: number) => string) => `${formatInt(count)} ${word(count)}`;
+
+export const describeWeights = (weights: Weights, lang: Lang) => {
   const shares = weightShares(weights);
-  return CRITERIA.map(({ key, label }) => `${label.toLowerCase()} ${shares[key]}%`).join(', ');
+  return criteriaList(lang)
+    .map(({ key, label }) => `${label.toLowerCase()} ${shares[key]}%`)
+    .join(', ');
 };
 
 /** The plan is ranked, so this keeps each zone's best item, in rank order. */
@@ -53,68 +51,79 @@ function firstItemPerZone(plan: PlanItem[]): PlanItem[] {
 
 const zoneLookup = (zones: ZoneProps[]) => new Map(zones.map((zone) => [zone.id, zone]));
 
-function header({ state, meta }: MemoInput): string {
+function header({ state, meta, lang }: MemoInput): string {
+  const t = copyFor(lang).memo;
   const lines = [
-    '# Memo di finanziamento',
-    `**Profilo:** ${PROFILE_LABELS[state.profile]} · **Budget:** ${formatEur(state.budget_eur)}`,
+    `# ${t.title}`,
+    `**${t.profile}:** ${copyFor(lang).planner.profiles[state.profile]} · `
+      + `**${t.budget}:** ${formatEur(state.budget_eur)}`,
   ];
-  if (meta?.mock) {
-    lines.push('> **Dati di prova:** le cifre di questo memo sono simulate. Non usarle per decisioni reali.');
-  }
+  if (meta?.mock) lines.push(`> ${t.mockWarning}`);
   return lines.join('\n\n');
 }
 
-function summary({ state }: MemoInput): string {
+function summary({ state, lang }: MemoInput): string {
+  const t = copyFor(lang).memo;
   const { plan, budget_eur: budget } = state;
   const { used_eur: used, people, zones, overlapping_zones: overlapping } = summarisePlan(plan);
   const first = plan[0];
   const unassigned = budget - used;
 
-  const opening = `Con un budget di **${formatEur(budget)}** il piano propone `
-    + `**${counted(plan.length, 'intervento', 'interventi')}** in **${counted(zones, 'zona', 'zone')}** `
-    + `di Torino e impiega **${formatEur(used)}**.`;
   return [
-    '## Sintesi',
+    t.sections.summary,
     present([
-      opening,
-      unassigned >= 1 ? `Restano da assegnare ${formatEur(unassigned)}.` : null,
-      `Le persone raggiunte sono circa **${formatInt(people)}** (stima).`,
-      overlapping ? 'Nelle zone con più interventi la stessa persona può essere contata più volte.' : null,
-      `Prima priorità: **${esc(first.intervention_label)}** a **${esc(first.zone_name)}** `
-        + `(Circoscrizione ${first.circ}), con ${formatEur(first.budget_eur)} `
-        + `per circa ${formatInt(first.people_reached)} persone.`,
+      t.summaryOpening(
+        formatEur(budget),
+        counted(plan.length, t.interventionsPlural),
+        counted(zones, t.zonesPlural),
+        formatEur(used),
+      ),
+      unassigned >= 1 ? t.unassigned(formatEur(unassigned)) : null,
+      t.peopleReached(formatInt(people)),
+      overlapping ? copyFor(lang).planner.overlapNote.trim() : null,
+      t.firstPriority(
+        esc(interventionLabel(first.intervention_id, first.intervention_label, lang)),
+        esc(first.zone_name),
+        first.circ,
+        formatEur(first.budget_eur),
+        formatInt(first.people_reached),
+      ),
     ]).join(' '),
   ].join('\n\n');
 }
 
-function assumptionsNote({ state, interventions }: MemoInput): string {
-  const note = '**Nota sulle ipotesi:** costi, quote di persone raggiunte, beneficio per persona e '
-    + 'aderenza ai bisogni sono ipotesi di lavoro del team, non preventivi né dati misurati. '
-    + 'Costi e quote si possono modificare nel planner. '
-    + 'Per questo persone raggiunte e costo per persona sono stime.';
+function assumptionsNote({ state, interventions, lang }: MemoInput): string {
+  const t = copyFor(lang).memo;
+  const targets = targetLabels(lang);
   const used = interventions
     .filter(({ id }) => state.plan.some((item) => item.intervention_id === id))
-    .map(({ label, target, reach_share: reach, fixed_eur: fixed, eur_per_person: perPerson }) => (
-      `${esc(label)}: ${formatShare(reach)} degli ${TARGET_LABEL[target]}, `
-      + `${formatEur(fixed)} fissi e ${formatEur(perPerson)} a persona`
+    .map(({ id, label, target, reach_share: reach, fixed_eur: fixed, eur_per_person: perPerson }) => (
+      t.valuesLine(
+        esc(interventionLabel(id, label, lang)), formatShare(reach), targets[target],
+        formatEur(fixed), formatEur(perPerson),
+      )
     ));
-  return used.length > 0 ? `${note} **Valori usati.** ${used.join('; ')}.` : note;
+  return used.length > 0
+    ? `${t.assumptionsNote} ${t.valuesUsed} ${used.join('; ')}.`
+    : t.assumptionsNote;
 }
 
 function whereToInvest(input: MemoInput): string {
+  const t = copyFor(input.lang).memo;
+  const labels = confidenceLabels(input.lang);
   const rows = input.state.plan.map((item) => [
     `${esc(item.zone_name)} (Circ. ${item.circ})`,
-    esc(item.intervention_label),
+    esc(interventionLabel(item.intervention_id, item.intervention_label, input.lang)),
     formatEur(item.budget_eur),
     formatInt(item.people_reached),
     formatEur(item.cost_per_person_eur),
     formatReturnIndex(item.return_index),
-    CONFIDENCE_LABEL[item.confidence],
+    labels[item.confidence],
   ]);
   return [
-    '## Dove investire',
+    t.sections.where,
     [
-      '| Zona | Intervento | Budget | Persone (stima) | Costo per persona (ipotesi) | Indice di ritorno atteso | Dati |',
+      `| ${t.tableHead.join(' | ')} |`,
       '| --- | --- | ---: | ---: | ---: | ---: | --- |',
       ...rows.map((cells) => `| ${cells.join(' | ')} |`),
     ].join('\n'),
@@ -122,51 +131,50 @@ function whereToInvest(input: MemoInput): string {
   ].join('\n\n');
 }
 
-function zoneDetail(item: PlanItem, zone: ZoneProps | undefined): string {
+function zoneDetail(item: PlanItem, zone: ZoneProps | undefined, lang: Lang): string {
+  const t = copyFor(lang).memo;
   const scores = zone ?? item.scores;
-  const needs = CRITERIA.map(({ key, label }) => `${label.toLowerCase()} ${formatInt(scores[key])}`);
-  const head = `- **${esc(item.zone_name)}** (Circoscrizione ${item.circ}): ${needs.join(', ')}.`;
+  const needs = criteriaList(lang)
+    .map(({ key, label }) => `${label.toLowerCase()} ${formatInt(scores[key])}`)
+    .join(', ');
+  const head = t.zoneDetailHead(esc(item.zone_name), item.circ, needs);
   if (!zone) return head;
 
   const { health_m: health, care_m: care, pharmacy_m: pharmacy } = zone.nearest ?? {};
   const facts = present([
-    `Over 75 stimati: ${formatInt(zone.over75_est)} su ${formatInt(zone.pop_2025)} residenti`,
-    isNumber(zone.over75_2030) ? `${formatInt(zone.over75_2030)} stimati al 2030` : null,
-    `vive solo il ${formatShare(zone.alone_rate_circ)} (dato di Circoscrizione)`,
-    `servizi entro 800 m: ${formatInt(zone.services_800m)}`,
-    isNumber(health) ? `presidio sanitario più vicino a ${formatMeters(health)}` : null,
-    isNumber(care) ? `struttura di cura più vicina a ${formatMeters(care)}` : null,
-    isNumber(pharmacy) ? `farmacia più vicina a ${formatMeters(pharmacy)}` : null,
-    isNumber(zone.stability_top10)
-      ? `resta tra le prime 10 con pesi casuali nel ${formatShare(zone.stability_top10)} dei casi`
-      : null,
+    t.over75Of(formatInt(zone.over75_est), formatInt(zone.pop_2025)),
+    isNumber(zone.over75_2030) ? t.over75By2030(formatInt(zone.over75_2030)) : null,
+    t.aloneShare(formatShare(zone.alone_rate_circ)),
+    t.servicesWithin(formatInt(zone.services_800m)),
+    isNumber(health) ? t.nearestHealth(formatMeters(health)) : null,
+    isNumber(care) ? t.nearestCare(formatMeters(care)) : null,
+    isNumber(pharmacy) ? t.nearestPharmacy(formatMeters(pharmacy)) : null,
+    isNumber(zone.stability_top10) ? t.stability(formatShare(zone.stability_top10)) : null,
   ]);
   return `${head} ${facts.join('; ')}.`;
 }
 
-function whyTheseZones({ state, zones }: MemoInput): string {
+function whyTheseZones({ state, zones, lang }: MemoInput): string {
+  const t = copyFor(lang).memo;
   const byId = zoneLookup(zones);
   const items = firstItemPerZone(state.plan);
   const shown = items.slice(0, MAX_ZONE_DETAILS);
   const hidden = items.length - shown.length;
 
   return present([
-    '## Perché queste zone',
-    'Le coppie zona-intervento sono ordinate per **indice di ritorno atteso**: conta le persone '
-      + "raggiunte, pesate per beneficio dell'intervento, bisogno della zona e addizionalità, "
-      + `ogni ${formatEur(INDEX_SCALE)} di costo. `
-      + 'È una stima per confrontare le opzioni, non un ritorno misurato.',
-    `**Pesi del bisogno:** ${describeWeights(state.weights)}. **Filtri:** ${filtersRecap(state.filters)}. `
-      + 'I punteggi vanno da 0 a 100: più alto significa più bisogno.',
-    shown.map((item) => zoneDetail(item, byId.get(item.zone_id))).join('\n'),
-    hidden > 0 ? `Le altre ${formatInt(hidden)} zone del piano sono nella tabella qui sopra.` : null,
+    t.sections.why,
+    t.indexExplained(formatEur(INDEX_SCALE)),
+    t.weightsLine(describeWeights(state.weights, lang), filtersRecap(state.filters, lang)),
+    shown.map((item) => zoneDetail(item, byId.get(item.zone_id), lang)).join('\n'),
+    hidden > 0 ? t.moreZones(formatInt(hidden)) : null,
   ]).join('\n\n');
 }
 
 const totalOf = (projects: FundedProject[]) =>
   formatEur(projects.reduce((sum, project) => sum + project.amount_eur, 0));
 
-function projectList(items: PlanItem[], funded: FundedProject[]): string | null {
+function projectList(items: PlanItem[], funded: FundedProject[], lang: Lang): string | null {
+  const t = copyFor(lang).memo;
   const names = new Map(items.map((item) => [item.zone_id, item.zone_name]));
   const projects = funded
     .filter(({ zone_id: id }) => id !== null && names.has(id))
@@ -175,9 +183,10 @@ function projectList(items: PlanItem[], funded: FundedProject[]): string | null 
 
   const listed = projects.slice(0, MAX_PROJECTS);
   const lines = listed.map(({ title, zone_id: id, programme, amount_eur: amount, progress_pct: progress }) => {
-    const advancement = isNumber(progress) ? `, avanzamento ${formatPercentage(progress)}` : '';
-    return `- **${esc(title)}** (${esc(names.get(id as number) ?? '')}, ${esc(programme)}): `
-      + `${formatEur(amount)}${advancement}.`;
+    const advancement = isNumber(progress) ? t.progressSuffix(formatPercentage(progress)) : '';
+    return t.projectLine(
+      esc(title), esc(names.get(id as number) ?? ''), esc(programme), formatEur(amount), advancement,
+    );
   });
   const others = projects.length - listed.length;
   const sources = [...new Set(listed.map(({ source }) => source).filter(Boolean))].map(esc);
@@ -185,28 +194,26 @@ function projectList(items: PlanItem[], funded: FundedProject[]): string | null 
   return present([
     lines.join('\n'),
     present([
-      others > 0 ? `Nelle stesse zone ci sono altri ${formatInt(others)} progetti.` : null,
-      sources.length > 0 ? `Fonte dei progetti: ${sources.join(', ')}.` : null,
+      others > 0 ? t.moreProjects(formatInt(others)) : null,
+      sources.length > 0 ? t.projectSource(sources.join(', ')) : null,
     ]).join(' ') || null,
   ]).join('\n\n');
 }
 
-function widerProjects(items: PlanItem[], funded: FundedProject[]): string | null {
+function widerProjects(items: PlanItem[], funded: FundedProject[], lang: Lang): string | null {
+  const t = copyFor(lang).memo;
   const circs = new Set(items.map(({ circ }) => circ));
   const inCirc = funded.filter(({ zone_id: id, circ }) => id === null && circ !== null && circs.has(circ));
   const citywide = funded.filter(({ zone_id: id, circ }) => id === null && circ === null);
   const parts = present([
-    inCirc.length > 0
-      ? `nelle stesse Circoscrizioni ${counted(inCirc.length, 'progetto', 'progetti')}, ${totalOf(inCirc)}`
-      : null,
-    citywide.length > 0
-      ? `a livello cittadino ${counted(citywide.length, 'progetto', 'progetti')}, ${totalOf(citywide)}`
-      : null,
+    inCirc.length > 0 ? t.inSameCirc(counted(inCirc.length, t.projectsPlural), totalOf(inCirc)) : null,
+    citywide.length > 0 ? t.citywide(counted(citywide.length, t.projectsPlural), totalOf(citywide)) : null,
   ]);
-  return parts.length > 0 ? `Non attribuiti a una singola zona: ${parts.join('; ')}.` : null;
+  return parts.length > 0 ? t.notPlaced(parts.join('; ')) : null;
 }
 
-function alreadyFunded({ state, zones, funded }: MemoInput): string {
+function alreadyFunded({ state, zones, funded, lang }: MemoInput): string {
+  const t = copyFor(lang).memo;
   const byId = zoneLookup(zones);
   const items = firstItemPerZone(state.plan);
   const fundedItems = items.filter((item) => {
@@ -217,49 +224,44 @@ function alreadyFunded({ state, zones, funded }: MemoInput): string {
     const zone = byId.get(item.zone_id);
     return [
       esc(item.zone_name),
-      zone ? formatEur(zone.funded_eur) : 'n.d.',
-      zone ? formatInt(zone.funded_projects) : 'n.d.',
+      zone ? formatEur(zone.funded_eur) : notAvailable(),
+      zone ? formatInt(zone.funded_projects) : notAvailable(),
       formatFixed(zone?.funded_share ?? item.scores.funded_share, 2),
     ];
   });
 
   return present([
-    '## Cosa è già finanziato',
-    rows.length > 0
-      ? 'La copertura relativa va da 0 (nessun finanziamento) a 1 (la zona più finanziata per residente).'
-      : 'Nelle zone del piano non risultano progetti già localizzati.',
+    t.sections.funded,
+    rows.length > 0 ? t.coverageScale : t.noLocalProjects,
     rows.length > 0
       ? [
-        '| Zona | Già finanziato | Progetti | Copertura relativa |',
+        `| ${t.fundedTableHead.join(' | ')} |`,
         '| --- | ---: | ---: | ---: |',
         ...rows.map((cells) => `| ${cells.join(' | ')} |`),
       ].join('\n')
       : null,
-    projectList(items, funded),
-    widerProjects(items, funded),
+    projectList(items, funded, lang),
+    widerProjects(items, funded, lang),
   ]).join('\n\n');
 }
 
-function dataLimits({ state }: MemoInput): string {
+function dataLimits({ state, lang }: MemoInput): string {
+  const t = copyFor(lang).memo;
+  const labels = confidenceLabels(lang);
   const items = firstItemPerZone(state.plan);
   const levels: Confidence[] = ['official', 'estimated', 'low'];
   const reliability = levels
     .map((level) => ({ level, count: items.filter((item) => item.confidence === level).length }))
     .filter(({ count }) => count > 0)
-    .map(({ level, count }) => `${CONFIDENCE_LABEL[level]}: ${formatInt(count)}`);
+    .map(({ level, count }) => `${labels[level]}: ${formatInt(count)}`);
   const weak = items.filter((item) => item.confidence === 'low').map((item) => esc(item.zone_name));
 
   return [
-    '## Limiti dei dati',
+    t.sections.limits,
     present([
-      '- **Popolazione per età:** over 65, over 75 e adulti 50-64 sono stime per zona, non conteggi ufficiali.',
-      '- **Persone che vivono sole:** il dato è di Circoscrizione e copre tutte le età, quindi è uguale in tutte le zone della stessa Circoscrizione.',
-      '- **Pressione futura:** è un segnale relativo, non una previsione, perché non considera migrazioni e decessi.',
-      '- **Finanziamenti:** i progetti non localizzabili restano a livello cittadino. La copertura relativa confronta le zone tra loro: non dice quanta parte del bisogno è coperta.',
-      '- **Inclusione:** la quota di residenti stranieri indica un bisogno di accesso e di lingua, mai un rischio.',
-      '- **Zone piccole:** sono escluse dalla classifica perché le stime sarebbero instabili.',
-      `- **Affidabilità delle zone del piano:** ${reliability.join(', ')}.`,
-      weak.length > 0 ? `- **Da verificare prima di deliberare:** ${weak.join(', ')}.` : null,
+      ...t.limits,
+      t.reliability(reliability.join(', ')),
+      weak.length > 0 ? t.toVerify(weak.join(', ')) : null,
     ]).join('\n'),
   ].join('\n\n');
 }
@@ -267,45 +269,42 @@ function dataLimits({ state }: MemoInput): string {
 function dataDate(meta: Meta | null): string | null {
   const time = Date.parse(meta?.generated_at ?? '');
   if (Number.isNaN(time)) return null;
-  return new Intl.DateTimeFormat('it-IT', { dateStyle: 'long', timeZone: 'UTC' }).format(time);
+  return longDate().format(time);
 }
 
 const linkTarget = (url: string) => encodeURI(url.trim()).replace(/\(/g, '%28').replace(/\)/g, '%29');
 
-function sources({ meta }: MemoInput): string {
+function sources({ meta, lang }: MemoInput): string {
+  const t = copyFor(lang).memo;
   const entries = (meta?.sources ?? []).map(({ label, url, year, level }) => {
     const name = url ? `[${esc(label)}](${linkTarget(url)})` : esc(label);
     return `- ${present([
       name,
-      isNumber(year) && year > 0 ? `anno ${year}` : null,
-      level ? `livello ${esc(level)}` : null,
+      isNumber(year) && year > 0 ? t.year(year) : null,
+      level ? t.level(esc(level)) : null,
     ]).join(', ')}`;
   });
   const processed = dataDate(meta);
 
   return present([
-    '## Fonti',
-    [
-      ...(entries.length > 0 ? entries : ['- Nessuna fonte indicata nei metadati.']),
-      '- Costi, quote, beneficio per persona e aderenza ai bisogni: ipotesi di lavoro del team.',
-    ].join('\n'),
-    processed ? `Dati elaborati il ${processed}.` : null,
+    t.sections.sources,
+    [...(entries.length > 0 ? entries : [t.noSources]), t.teamAssumptions].join('\n'),
+    processed ? t.processedOn(processed) : null,
   ]).join('\n\n');
 }
 
-function emptyPlanMemo({ state }: MemoInput): string {
+function emptyPlanMemo({ state, lang }: MemoInput): string {
+  const t = copyFor(lang).memo;
   const { budget_eur: budget, filters } = state;
   const steps = present([
-    budget > 0
-      ? `Controlla il budget: con ${formatEur(budget)} potrebbe non esserci spazio per nessun intervento. Prova ad aumentarlo.`
-      : 'Imposta un budget maggiore di zero, nel pannello a destra o scrivendolo nella barra in alto.',
-    hasActiveFilters(filters) ? `Allenta i filtri attivi (${filtersRecap(filters)}).` : null,
-    'Quando il portafoglio proposto compare nel pannello a destra, chiedi di nuovo il memo.',
+    budget > 0 ? t.emptyBudget(formatEur(budget)) : t.emptyNoBudget,
+    hasActiveFilters(filters) ? t.emptyFilters(filtersRecap(filters, lang)) : null,
+    t.emptyThenAsk,
   ]);
   return [
-    '# Memo non ancora disponibile',
-    'Il piano è vuoto, quindi non c\'è ancora nulla da presentare al consiglio.',
-    'Per generare il memo:',
+    t.emptyTitle,
+    t.emptyIntro,
+    t.emptySteps,
     steps.map((step, index) => `${index + 1}. ${step}`).join('\n'),
   ].join('\n\n');
 }
@@ -327,22 +326,20 @@ export interface ChosenMemo {
   notice: string;
 }
 
-const LOCAL_MEMO = 'Memo generato in locale dai dati del piano.';
 const WRAPPED_IN_FENCE = /^\s*```(?:markdown|md)?[ \t]*\n([\s\S]*?)\n```\s*$/i;
 
 /** The server's text when it is usable, otherwise the template. */
-export function chooseMemo(result: ApiResult<MemoResponse>, template: string): ChosenMemo {
-  if (!result.ok) return { markdown: template, notice: `${result.message} ${LOCAL_MEMO}` };
+export function chooseMemo(result: ApiResult<MemoResponse>, template: string, lang: Lang): ChosenMemo {
+  const t = copyFor(lang).memo;
+  if (!result.ok) return { markdown: template, notice: `${result.message} ${t.localMemo}` };
 
   const { markdown, mode } = result.data;
-  // The output must always be called "indice di ritorno atteso", so this term never reaches the board.
+  // The output must always be called "expected return index", so this term never reaches the board.
   if (/sroi/i.test(markdown)) {
-    return { markdown: template, notice: `Il testo del server usava un termine non ammesso. ${LOCAL_MEMO}` };
+    return { markdown: template, notice: `${t.forbiddenTerm} ${t.localMemo}` };
   }
   return {
     markdown: WRAPPED_IN_FENCE.exec(markdown)?.[1] ?? markdown,
-    notice: mode === 'llm'
-      ? 'Testo redatto dall\'AI sui dati del piano.'
-      : 'Testo standard del server, basato sui dati del piano.',
+    notice: mode === 'llm' ? t.byAi : t.byRules,
   };
 }

@@ -1,9 +1,10 @@
 import { interventions as initialInterventions } from '../../data/interventions';
-import { useStore } from '../../store';
+import { interventionLabel } from '../../i18n';
+import { useCopy, useStore } from '../../store';
 import type { Intervention } from '../../types';
 import Group from './Group';
 import NumberField from './NumberField';
-import { TARGET_LABEL } from './format';
+import { targetLabels } from './format';
 
 const EDITABLE = ['reach_share', 'fixed_eur', 'eur_per_person'] as const;
 
@@ -13,14 +14,16 @@ function isEdited(intervention: Intervention) {
 }
 
 function AssumptionRow({ intervention }: { intervention: Intervention }) {
+  const copy = useCopy();
+  const t = copy.planner;
   const setIntervention = useStore((s) => s.setIntervention);
   const { id, label, target, reach_share, fixed_eur, eur_per_person } = intervention;
   return (
     <fieldset className="pl-assumption">
-      <legend>{label}</legend>
+      <legend>{interventionLabel(id, label, copy.lang)}</legend>
       <div className="pl-assumption__fields">
         <label>
-          <span>Quota di {TARGET_LABEL[target]} raggiunta</span>
+          <span>{t.reachLabel(targetLabels(copy.lang)[target])}</span>
           <span className="pl-money">
             <NumberField
               value={Math.round(reach_share * 100)}
@@ -32,7 +35,7 @@ function AssumptionRow({ intervention }: { intervention: Intervention }) {
           </span>
         </label>
         <label>
-          <span>Costo fisso</span>
+          <span>{t.fixedCost}</span>
           <span className="pl-money">
             <NumberField
               value={fixed_eur}
@@ -43,7 +46,7 @@ function AssumptionRow({ intervention }: { intervention: Intervention }) {
           </span>
         </label>
         <label>
-          <span>Costo per persona</span>
+          <span>{t.costPerPerson}</span>
           <span className="pl-money">
             <NumberField
               value={eur_per_person}
@@ -59,6 +62,7 @@ function AssumptionRow({ intervention }: { intervention: Intervention }) {
 }
 
 export default function AssumptionsEditor() {
+  const t = useCopy().planner;
   const interventions = useStore((s) => s.interventions);
   const setIntervention = useStore((s) => s.setIntervention);
   const edited = interventions.some(isEdited);
@@ -69,22 +73,18 @@ export default function AssumptionsEditor() {
 
   return (
     <Group
-      title="Ipotesi sugli interventi"
-      recap={edited ? 'Modificate' : 'Ipotesi del team'}
+      title={t.assumptionsTitle}
+      recap={edited ? t.assumptionsEdited : t.assumptionsDefault}
       className="pl-assumptions"
     >
-      <p className="pl-assumptions__notice">
-        Questi valori sono ipotesi del team, non dati ufficiali. Se li modifichi, il piano si
-        aggiorna subito. Sono ipotesi del team anche il beneficio per persona e l'aderenza ai
-        bisogni, usati nell'indice e non modificabili qui.
-      </p>
-      {interventions.length === 0 && <p className="pl-note">Nessun intervento disponibile.</p>}
+      <p className="pl-assumptions__notice">{t.assumptionsNotice}</p>
+      {interventions.length === 0 && <p className="pl-note">{t.assumptionsEmpty}</p>}
       {interventions.map((intervention) => (
         <AssumptionRow key={intervention.id} intervention={intervention} />
       ))}
       {edited && (
         <button type="button" className="pl-link" onClick={restore}>
-          Ripristina le ipotesi iniziali
+          {t.restore}
         </button>
       )}
     </Group>

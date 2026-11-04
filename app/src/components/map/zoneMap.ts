@@ -3,7 +3,8 @@ import type { MultiPolygon, Polygon } from 'geojson';
 import type {
   Lens, ServiceCollection, ServiceProps, ServiceType, ZoneCollection, ZoneFeature, ZoneProps,
 } from '../../types';
-import { LENSES, SERVICES, formatLensValue, lensValue, zoneFill } from './mapConfig';
+import { DEFAULT_LANG, copyFor, type Lang } from '../../i18n';
+import { SERVICE_GLYPHS, formatLensValue, lensText, lensValue, zoneFill } from './mapConfig';
 
 const TURIN: L.LatLngTuple = [45.0703, 7.6869];
 const EDGE = 16; // px kept clear between a fitted shape and the map edge
@@ -62,16 +63,18 @@ function tooltipNode(title: string, lines: string[]): HTMLElement {
   return root;
 }
 
-function zoneTooltip(zone: ZoneProps, lens: Lens): HTMLElement {
-  const lines = [`${LENSES[lens].label}: ${formatLensValue(lensValue(zone, lens), lens)}`];
-  if (zone.small_zone) lines.push('Zona piccola: esclusa dalla classifica');
+function zoneTooltip(zone: ZoneProps, lens: Lens, lang: Lang): HTMLElement {
+  const t = copyFor(lang).map;
+  const lines = [`${lensText(lens, lang).label}: ${formatLensValue(lensValue(zone, lens), lens, lang)}`];
+  if (zone.small_zone) lines.push(t.smallZoneTooltip);
   return tooltipNode(zone.name, lines);
 }
 
-function serviceTooltip(service: ServiceProps): HTMLElement {
-  const lines = [SERVICES[service.type].singular];
+function serviceTooltip(service: ServiceProps, lang: Lang): HTMLElement {
+  const t = copyFor(lang).map;
+  const lines = [t.services[service.type].singular];
   if (service.address) lines.push(service.address);
-  lines.push(`Fonte: ${service.source}, ${service.year}`);
+  lines.push(t.sourceLine(service.source, service.year));
   return tooltipNode(service.name, lines);
 }
 
@@ -95,6 +98,7 @@ export class ZoneMap {
   private zoneFeatures = new Map<number, ZoneFeature>();
   private serviceGroups = new Map<ServiceType, L.LayerGroup>();
   private lens: Lens = 'isolation';
+  private lang: Lang = DEFAULT_LANG;
 
   constructor(container: HTMLElement, private readonly onZoneClick: (id: number) => void) {
     this.map = L.map(container, {
@@ -151,6 +155,11 @@ export class ZoneMap {
     });
   }
 
+  /** Tooltips are bound as functions, so they read this the next time one opens. */
+  setLang(lang: Lang) {
+    this.lang = lang;
+  }
+
   setLens(lens: Lens) {
     this.lens = lens;
     this.zoneLayer?.setStyle((feature) => (feature ? this.zoneStyle(feature.properties) : {}));
@@ -200,18 +209,18 @@ export class ZoneMap {
     this.serviceGroups.clear();
     for (const feature of services?.features ?? []) {
       const service = feature.properties;
-      const spec = SERVICES[service.type];
+      const glyph = SERVICE_GLYPHS[service.type];
       const coordinates = feature.geometry?.coordinates;
-      if (!spec || !coordinates) continue;
+      if (!glyph || !coordinates) continue;
 
       let group = this.serviceGroups.get(service.type);
       if (!group) {
         group = L.layerGroup();
         this.serviceGroups.set(service.type, group);
       }
-      const icon = L.divIcon({ className: 'map-service-marker', html: spec.glyph, iconSize: [20, 20] });
+      const icon = L.divIcon({ className: 'map-service-marker', html: glyph, iconSize: [20, 20] });
       L.marker([coordinates[1], coordinates[0]], { icon, keyboard: false })
-        .bindTooltip(() => serviceTooltip(service), {
+        .bindTooltip(() => serviceTooltip(service, this.lang), {
           direction: 'top', offset: [0, -10], opacity: 1, className: 'map-tooltip',
         })
         .addTo(group);
@@ -240,7 +249,7 @@ export class ZoneMap {
     this.zonePaths.set(zone.id, path);
     this.zoneFeatures.set(zone.id, feature);
     // A function, so the tooltip always shows the lens active when it opens.
-    path.bindTooltip(() => zoneTooltip(zone, this.lens), {
+    path.bindTooltip(() => zoneTooltip(zone, this.lens, this.lang), {
       sticky: true, direction: 'top', offset: [0, -6], opacity: 1, className: 'map-tooltip',
     });
     path.on({

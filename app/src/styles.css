@@ -253,3 +253,36 @@ body {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 1ms !important; animation-duration: 1ms !important; }
 }
+
+/* Language switch: two segments in the masthead, so it can be thrown mid-demo. */
+.hud__data { display: flex; align-items: flex-start; gap: 10px; }
+
+.lang-switch {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  background: var(--glass-thin);
+  backdrop-filter: var(--blur);
+  border-radius: var(--radius);
+  box-shadow: var(--ring);
+}
+.lang-switch button {
+  padding: 7px 11px;
+  border: 0;
+  border-radius: calc(var(--radius) - 4px);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font: 600 11px/1 var(--font);
+  letter-spacing: 0.08em;
+  transition: background 0.15s var(--ease), color 0.15s var(--ease);
+}
+.lang-switch button:hover { color: var(--ink); }
+.lang-switch button[aria-pressed='true'] { background: var(--primary); color: #fff; }
+.lang-switch button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+@media (max-width: 1320px) {
+  /* The counts go, the switch stays: it is the one control that must survive. */
+  .hud__data { display: flex; }
+  .data-strip { display: none; }
+}

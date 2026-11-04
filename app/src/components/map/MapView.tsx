@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useStore } from '../../store';
+import { useCopy, useStore } from '../../store';
 import type { ServiceType } from '../../types';
 import { HatchDefs, LensBar, MapLegend, ServiceToggle } from './MapControls';
 import ZonePanel from './ZonePanel';
@@ -19,6 +19,8 @@ export default function MapView() {
   const funded = useStore((s) => s.funded);
   const meta = useStore((s) => s.meta);
   const lens = useStore((s) => s.lens);
+  const lang = useStore((s) => s.lang);
+  const t = useCopy();
   const plan = useStore((s) => s.plan);
   const selectedId = useStore((s) => s.selected_zone_id);
   const setLens = useStore((s) => s.setLens);
@@ -87,8 +89,9 @@ export default function MapView() {
   }, [zones]);
 
   useEffect(() => {
+    zoneMapRef.current?.setLang(lang);
     zoneMapRef.current?.setLens(lens);
-  }, [zones, lens]);
+  }, [zones, lens, lang]);
 
   useEffect(() => {
     zoneMapRef.current?.setOutlines(planIds, selectedId);
@@ -124,7 +127,7 @@ export default function MapView() {
                 className="map-city-button"
                 onClick={() => zoneMapRef.current?.fitCity(overlayInsets(), true)}
               >
-                Tutta la città
+                {t.map.cityButton}
               </button>
             </div>
             <ServiceToggle counts={serviceCounts} shown={shownServices} onToggle={toggleService} />

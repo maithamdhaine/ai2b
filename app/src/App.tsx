@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { useStore } from './store';
+import { LANGS } from './i18n';
+import { useCopy, useStore } from './store';
 import { formatInt } from './components/planner/format';
 import MapView from './components/map/MapView';
 import PlannerPanel from './components/planner/PlannerPanel';
@@ -16,8 +17,33 @@ function Mark() {
   );
 }
 
+/**
+ * English is the source language; Italian is the one the room speaks. The switch is in the
+ * masthead rather than in a settings menu so it can be thrown mid-demo.
+ */
+function LangSwitch() {
+  const t = useCopy().app;
+  const lang = useStore((s) => s.lang);
+  const setLang = useStore((s) => s.setLang);
+  return (
+    <div className="lang-switch" role="group" aria-label={t.langAria}>
+      {LANGS.map((code) => (
+        <button
+          key={code}
+          type="button"
+          aria-pressed={code === lang}
+          onClick={() => setLang(code)}
+        >
+          {t.langName[code]}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 /** What is on the table: the counts come from the loaded files, never from a constant. */
 function DataStrip() {
+  const t = useCopy().app;
   const zones = useStore((s) => s.zones);
   const services = useStore((s) => s.services);
   const funded = useStore((s) => s.funded);
@@ -25,14 +51,14 @@ function DataStrip() {
   if (!zones) return null;
 
   const counts: [number, string][] = [
-    [zones.features.length, 'zone'],
-    [services?.features.length ?? 0, 'servizi'],
-    [funded.length, 'progetti'],
-    [sources?.length ?? 0, 'fonti'],
+    [zones.features.length, t.dataLabels.zones],
+    [services?.features.length ?? 0, t.dataLabels.services],
+    [funded.length, t.dataLabels.projects],
+    [sources?.length ?? 0, t.dataLabels.sources],
   ];
 
   return (
-    <dl className="data-strip" aria-label="Dati caricati">
+    <dl className="data-strip" aria-label={t.dataAria}>
       {counts.map(([count, label]) => (
         <div key={label}>
           <dd>{formatInt(count)}</dd>
@@ -44,6 +70,7 @@ function DataStrip() {
 }
 
 export default function App() {
+  const t = useCopy().app;
   const load = useStore((s) => s.load);
   const meta = useStore((s) => s.meta);
   const loadError = useStore((s) => s.loadError);
@@ -60,16 +87,19 @@ export default function App() {
             <Mark />
             <span className="brand__name">Bussola</span>
           </span>
-          <p className="brand__line">Dove investire per il massimo ritorno sociale a Torino</p>
+          <p className="brand__line">{t.brandLine}</p>
         </div>
         <div className="hud__ask"><CommandBar /></div>
-        <div className="hud__data"><DataStrip /></div>
+        <div className="hud__data">
+          <LangSwitch />
+          <DataStrip />
+        </div>
       </header>
 
       <aside className="rail"><PlannerPanel /></aside>
 
-      {meta?.mock && <div className="mock-banner">DATI DI PROVA</div>}
-      {loadError && <div className="error-banner">Dati non caricati: {loadError}</div>}
+      {meta?.mock && <div className="mock-banner">{t.mockBanner}</div>}
+      {loadError && <div className="error-banner">{t.loadError}{loadError}</div>}
 
       <MemoView />
     </div>

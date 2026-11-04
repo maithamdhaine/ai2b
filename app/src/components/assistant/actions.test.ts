@@ -1,7 +1,15 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
+import { setFormatLang } from '../../lib/intl';
 import { useStore } from '../../store';
-import type { PlanItem, ZoneCollection, ZoneProps } from '../../types';
-import { applyAgentActions, runCommand } from './actions';
+import type { ChatMessage, PlanItem, ZoneCollection, ZoneProps } from '../../types';
+import { applyAgentActions as applyIn, runCommand as runIn } from './actions';
+
+// The app ships in English and is demonstrated in Italian. This suite asserts the
+// Italian wording, so it pins the language; i18n.test.ts covers the English side.
+beforeAll(() => setFormatLang('it'));
+
+const applyAgentActions = (actions: readonly unknown[]) => applyIn(actions, 'it');
+const runCommand = (asked: string, history: ChatMessage[]) => runIn(asked, history, 'it');
 
 const planItem = { zone_id: 70, zone_name: 'Pilonetto' } as PlanItem;
 

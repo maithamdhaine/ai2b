@@ -1,10 +1,11 @@
-import { useStore } from '../../store';
+import { useCopy, useStore } from '../../store';
 import AssumptionsEditor from './AssumptionsEditor';
 import { BudgetControl, FiltersControl, ProfileControl, WeightsControl } from './Controls';
 import { PlanResults, PlanSummary } from './Results';
 import './planner.css';
 
 export default function PlannerPanel() {
+  const t = useCopy().planner;
   const hasPlan = useStore((s) => s.plan.length > 0);
   const requestMemo = useStore((s) => s.requestMemo);
   return (
@@ -20,7 +21,7 @@ export default function PlannerPanel() {
       <AssumptionsEditor />
       <div className="pl-footer">
         <button type="button" className="pl-memo" disabled={!hasPlan} onClick={requestMemo}>
-          Genera memo
+          {t.generateMemo}
         </button>
       </div>
     </div>

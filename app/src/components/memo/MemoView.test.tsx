@@ -1,9 +1,18 @@
 import { renderToStaticMarkup } from 'react-dom/server';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
+import { setFormatLang } from '../../lib/intl';
 import { useStore } from '../../store';
+import { setNotAvailable } from '../map/format';
 import type { PlanItem, ZoneCollection, ZoneProps } from '../../types';
 import MemoView, { MemoDialog, loadMemo, readMemoInput, type MemoPanel } from './MemoView';
 import type { MemoInput } from './template';
+
+// This suite asserts the Italian wording, so it pins the language.
+beforeAll(() => {
+  setFormatLang('it');
+  setNotAvailable('it');
+  useStore.setState({ lang: 'it' });
+});
 
 const dialog = (panel: MemoPanel, mock = false) => renderToStaticMarkup(
   <MemoDialog panel={panel} mock={mock} copyState="idle" onCopy={vi.fn()} onPrint={vi.fn()} onClose={vi.fn()} />,
@@ -43,6 +52,7 @@ describe('loadMemo', () => {
   const source = { key: 'pop', label: 'Popolazione', url: '', year: 2025, level: 'zona' };
 
   const input = (): MemoInput => ({
+    lang: 'it',
     state: {
       profile: 'foundation',
       budget_eur: 100000,

@@ -1,7 +1,9 @@
+import { useCopy } from '../../store';
 import type { Lens, ServiceType } from '../../types';
 import { formatInteger } from './format';
 import {
-  HATCH_ID, LENSES, LENS_ORDER, MISSING_FILL, SERVICES, SERVICE_ORDER, ZONE_FILL_OPACITY, lensClasses,
+  HATCH_ID, LENS_ORDER, MISSING_FILL, SERVICE_GLYPHS, SERVICE_ORDER, ZONE_FILL_OPACITY,
+  lensClasses, lensText,
 } from './mapConfig';
 
 /** The pattern the map and the legend both use for small zones. It must stay in the document. */
@@ -19,11 +21,12 @@ export function HatchDefs() {
 }
 
 export function LensBar({ lens, onChange }: { lens: Lens; onChange: (lens: Lens) => void }) {
+  const t = useCopy();
   return (
-    <div className="map-lens-bar" role="group" aria-label="Lente della mappa">
+    <div className="map-lens-bar" role="group" aria-label={t.map.lensAria}>
       {LENS_ORDER.map((id) => (
         <button key={id} type="button" aria-pressed={id === lens} onClick={() => onChange(id)}>
-          {LENSES[id].label}
+          {t.map.lenses[id].label}
         </button>
       ))}
     </div>
@@ -31,9 +34,10 @@ export function LensBar({ lens, onChange }: { lens: Lens; onChange: (lens: Lens)
 }
 
 export function MapLegend({ lens, hasMissing }: { lens: Lens; hasMissing: boolean }) {
-  const { label, note, scale } = LENSES[lens];
+  const t = useCopy();
+  const { label, note, scale } = lensText(lens, t.lang);
   return (
-    <section className="map-card map-legend" aria-label="Legenda">
+    <section className="map-card map-legend" aria-label={t.map.legendAria}>
       <h2 className="map-legend__title">{label}</h2>
       <p className="map-legend__note">{note} {scale}</p>
       <ul className="map-legend__list">
@@ -48,16 +52,16 @@ export function MapLegend({ lens, hasMissing }: { lens: Lens; hasMissing: boolea
         ))}
       </ul>
       <ul className="map-legend__list map-legend__list--keys">
-        <li><span className="map-legend__swatch map-legend__swatch--plan" />Zona nel piano</li>
-        <li><span className="map-legend__swatch map-legend__swatch--selected" />Zona selezionata</li>
+        <li><span className="map-legend__swatch map-legend__swatch--plan" />{t.map.keys.inPlan}</li>
+        <li><span className="map-legend__swatch map-legend__swatch--selected" />{t.map.keys.selected}</li>
         <li>
           <svg className="map-legend__swatch" aria-hidden="true">
             <rect width="100%" height="100%" fill={`url(#${HATCH_ID})`} />
           </svg>
-          Esclusa dalla classifica
+          {t.map.keys.excluded}
         </li>
         {hasMissing && (
-          <li><span className="map-legend__swatch" style={{ background: MISSING_FILL }} />Dato non disponibile</li>
+          <li><span className="map-legend__swatch" style={{ background: MISSING_FILL }} />{t.map.keys.missing}</li>
         )}
       </ul>
     </section>
@@ -71,16 +75,17 @@ interface ServiceToggleProps {
 }
 
 export function ServiceToggle({ counts, shown, onToggle }: ServiceToggleProps) {
+  const t = useCopy();
   return (
     <details className="map-card map-services">
-      <summary>Punti di servizio</summary>
+      <summary>{t.map.servicesTitle}</summary>
       <ul>
         {SERVICE_ORDER.map((type) => (
           <li key={type}>
             <label>
               <input type="checkbox" checked={shown.includes(type)} onChange={() => onToggle(type)} />
-              <span className="map-service-marker" aria-hidden="true">{SERVICES[type].glyph}</span>
-              {SERVICES[type].label}
+              <span className="map-service-marker" aria-hidden="true">{SERVICE_GLYPHS[type]}</span>
+              {t.map.services[type].label}
               <span className="map-services__count">{formatInteger(counts[type])}</span>
             </label>
           </li>

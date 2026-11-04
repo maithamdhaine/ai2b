@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { LOCALE } from '../../i18n';
 import { postMemo } from '../../lib/api';
-import { plannerState, useStore } from '../../store';
+import { plannerState, useCopy, useStore } from '../../store';
 import Markdown from './Markdown';
 import { buildMemoTemplate, chooseMemo, type ChosenMemo, type MemoInput } from './template';
 import './memo.css';
@@ -13,14 +14,8 @@ export type MemoPanel =
 
 type CopyState = 'idle' | 'done' | 'failed';
 
-const COPY_LABELS: Record<CopyState, string> = {
-  idle: 'Copia',
-  done: 'Copiato',
-  failed: 'Copia non riuscita',
-};
-
 export function readMemoInput(): MemoInput {
-  const { zones, meta, funded, interventions } = useStore.getState();
+  const { zones, meta, funded, interventions, lang } = useStore.getState();
   const state = plannerState();
   const planned = new Set(state.plan.map((item) => item.zone_id));
   return {
@@ -29,6 +24,7 @@ export function readMemoInput(): MemoInput {
     meta,
     funded,
     interventions,
+    lang,
   };
 }
 
@@ -39,7 +35,7 @@ export async function loadMemo(input: MemoInput, signal: AbortSignal): Promise<C
     { state, plan: state.plan, zones, sources: meta?.sources ?? [], mock: meta?.mock ?? false },
     signal,
   );
-  return chooseMemo(result, buildMemoTemplate(input));
+  return chooseMemo(result, buildMemoTemplate(input), input.lang);
 }
 
 /** navigator.clipboard exists only on https and localhost, so the old way stays as a fallback. */
@@ -74,18 +70,20 @@ interface MemoDialogProps {
 }
 
 export function MemoDialog({ panel, mock, copyState, onCopy, onPrint, onClose }: MemoDialogProps) {
+  const t = useCopy().memo;
+  const labels: Record<CopyState, string> = { idle: t.copy, done: t.copied, failed: t.copyFailed };
   const ready = panel.status === 'ready';
-  const today = new Intl.DateTimeFormat('it-IT', { dateStyle: 'long' }).format(new Date());
+  const today = new Intl.DateTimeFormat(LOCALE[useCopy().lang], { dateStyle: 'long' }).format(new Date());
 
   return (
     <>
       <div className="memo-toolbar">
-        <h2 id="memo-dialog-title">Memo di finanziamento</h2>
+        <h2 id="memo-dialog-title">{t.dialogTitle}</h2>
         <button type="button" className="memo-button" disabled={!ready} onClick={onCopy}>
-          {COPY_LABELS[copyState]}
+          {labels[copyState]}
         </button>
-        <button type="button" className="memo-button" disabled={!ready} onClick={onPrint}>Stampa</button>
-        <button type="button" className="memo-button memo-button--primary" onClick={onClose}>Chiudi</button>
+        <button type="button" className="memo-button" disabled={!ready} onClick={onPrint}>{t.print}</button>
+        <button type="button" className="memo-button memo-button--primary" onClick={onClose}>{t.close}</button>
       </div>
 
       {ready && <p className="memo-notice">{panel.notice}</p>}
@@ -94,14 +92,14 @@ export function MemoDialog({ panel, mock, copyState, onCopy, onPrint, onClose }:
         {panel.status === 'loading' ? (
           <div className="memo-loading" role="status">
             <span className="memo-spinner" aria-hidden="true" />
-            <p>Sto preparando il memo dai dati del piano…</p>
-            <p className="memo-loading__hint">Può richiedere fino a 30 secondi.</p>
+            <p>{t.preparing}</p>
+            <p className="memo-loading__hint">{t.preparingHint}</p>
           </div>
         ) : (
           <article className="memo-paper">
             <p className="memo-letterhead">
-              <span>Bussola · Torino</span>
-              {mock && <span className="memo-letterhead__mock">DATI DI PROVA</span>}
+              <span>{t.letterhead}</span>
+              {mock && <span className="memo-letterhead__mock">{t.mockTag}</span>}
               <span>{today}</span>
             </p>
             <Markdown source={panel.markdown} />
